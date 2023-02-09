@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 
 using cmpId_type = uint8_t;
 enum cmpId : cmpId_type {
