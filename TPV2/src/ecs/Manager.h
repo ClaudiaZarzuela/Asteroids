@@ -1,15 +1,20 @@
 #pragma once
+#include <vector>
+#include <array>
 
-class Manager {
-public:
-	Manager();
-	virtual ~Manager();
-	Entity* addEntity();
-	void refresh();
-	void update();
-	void render();
-private:
-	std::vector<Entity*> ents_;
+namespace ecs {
+	class Component;
+	class Entity;
+	class Manager {
+	public:
+		Manager();
+		virtual ~Manager();
+		Entity* addEntity();
+		void refresh();
+		void update();
+		void render();
+	private:
+		std::vector<Entity*> ents_;
 	
-};
-
+	};
+}

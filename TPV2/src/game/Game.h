@@ -1,21 +1,15 @@
 #pragma once
+#include "../ecs/Manager.h"
+#include "../sdlutils/SDLUtils.h"
+
 class Game
 {
-
-	/*
-		while (!exit_) {
-		 …
-		manager_->update();
-		 …
-		sdlutils().clearRenderer();
-		manager_->render();
-		sdlutils().presentRenderer();
-		 …
-		manager_->refresh();
-		 …
-		}
-	*/
-
-
+private:
+	Manager* manager_;
+	bool exit_ = false;
+	//noseque singleton
+public:
+	void init();
+	void run();
 };
 

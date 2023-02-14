@@ -1,4 +1,5 @@
 #include "Image.h"
+
 void Image::initComponent() {
 	tr_ = ent_->getComponent<Transform>(ecs::_TRANSFORM);
 	assert(tr_ != nullptr);
