@@ -1,18 +1,4 @@
 #include "Manager.h"
-#include "Entity.h"
-#include "Component.h"
-
-namespace ecs {
-	Manager::Manager() :{
-		ents_() 
-		ents_.reserve(100);
-	}
-
-	virtual ~Manager::Manager() {
-		for (auto e : ents_) {
-			delete e;
-		}
-	}
 
 	Entity* Manager::addEntity() {
 		Entity* e = new Entity();
@@ -47,4 +33,3 @@ namespace ecs {
 		for (auto i = 0u; i < n; i++)
 			ents_[i]->render();
 	}
-}

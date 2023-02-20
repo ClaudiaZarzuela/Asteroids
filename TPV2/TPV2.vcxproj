@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\DeAcceleration.h" />
+    <ClInclude Include="src\components\FighterCtrl.h" />
+    <ClInclude Include="src\components\FramedImage.h" />
+    <ClInclude Include="src\components\Gun.h" />
+    <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\Image.h" />
+    <ClInclude Include="src\components\ShowAtOppositeSide.h" />
     <ClInclude Include="src\game\ecs_def.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\ecs\Manager.h" />
@@ -46,7 +52,13 @@
     <ClInclude Include="src\components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\DeAcceleration.cpp" />
+    <ClCompile Include="src\components\FighterCtrl.cpp" />
+    <ClCompile Include="src\components\FramedImage.cpp" />
+    <ClCompile Include="src\components\Gun.cpp" />
+    <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
+    <ClCompile Include="src\components\ShowAtOppositeSide.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\ecs\Entity.cpp" />

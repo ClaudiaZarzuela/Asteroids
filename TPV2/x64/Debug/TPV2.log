@@ -1,16 +1,2 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
-  JSON.cpp
-  JSONValue.cpp
-  json_demo.cpp
-  main.cpp
-  SDLUtils.cpp
-  sdlutils_demo.cpp
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(50,32): warning C4101: 'e': variable local sin referencia
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(47,1): message : al compilar la función del miembro clase plantilla "Texture &SDLUtils::map_access_wrapper<Texture>::at(std::string)"
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(192,30): message : Vea la referencia a la creación de una instancia de clase plantilla "SDLUtils::map_access_wrapper<Texture>" que se está compilando
-  SoundEffect.cpp
-  Texture.cpp
-  Collisions.cpp
-  Vector2D.cpp
-  Generando código...
-  TPV2.vcxproj -> C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\bin\TPV2Debug.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
+  TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe

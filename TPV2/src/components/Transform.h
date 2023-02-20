@@ -3,11 +3,11 @@
 #include "../game/ecs_def.h"
 #include "../ecs/Component.h"
 
-class Transform : public ecs::Component {
+class Transform : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
 
-	Transform(/*...*/) :/*...*/{/*...*/};
+	Transform(/*...*/) {};
 	virtual ~Transform(); //...
 	inline Vector2D& getPos(); //...
 	inline Vector2D& getVel(); //...

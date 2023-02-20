@@ -2,7 +2,7 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 
-class Image : public ecs::Component {
+class Image : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
 	Image(Texture* tex) : //
