@@ -3,7 +3,9 @@
 #include "Component.h"
 #include<vector>
 #include<array>
+
 using namespace std;
+
 class Manager;
 class Entity {
 public:
@@ -22,7 +24,7 @@ public:
 	template<typename T>
 	inline bool hasComponent(ecs::cmpId_type cId) {
 		constexpr ecs::cmpId_type cId = T::id;
-		//..
+		//...
 	}
 
 	template<typename T, typename ...Ts>

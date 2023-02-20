@@ -2,6 +2,7 @@
 #include <list>
 #include <windows.h>
 #include "../TPV2/src/ecs/Entity.h"
+#include "../TPV2/src/ecs/Manager.h"
 #include "../TPV2/src/sdlutils/Texture.h"
 #include "../TPV2/src/utils/Vector2D.h"
 
@@ -14,6 +15,7 @@ class GameState
 protected:
 	// Constructora protegida
 	GameState(Game* g) : game(g) {};
+	Manager* manager;
 	list<Entity*> gameObjects;
 	Game* game;
 	bool deleted = false;
