@@ -3,50 +3,52 @@
 #include "Component.h"
 #include<vector>
 #include<array>
-
+#include<utility>
 using namespace std;
-
 class Manager;
 class Entity {
 public:
+	Entity();
 	template<typename T>
-	inline void removeComponent(ecs::cmpId_type cId) {
+	inline void removeComponent() {
 		constexpr ecs::cmpId_type cId = T::id;
-		//...
+		if (cmps_[cId] != nullptr) {
+			auto iter = std::find(currCmps_.begin(),
+				currCmps_.end(),
+				cmps_[cId]);
+			currCmps_.erase(iter);
+			delete cmps_[cId];
+			cmps_[cId] = nullptr;
+		}
 	}
 
 	template<typename T>
-	inline T* getComponent(ecs::cmpId_type cId) {
+	inline T* getComponent() {
 		constexpr ecs::cmpId_type cId = T::id;
-		//...
+		return static_cast<T*>(cmps_[cId]);
 	}
 
 	template<typename T>
-	inline bool hasComponent(ecs::cmpId_type cId) {
+	inline bool hasComponent() {
 		constexpr ecs::cmpId_type cId = T::id;
-		//...
+		return cmps_[cId] != nullptr;
 	}
 
 	template<typename T, typename ...Ts>
-	inline T* addComponent(ecs::cmpId_type cId, Ts&& ...args) {
+	inline T* addComponent(Ts&& ...args) {
 		T* c = new T(std::forward<Ts>(args)...);
-		removeComponent(cId);
-			currCmps_.push_back(c);
+		constexpr ecs::cmpId_type cId = T::id;
+		removeComponent<T>();
+		currCmps_.push_back(c);
 		cmps_[cId] = c;
 		c->setContext(this, mngr_);
 		c->initComponent();
 		return c;
-	}
-	Entity(): mngr_(nullptr), cmps_(), currCmps_(), alive_() {
-		currCmps_.reserve(ecs::maxComponentId);
 	};
 	virtual ~Entity() {
 		for (auto c : currCmps_) {
 			delete c;
 		}
-	};
-	inline void setContext(Manager* mngr) {
-		mngr_ = mngr;
 	};
 	inline bool isAlive() { return alive_; };
 	inline void setAlive(bool alive) {

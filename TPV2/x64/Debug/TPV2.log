@@ -1,2 +1,4 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
+  main.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(18,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
   TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe
