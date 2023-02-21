@@ -3,7 +3,6 @@
 	Entity* Manager::addEntity() {
 		Entity* e = new Entity();
 		e->setAlive(true);
-		e->setContext(this);
 		ents_.push_back(e);
 		return e;
 	}
@@ -18,7 +17,7 @@
 					delete e;
 					return true;
 				}
-				}), //
+				}), 
 			ents_.end());
 	}
 

@@ -7,11 +7,14 @@ class Transform : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
 
-	Transform(/*...*/) {};
-	virtual ~Transform(); //...
-	inline Vector2D& getPos(); //...
-	inline Vector2D& getVel(); //...
-	//...
+	Transform (Vector2D pos, Vector2D vel, float w, float h, float r): position_(pos), velocity_(vel), width_(w), height_(h), rotation_(r) {};
+	virtual ~Transform() {};
+	inline Vector2D& getPos() { return position_; };
+	inline Vector2D& getVel() { return velocity_; };
+	float getW() { return width_; }
+	float getH() { return height_; }
+	float getRot() { return rotation_; }
+	void update() override;
 private:
 	Vector2D position_;
 	Vector2D velocity_;
@@ -19,8 +22,5 @@ private:
 	float height_;
 	float rotation_;
 
-	/*A veces, el componente Transform
-	tiene update con movimiento básico
-	como pos_ = pos_ + vel_*/
 };
 
