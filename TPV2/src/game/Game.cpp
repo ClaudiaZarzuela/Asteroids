@@ -4,14 +4,16 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/macros.h"
 #include "../sdlutils/SDLUtils.h"
+
 void Game::init() {
+
 	SDLUtils::init("Asteroids!", 800, 600,
 		"resources/config/sdlutilsdemo.resources.json");
 	auto& sdl = *SDLUtils::instance();
 	renderer = sdl.renderer();
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < NUM_TEXTURES; ++i)
 	{
-		textures[i] = new Texture(renderer, texture[i].filename);
+		textures[i] = new Texture(renderer, texture[i].filename, texture[i].rows, texture[i].cols);
 	}
 	gameStateMachine = new GameStateMachine();
 	gameStateMachine->pushState(new PlayState(this));
@@ -20,7 +22,7 @@ void Game::init() {
 //Destructora de la clase
 Game::~Game() {
 	delete  gameStateMachine;
-	for (int i = 0; i < 1; ++i) delete textures[i];
+	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -42,5 +44,6 @@ void Game::run() {
 		Uint32 frameTime = sdl.currRealTime() - startTime;
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
+		Manager::instance()->refresh();
 	}
 }

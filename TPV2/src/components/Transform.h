@@ -8,9 +8,12 @@ public:
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
 
 	Transform (Vector2D pos, Vector2D vel, float w, float h, float r): position_(pos), velocity_(vel), width_(w), height_(h), rotation_(r) {};
-	virtual ~Transform() {};
-	inline Vector2D& getPos() { return position_; };
-	inline Vector2D& getVel() { return velocity_; };
+	virtual ~Transform() {}
+	inline Vector2D& getPos() { return position_; }
+	inline void setVel(Vector2D newVel) { velocity_ = newVel; }
+	inline void setRot(float newRot) { rotation_ = newRot; }
+	inline void setPos(Vector2D newPos) { position_ = newPos; }
+	inline Vector2D& getVel() { return velocity_; }
 	float getW() { return width_; }
 	float getH() { return height_; }
 	float getRot() { return rotation_; }

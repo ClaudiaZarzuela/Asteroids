@@ -16,7 +16,7 @@ public:
 			delete e;
 		}
 	};
-	Entity* addEntity();
+	Entity* addEntity(ecs::grpId_type gId = ecs:: _grp_GENERAL);
 	void refresh();
 	void update();
 	void render();
