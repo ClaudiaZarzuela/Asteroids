@@ -32,6 +32,8 @@ public:
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
 			const SDL_Color &fgColor, const SDL_Color &bgColor);
 
+	Texture(SDL_Renderer* renderer, const std::string& fileName, int rows, int cols);
+
 
 	virtual ~Texture() {
 		if (texture_ != nullptr)
@@ -44,6 +46,12 @@ public:
 
 	inline int height() const {
 		return height_;
+	}
+	inline int getRow() const {
+		return numRows_;
+	}
+	inline int getCol() const {
+		return numCols_;
 	}
 
 	// This rendering method corresponds to method SDL_RenderCopyEx.
@@ -89,6 +97,7 @@ public:
 		SDL_Rect src = { 0, 0, width_, height_ };
 		render(src, dest, rotation);
 	}
+	void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 
 private:
 
@@ -101,4 +110,7 @@ private:
 	SDL_Renderer *renderer_;
 	int width_;
 	int height_;
+	int numRows_;
+	int numCols_;
+	
 };

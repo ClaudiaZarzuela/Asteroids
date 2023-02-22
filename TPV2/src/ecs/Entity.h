@@ -4,6 +4,7 @@
 #include<vector>
 #include<array>
 #include<utility>
+#include "../sdlutils/SDLUtils.h"
 using namespace std;
 class Manager;
 class Entity {

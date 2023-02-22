@@ -8,6 +8,8 @@ namespace ecs { //not sure
 		_TRANSFORM = 0,
 		_IMAGE,
 		_CTRL,
+		_OPPOSITESIDE,
+		_DEACCELERATION,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -15,6 +17,7 @@ namespace ecs { //not sure
 	using grpId_type = uint8_t;
 	enum grpId : grpId_type {
 		_grp_ASTEROIDS,
+		_grp_GENERAL,
 		//...
 		_LAST_GRP_ID
 	};
