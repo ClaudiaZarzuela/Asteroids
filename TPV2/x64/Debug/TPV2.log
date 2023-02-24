@@ -1,32 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
-  DeAcceleration.cpp
-  FighterCtrl.cpp
-  FramedImage.cpp
-  Image.cpp
-  ShowAtOppositeSide.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\ShowAtOppositeSide.cpp(16,40): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\ShowAtOppositeSide.cpp(23,63): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  Component.cpp
-  Entity.cpp
-  Manager.cpp
-  Game.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-  main.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-  SDLUtils.cpp
-  Texture.cpp
-  sdlutils_demo.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\sdlutils\SDLUtils.h(50,32): warning C4101: 'e': variable local sin referencia
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\sdlutils\SDLUtils.h(47): message : al compilar la función del miembro clase plantilla "Texture &SDLUtils::map_access_wrapper<Texture>::at(std::string)"
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\sdlutils\SDLUtils.h(192): message : Vea la referencia a la creación de una instancia de clase plantilla "SDLUtils::map_access_wrapper<Texture>" que se está compilando
-  GameState.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-  GameStateMachine.cpp
-  MainMenuState.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-  MenuGameState.cpp
-  PauseState.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+  Health.cpp
   PlayState.cpp
 C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(22,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
 C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\ecs\Entity.h(40,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
@@ -34,11 +7,10 @@ C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\ecs\Entity.h(40,
           [
               _Ty=int
           ]
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\states\PlayState.cpp(15): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D,Vector2D,int,int,int>(Vector2D &&,Vector2D &&,int &&,int &&,int &&)" que se está compilando
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\states\PlayState.cpp(16): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D,Vector2D,int,int,int>(Vector2D &&,Vector2D &&,int &&,int &&,int &&)" que se está compilando
           with
           [
               T=Transform
           ]
   Generando código...
-     Creando biblioteca C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.lib y objeto C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exp
   TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe

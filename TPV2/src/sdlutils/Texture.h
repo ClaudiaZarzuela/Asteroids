@@ -32,7 +32,10 @@ public:
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
 			const SDL_Color &fgColor, const SDL_Color &bgColor);
 
-	Texture(SDL_Renderer* renderer, const std::string& fileName, int rows, int cols);
+	Texture(SDL_Renderer* r, std::string filename, int numRows, int numCols) : renderer_(r) {
+		load(filename, numRows, numCols);
+
+	}; 
 
 
 	virtual ~Texture() {
@@ -98,7 +101,12 @@ public:
 		render(src, dest, rotation);
 	}
 	void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
-
+	void load(std::string filename, int nRows, int nCols);
+	void libre() {
+		SDL_DestroyTexture(texture_);
+		texture_ = nullptr;
+		width_ = height_ = 0;
+	};
 private:
 
 	// Construct from text
@@ -112,5 +120,6 @@ private:
 	int height_;
 	int numRows_;
 	int numCols_;
+	int fw, fh;
 	
 };

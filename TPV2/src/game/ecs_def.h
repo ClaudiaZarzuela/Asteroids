@@ -10,6 +10,7 @@ namespace ecs { //not sure
 		_CTRL,
 		_OPPOSITESIDE,
 		_DEACCELERATION,
+		_HEALTH,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -18,6 +19,7 @@ namespace ecs { //not sure
 	enum grpId : grpId_type {
 		_grp_ASTEROIDS,
 		_grp_GENERAL,
+		_grp_BULLETS,
 		//...
 		_LAST_GRP_ID
 	};

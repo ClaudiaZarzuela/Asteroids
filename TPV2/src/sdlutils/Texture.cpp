@@ -53,35 +53,27 @@ Texture::Texture(SDL_Renderer *renderer, const std::string &text,
 	constructFromText(renderer, text, font, &fgColor, &bgColor);
 }
 
-Texture::Texture(SDL_Renderer* renderer, const std::string& fileName, int rows, int cols) {
-	assert(renderer != nullptr);
-
-	SDL_Surface* surface = IMG_Load(fileName.c_str());
-	if (surface == nullptr)
-		throw "Couldn't load image: " + fileName;
-
-	texture_ = SDL_CreateTextureFromSurface(renderer, surface);
-	if (texture_ == nullptr) {
-		SDL_FreeSurface(surface);
-		throw "Couldn't convert surface to texture for image: " + fileName;
-	}
-
-	width_ = surface->w;
-	height_ = surface->h;
-	renderer_ = renderer;
-	numCols_ = cols;
-	numRows_ = rows;
-
-	SDL_FreeSurface(surface);
-}
-
 void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
-	srcRect.x = width_ * col;
-	srcRect.y = height_ * row;
-	srcRect.w = width_;
-	srcRect.h = height_;
+	srcRect.x = fw * col;
+	srcRect.y = fh * row;
+	srcRect.w = fw;
+	srcRect.h = fh;
 	SDL_RenderCopyEx(renderer_, texture_, &srcRect, &destRect, angle, 0, flip);
+}
+void Texture::load(std::string filename, int nRows, int nCols) {
+	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
+	//if (tempSurface == nullptr) throw SDLError(IMG_GetError());
+	libre();
+	texture_ = SDL_CreateTextureFromSurface(renderer_, tempSurface);
+	//if (texture == nullptr) throw SDLError(IMG_GetError());
+	numRows_ = nRows;
+	numCols_ = nCols;
+	width_ = tempSurface->w;
+	height_ = tempSurface->h;
+	fw = width_ / numCols_;
+	fh = height_ / numRows_;
+	SDL_FreeSurface(tempSurface);
 }
 void Texture::constructFromText(SDL_Renderer *renderer, const std::string &text,
 		const Font &font, const SDL_Color *fgColor, const SDL_Color *bgColor) {
