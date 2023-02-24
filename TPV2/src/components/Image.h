@@ -2,7 +2,6 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 
-class Entity;
 class Image : public Component {
 public:
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
