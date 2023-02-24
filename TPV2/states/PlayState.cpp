@@ -18,12 +18,12 @@ PlayState::PlayState(Game* game) :GameState(game) {//Creamos las paredes
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<DeAcceleration>();
 	caza->addComponent<FighterCtrl>();
-	caza->addComponent<Gun>();
+	//caza->addComponent<Gun>();
 	caza->addComponent<Health>(game->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(game->getTexture(NAVE));
 
 	asteroids = manager_->addEntity(ecs::_grp_ASTEROIDS);
 	asteroids->addComponent<Transform>(Vector2D(500, 500), Vector2D(0, 0), 50, 50, 0);
 	asteroids->addComponent<FramedImage>(game->getTexture(ASTEROID));
-	
+	asteroids->addComponent<ShowAtOppositeSide>();
 }

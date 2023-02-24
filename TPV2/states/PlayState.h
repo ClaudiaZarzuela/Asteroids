@@ -10,6 +10,7 @@ class PlayState :public GameState
 private:
 	Entity* caza;
 	Entity* asteroids;
+	Entity* bullet;
 	static const string playID;
 
 public:

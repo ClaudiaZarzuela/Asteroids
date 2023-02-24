@@ -11,6 +11,7 @@ namespace ecs { //not sure
 		_OPPOSITESIDE,
 		_DEACCELERATION,
 		_HEALTH,
+		_GUN,
 		// do not remove this
 		_LAST_CMP_ID
 	};
