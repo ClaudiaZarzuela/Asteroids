@@ -3,6 +3,7 @@
 #include "../ecs/Manager.h"
 #include "Transform.h"
 #include "Image.h"
+#include "DisableOnExit.h"
 
 Gun::~Gun(){
 
@@ -16,7 +17,8 @@ void Gun::instanciateBullet() {
 		- Vector2D(2.0f, 10.0f);
 	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(ent_->getComponent<Transform>()->getRot()) * (ent_->getComponent<Transform>()->getVel().magnitude() + 5.0f);
 	bullet->addComponent<Transform>(bPos, bVel, 5, 20, ent_->getComponent<Transform>()->getRot()); 
-	bullet->addComponent<Image>(game->getTexture(NAVE));
+	bullet->addComponent<Image>(tex_);
+	//bullet->addComponent<DisableOnExit>();
 
 }
 void Gun::update() {
@@ -26,7 +28,7 @@ void Gun::update() {
 		elapsedTime = sdlutils().currRealTime();
 	}
 
-	if (elapsedTime > 250) {
-
+	if (sdlutils().currRealTime() - elapsedTime > 250) {
+		shoot = true;
 	}
 }

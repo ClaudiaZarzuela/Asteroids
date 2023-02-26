@@ -2,6 +2,8 @@
 #include "../ecs/Component.h"
 #include "../game/ecs_def.h"
 #include "../sdlutils/InputHandler.h"
+#include "../sdlutils/Texture.h"
+
 class Gun : public Component
 {
 public: 
@@ -10,13 +12,16 @@ public:
 	para consultar el tiempo actual).*/
 	constexpr static ecs::cmpId_type id = ecs::_GUN;
 	Gun() {};
+	Gun(Texture* tex) : tex_(tex) {};
 	virtual ~Gun();
 	//void initComponent() override;
 	void update() override;
 	InputHandler* input_ = InputHandler::instance();
+
 private:
+	Texture* tex_;
 	bool shoot = true;
-	int elapsedTime;
+	float elapsedTime = 0;
 	void instanciateBullet();
 
 };

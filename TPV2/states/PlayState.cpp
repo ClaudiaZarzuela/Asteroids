@@ -18,7 +18,7 @@ PlayState::PlayState(Game* game) :GameState(game) {//Creamos las paredes
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<DeAcceleration>();
 	caza->addComponent<FighterCtrl>();
-	caza->addComponent<Gun>();
+	caza->addComponent<Gun>(game->getTexture(BULLET));
 	caza->addComponent<Health>(game->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(game->getTexture(NAVE));
 
