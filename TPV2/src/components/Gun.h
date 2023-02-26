@@ -15,10 +15,12 @@ public:
 	virtual ~Gun();
 	//void initComponent() override;
 	void update() override;
+	void initComponent() override;
 	InputHandler* input_ = InputHandler::instance();
 
 private:
 	Texture* tex_;
+	Transform* tr_;
 	bool shoot = true;
 	float elapsedTime = 0;
 	void instanciateBullet();

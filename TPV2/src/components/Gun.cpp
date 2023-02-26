@@ -11,12 +11,12 @@ Gun::~Gun(){
 
 void Gun::instanciateBullet() {
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
-	Vector2D bPos = ent_->getComponent<Transform>()->getPos()
-		+ Vector2D(ent_->getComponent<Transform>()->getW() / 2.0f, ent_->getComponent<Transform>()->getH() / 2.0f)
-		- Vector2D(0.0f, ent_->getComponent<Transform>()->getH() / 2.0f + 5.0f + 12.0f).rotate(ent_->getComponent<Transform>()->getRot())
+	Vector2D bPos = tr_->getPos()
+		+ Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
+		- Vector2D(0.0f, tr_->getH() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot())
 		- Vector2D(2.0f, 10.0f);
-	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(ent_->getComponent<Transform>()->getRot()) * (ent_->getComponent<Transform>()->getVel().magnitude() + 5.0f);
-	bullet->addComponent<Transform>(bPos, bVel, 5, 20, ent_->getComponent<Transform>()->getRot()); 
+	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
+	bullet->addComponent<Transform>(bPos, bVel, 5, 20, tr_->getRot());
 	bullet->addComponent<Image>(tex_);
 	//bullet->addComponent<DisableOnExit>();
 
@@ -31,4 +31,8 @@ void Gun::update() {
 	if (sdlutils().currRealTime() - elapsedTime > 250) {
 		shoot = true;
 	}
+}
+
+void Gun::initComponent() {
+	tr_ = ent_->getComponent<Transform>();
 }
