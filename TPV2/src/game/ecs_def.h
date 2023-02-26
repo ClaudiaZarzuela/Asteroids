@@ -12,6 +12,7 @@ namespace ecs { //not sure
 		_DEACCELERATION,
 		_HEALTH,
 		_GUN,
+		_ONEXIT,
 		// do not remove this
 		_LAST_CMP_ID
 	};
