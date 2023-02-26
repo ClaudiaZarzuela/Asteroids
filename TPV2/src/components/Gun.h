@@ -11,15 +11,16 @@ public:
 	puede disparar sólo una bala cada 0.25sec (usar sdlutils().currTime()
 	para consultar el tiempo actual).*/
 	constexpr static ecs::cmpId_type id = ecs::_GUN;
-	Gun() {};
 	Gun(Texture* tex) : tex_(tex) {};
 	virtual ~Gun();
 	//void initComponent() override;
 	void update() override;
+	void initComponent() override;
 	InputHandler* input_ = InputHandler::instance();
 
 private:
 	Texture* tex_;
+	Transform* tr_;
 	bool shoot = true;
 	float elapsedTime = 0;
 	void instanciateBullet();
