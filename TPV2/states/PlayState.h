@@ -8,6 +8,7 @@ class PlayState :public GameState
 {
 private:
 	Entity* caza;
+	Entity* bullet;
 	AsteroidManager* amanager;
 	static const string playID;
 

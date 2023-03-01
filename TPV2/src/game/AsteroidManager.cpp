@@ -5,6 +5,7 @@
 #include "../components/Generations.h"
 #include "../components/Follow.h"
 #include "Game.h"
+
 void AsteroidManager::createAsteroids(int n) {
 	for (int i = 0; i < n; ++i) {
 		Vector2D p = Vector2D(sdlutils().rand().nextInt(0, sdlutils().width()), sdlutils().rand().nextInt(0, sdlutils().height()));
@@ -34,5 +35,9 @@ void AsteroidManager::update() {
 
 }
 void AsteroidManager::destroyAllAsteroids() {
+
+}
+
+void AsteroidManager::onCollision(Entity* a) {
 
 }

@@ -1,5 +1,6 @@
 #include "Image.h"
 #include "../ecs/Entity.h"
+
 Image::~Image()
 {
 }

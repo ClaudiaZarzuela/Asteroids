@@ -6,6 +6,7 @@ void FighterCtrl::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
 }
+
 void FighterCtrl::update() {
 	if (input_->isKeyDown(SDLK_UP)) {
 		const float speedLimit = 3.0f;
