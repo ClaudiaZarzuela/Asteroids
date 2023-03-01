@@ -1,21 +1,45 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
+  FighterCtrl.cpp
+  FramedImage.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\FramedImage.cpp(15,47): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\FramedImage.cpp(18,32): warning C4018: '>=': no coinciden signed/unsigned
+  Generations.cpp
+  Image.cpp
   AsteroidManager.cpp
 C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(23,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(10,100): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(10,50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,148): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,110): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,100): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(11,50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(12,69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(12,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(12,148): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(12,110): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\ecs\Entity.h(40,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
           with
           [
               _Ty=int
           ]
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(16): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D&,Vector2D&,float,float,int>(Vector2D &,Vector2D &,float &&,float &&,int &&)" que se está compilando
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(17): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D&,Vector2D&,float,float,int>(Vector2D &,Vector2D &,float &&,float &&,int &&)" que se está compilando
           with
           [
               T=Transform
           ]
-     Creando biblioteca C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.lib y objeto C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exp
+  Game.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(23,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+  MainMenuState.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(23,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+  PauseState.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(23,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+  PlayState.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(23,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\ecs\Entity.h(40,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\states\PlayState.cpp(19): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D,Vector2D,int,int,int>(Vector2D &&,Vector2D &&,int &&,int &&,int &&)" que se está compilando
+          with
+          [
+              T=Transform
+          ]
+  Generando código...
   TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe

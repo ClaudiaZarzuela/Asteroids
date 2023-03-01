@@ -14,7 +14,7 @@ void AsteroidManager::createAsteroids(int n) {
 		Vector2D v = (c - p).normalize() * speed;
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
 		as->addComponent<Generations>();
-		as->addComponent<Transform>(p, v, 10.0f + 5.0f, 10.0f + 5.0f, 0);
+		as->addComponent<Transform>(p, v, 10.0f + 5.0f* as->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as->getComponent<Generations>()->getGeneration(), 0);
 		as->addComponent<ShowAtOppositeSide>();
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			as->addComponent<Follow>();
