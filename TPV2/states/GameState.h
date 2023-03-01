@@ -6,17 +6,16 @@
 #include "../src/utils/Vector2D.h"
 #include "../src/ecs/Manager.h"
 
+
 using namespace std;
 
-class Game;
 // Clase GAMESTATE
 class GameState
 {
 protected:
 	// Constructora protegida
-	GameState(Game* g) : game(g) {};
+	GameState() {};
 	Manager* manager_ = Manager::instance();
-	Game* game;
 	bool deleted = false;
 
 public:

@@ -1,7 +1,7 @@
 #include "MenuGameState.h"
 
 // Constructora de la clase que define las proporciones del Dest_Rect de la textura de fondo
-MenuGameState::MenuGameState(Game* game) : GameState(game)
+MenuGameState::MenuGameState() : GameState()
 {
 	//rectBack.x = 0; rectBack.y = 0; rectBack.w = WIN_WIDTH; rectBack.h = WIN_HEIGHT;
 }

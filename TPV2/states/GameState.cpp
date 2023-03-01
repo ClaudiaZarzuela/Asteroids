@@ -1,5 +1,4 @@
 #include "GameState.h"
-#include "../src/game/Game.h"
 
 // Llama al update de los objetos de la lista de gameObjects
 void GameState::update() {

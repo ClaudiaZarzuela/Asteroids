@@ -2,7 +2,6 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "MainMenuState.h"
-#include "../src/game/Game.h"
 
 // Clase PLAYSTATE que hereda de GAMESTATE
 class PlayState :public GameState
@@ -16,7 +15,7 @@ private:
 public:
 
 	// Constructora de la clase
-	PlayState(Game* game);
+	PlayState();
 	virtual string getStateID() const { return playID; }
 };
 
