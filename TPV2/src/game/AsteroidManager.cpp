@@ -7,10 +7,14 @@
 #include "Game.h"
 void AsteroidManager::createAsteroids(int n) {
 	for (int i = 0; i < n; ++i) {
+		Vector2D p = Vector2D(sdlutils().rand().nextInt(0, sdlutils().width()), sdlutils().rand().nextInt(0, sdlutils().height()));
+		Vector2D c = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2) + Vector2D(sdlutils().rand().nextInt(-100, 100), sdlutils().rand().nextInt(-100, 100));
+		float speed = sdlutils().rand().nextInt(1, 10) / 10.0f;
+		Vector2D v = (c - p).normalize() * speed;
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-		as->addComponent<Transform>(Vector2D(500, 500), Vector2D(0, 0), 50, 50, 0);
-		as->addComponent<ShowAtOppositeSide>();
 		as->addComponent<Generations>();
+		as->addComponent<Transform>(p, v, 10.0f + 5.0f, 10.0f + 5.0f, 0);
+		as->addComponent<ShowAtOppositeSide>();
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			as->addComponent<Follow>();
 			as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));

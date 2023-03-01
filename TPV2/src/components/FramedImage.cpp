@@ -21,6 +21,6 @@ void FramedImage::update() {
 		if (col == tex_->getCol()) {
 			row = (row + 1) % tex_->getRow();
 		}
-		frameTime = sdlutils().currRealTime() + 1000;
+		frameTime = sdlutils().currRealTime() + 10;
 	}
 }

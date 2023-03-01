@@ -24,8 +24,6 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
 
-
-	Entity* as = manager_->addEntity(ecs::_grp_ASTEROIDS);
-	as->addComponent<Transform>(Vector2D(500, 500), Vector2D(0, 0), 50, 50, 0);
-	as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID));
+	amanager = new AsteroidManager();
+	amanager->createAsteroids(10);
 }

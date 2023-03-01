@@ -9,7 +9,7 @@
 #include "../utils/Singleton.h"
 using namespace std;
 
-const int NUM_TEXTURES = 4;
+const int NUM_TEXTURES = 5;
 
 enum GameStates {
 	PLAY = 0,
@@ -41,7 +41,8 @@ private:
 		{ " ../../resources/resources/images/fighter.png", 1, 1 },
 		{ " ../../resources/resources/images/asteroid.png", 5, 6 },
 		{ " ../../resources/resources/images/heart.png", 1, 1 },
-		{ " ../../resources/resources/images/fire.png", 1, 1 }
+		{ " ../../resources/resources/images/fire.png", 1, 1 },
+		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 }
 	};
 	Texture* textures[NUM_TEXTURES];
 	Game() {};
