@@ -1,5 +1,7 @@
 #pragma once
 #include "../ecs/Manager.h"
+#include "../ecs/Entity.h"
+
 class AsteroidManager
 {
 private: 

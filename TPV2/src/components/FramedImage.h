@@ -17,6 +17,6 @@ private:
 	Texture* tex_;
 	int row = 0;
 	int col = 0;
-	int frameTime;
+	int frameTime = 0;
 };
 

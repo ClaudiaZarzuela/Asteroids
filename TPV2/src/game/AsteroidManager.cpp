@@ -5,6 +5,7 @@
 #include "../components/Generations.h"
 #include "../components/Follow.h"
 #include "Game.h"
+
 void AsteroidManager::createAsteroids(int n) {
 	for (int i = 0; i < n; ++i) {
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
@@ -30,5 +31,9 @@ void AsteroidManager::update() {
 
 }
 void AsteroidManager::destroyAllAsteroids() {
+
+}
+
+void AsteroidManager::onCollision(Entity* a) {
 
 }
