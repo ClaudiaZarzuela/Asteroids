@@ -16,7 +16,7 @@ void Game::init() {
 		textures[i] = new Texture(renderer, texture[i].filename, texture[i].rows, texture[i].cols);
 	}
 	gameStateMachine = new GameStateMachine();
-	gameStateMachine->pushState(new PlayState(this));
+	gameStateMachine->pushState(new PlayState());
 }
 
 //Destructora de la clase

@@ -13,12 +13,12 @@ private:
 public:
 
 	// Constructora de la clase
-	MainMenuState(Game* game);
+	MainMenuState();
 
 	// Metodos publicos de la clase
-	static void startGame(Game* g);
-	static void loadGame(Game* g);
-	static void exitGame(Game* g);
+	static void startGame();
+	static void loadGame();
+	static void exitGame();
 	virtual string getStateID() const { return menuID; }
 };
 

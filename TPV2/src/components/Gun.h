@@ -3,6 +3,7 @@
 #include "../game/ecs_def.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/Texture.h"
+#include "Transform.h"
 
 class Gun : public Component
 {

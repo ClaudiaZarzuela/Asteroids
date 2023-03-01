@@ -7,10 +7,10 @@
 
 int main(int ac, char **av) {
 	try {
-		Game* game = new Game();
-		game->init();
-		game->run();
-		delete(game);
+		
+		Game::instance()->init();
+		Game::instance()->run();
+		//delete(game);
 	} catch (const std::string &e) { // catch exceptions thrown as strings
 		std::cerr << e << std::endl;
 	} catch (const char *e) { // catch exceptions thrown as char*

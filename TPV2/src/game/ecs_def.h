@@ -13,6 +13,8 @@ namespace ecs { //not sure
 		_HEALTH,
 		_GUN,
 		_ONEXIT,
+		_FOLLOW,
+		_GENERATIONS,
 		// do not remove this
 		_LAST_CMP_ID
 	};
@@ -26,5 +28,9 @@ namespace ecs { //not sure
 		_LAST_GRP_ID
 	};
 	constexpr grpId_type maxGroupId = _LAST_GRP_ID;
-	//...
+	using hdlrId_type = uint8_t;
+	enum hdlrId : hdlrId_type { 
+		FIGHTER,
+		_LAST_HDLR_ID };
+	constexpr hdlrId_type maxHdlrId = _LAST_HDLR_ID;
 }

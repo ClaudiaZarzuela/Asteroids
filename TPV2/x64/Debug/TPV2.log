@@ -1,14 +1,5 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
-  Gun.cpp
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\components\Gun.cpp(28,40): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\ecs\Entity.h(40,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
-          with
-          [
-              _Ty=int
-          ]
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\components\Gun.cpp(19,94): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D&,Vector2D&,int,int,float>(Vector2D &,Vector2D &,int &&,int &&,float &&)" que se está compilando
-          with
-          [
-              T=Transform
-          ]
-  TPV2.vcxproj -> C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\bin\TPV2Debug.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
+  FramedImage.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\FramedImage.cpp(15,47): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\FramedImage.cpp(18,32): warning C4018: '>=': no coinciden signed/unsigned
+  TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe

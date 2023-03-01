@@ -12,7 +12,7 @@ protected:
 	int heightB = 0;
 
 	// Constructora de la clase
-	MenuGameState(Game* game);
+	MenuGameState();
 
 	// Metodo protegido de la clase
 	void render() const;

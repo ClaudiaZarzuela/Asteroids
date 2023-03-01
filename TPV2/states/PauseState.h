@@ -11,12 +11,12 @@ private:
 
 public:
 	// Constructora de la clase
-	PauseState(Game* game);
+	PauseState();
 
 	// Metodos publicos de la clase
-	static void resumeGame(Game* game);
-	static void saveGame(Game* game);
-	static void goToMainMenu(Game* game);
+	static void resumeGame();
+	static void saveGame();
+	static void goToMainMenu();
 
 	// Getters
 	virtual string getStateID() const { return pauseID; }

@@ -1,7 +1,6 @@
 #include "Gun.h"
 #include "../ecs/Entity.h"
 #include "../ecs/Manager.h"
-#include "Transform.h"
 #include "Image.h"
 #include "DisableOnExit.h"
 
@@ -18,7 +17,7 @@ void Gun::instanciateBullet() {
 	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
 	bullet->addComponent<Transform>(bPos, bVel, 5, 20, tr_->getRot());
 	bullet->addComponent<Image>(tex_);
-	//bullet->addComponent<DisableOnExit>();
+	bullet->addComponent<DisableOnExit>();
 
 }
 void Gun::update() {
@@ -35,4 +34,5 @@ void Gun::update() {
 
 void Gun::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
+	assert(tr_ != nullptr);
 }
