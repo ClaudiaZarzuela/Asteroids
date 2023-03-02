@@ -3,13 +3,16 @@
 #include "PauseState.h"
 #include "MainMenuState.h"
 #include "../src/game/AsteroidManager.h"
+#include "../src/game/CollisionsManager.h"
+
 // Clase PLAYSTATE que hereda de GAMESTATE
 class PlayState :public GameState
 {
 private:
 	Entity* caza;
 	Entity* bullet;
-	AsteroidManager* amanager;
+	AsteroidManager* aManager;
+	CollisionsManager* cManager;
 	static const string playID;
 
 public:

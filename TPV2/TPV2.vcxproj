@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\CollisionsManager.h" />
     <ClInclude Include="src\game\AsteroidManager.h" />
     <ClInclude Include="src\components\Follow.h" />
     <ClInclude Include="src\components\Generations.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="states\PlayState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\CollisionsManager.cpp" />
     <ClCompile Include="src\game\AsteroidManager.cpp" />
     <ClCompile Include="src\components\Follow.cpp" />
     <ClCompile Include="src\components\Generations.cpp" />

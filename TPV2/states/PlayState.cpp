@@ -24,6 +24,8 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
 
-	amanager = new AsteroidManager();
-	amanager->createAsteroids(10);
+	aManager = new AsteroidManager();
+	aManager->createAsteroids(10, rand() % 4);
+
+	cManager = new CollisionsManager(aManager); // hay que llamar a su check collisions pero no se desde donde jeje
 }

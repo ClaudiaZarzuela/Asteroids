@@ -8,7 +8,7 @@ private:
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_GENERATIONS;
-	Generations() : generation(3) {}
+	Generations(int newGen) : generation(newGen) {}
 	int getGeneration() { return generation; }
 	int setGeneration(int newGen) { generation = newGen; }
 };
