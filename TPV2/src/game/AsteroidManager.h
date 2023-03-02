@@ -9,7 +9,7 @@ private:
 	int currAsteroids;
 public:
 	AsteroidManager() : mngr_(Manager::instance()), currAsteroids(0) {}
-	void createAsteroids(int n);
+	void createAsteroids(int numAst, int newGen);
 	void addAsteroidFrequently();
 	void destroyAllAsteroids();
 	void onCollision(Entity* a);
