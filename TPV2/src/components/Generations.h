@@ -4,11 +4,11 @@
 class Generations : public Component
 {
 private:
-	int generation = 0;
+	int generation;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_GENERATIONS;
-	Generations(int gen) : generation(gen) {}
+	Generations() : generation(3) {}
 	int getGeneration() { return generation; }
 	int setGeneration(int newGen) { generation = newGen; }
 };
