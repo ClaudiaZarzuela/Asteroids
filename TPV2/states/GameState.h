@@ -14,8 +14,8 @@ class GameState
 {
 protected:
 	// Constructora protegida
-	GameState() {};
-	Manager* manager_ = Manager::instance();
+	Manager* manager_ ;
+	GameState() { manager_ = new Manager(); };
 	bool deleted = false;
 
 public:
@@ -26,6 +26,7 @@ public:
 	// Metodos publicos de la clase
 	void deleteState() { deleted = true; };
 	virtual void update();
+	virtual void refresh();
 	virtual void render() const;
 	virtual void handleEvent(SDL_Event event);
 

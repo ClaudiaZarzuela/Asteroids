@@ -9,7 +9,7 @@ using namespace std;
 class Manager;
 class Entity {
 public:
-	Entity();
+	Entity(Manager* m);
 	template<typename T>
 	inline void removeComponent() {
 		constexpr ecs::cmpId_type cId = T::id;

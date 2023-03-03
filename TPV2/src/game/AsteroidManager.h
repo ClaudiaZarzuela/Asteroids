@@ -10,7 +10,7 @@ private:
 	int currAsteroids;
 	float elapsedTime = sdlutils().currRealTime();
 public:
-	AsteroidManager() : mngr_(Manager::instance()), currAsteroids(0) {}
+	AsteroidManager(Manager* m) : mngr_(m), currAsteroids(0) {}
 	void createAsteroids(int numAst);
 	void addAsteroidFrequently();
 	void destroyAllAsteroids();

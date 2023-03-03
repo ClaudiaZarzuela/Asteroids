@@ -20,6 +20,5 @@ public:
 	PlayState();
 	virtual void update();
 	virtual string getStateID() const { return playID; }
-	void checkCollision();
 };
 

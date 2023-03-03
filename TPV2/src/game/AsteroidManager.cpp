@@ -49,9 +49,11 @@ void AsteroidManager::destroyAllAsteroids() {
 
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
-	/*if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
+	a->setAlive(false);
+	if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		auto r = sdlutils().rand().nextInt(0, 360);
 		auto pos = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
+		auto pos2 = Vector2D(pos.getX() + 15, pos.getY() + 15);
 		auto vel = a->getComponent<Transform>()->getVel().rotate(r) * 1.1f;
 		
 		Entity* as1 = mngr_->addEntity(ecs::_grp_ASTEROIDS); Entity* as2 = mngr_->addEntity(ecs::_grp_ASTEROIDS);
@@ -59,7 +61,7 @@ void AsteroidManager::onCollision(Entity* a) {
 		as2->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
 
 		as1->addComponent<Transform>(pos, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
-		as2->addComponent<Transform>(pos, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
+		as2->addComponent<Transform>(pos2, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
 
 		as1->addComponent<ShowAtOppositeSide>();
 		as2->addComponent<ShowAtOppositeSide>();
@@ -72,6 +74,5 @@ void AsteroidManager::onCollision(Entity* a) {
 			as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
 		}
 		else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
-	}*/
-	a->setAlive(false);
+	}
 }

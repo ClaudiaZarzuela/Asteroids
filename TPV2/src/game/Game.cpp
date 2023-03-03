@@ -44,6 +44,6 @@ void Game::run() {
 		Uint32 frameTime = sdl.currRealTime() - startTime;
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
-		Manager::instance()->refresh();
+		gameStateMachine->currentState()->refresh();
 	}
 }

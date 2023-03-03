@@ -2,20 +2,18 @@
 #include <vector>
 #include <array>
 #include "Entity.h"
-#include "../utils/Singleton.h"
 
-class Manager: public Singleton<Manager> {
-	friend Singleton<Manager>;
+class Manager {
 private:
 	std::array<std::vector<Entity*>, ecs::maxGroupId> ents_;
 	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
+
+public:
 	Manager(): ents_(), hdlrs_() {
 		for (auto& groupEntities : ents_) {
 			groupEntities.reserve(100);
 		}
 	};
-
-public:
 	virtual ~Manager(){
 		for (auto& ents : ents_) {
 			for (auto e : ents)
