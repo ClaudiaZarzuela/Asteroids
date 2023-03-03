@@ -25,12 +25,40 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
 
 	aManager = new AsteroidManager();
-	aManager->createAsteroids(10, rand() % 4);
+	aManager->createAsteroids(10);
 
 	cManager = new CollisionsManager(aManager); // hay que llamar a su check collisions pero no se desde donde jeje
 }
 
 void PlayState::update() {
-	cManager->checkCollisison();
+    checkCollision();
+	aManager->addAsteroidFrequently();
 	GameState::update();
+}
+
+void PlayState::checkCollision() {
+	vector<Entity*> ast = manager_->getEntities(ecs::_grp_ASTEROIDS);
+	vector<Entity*> bull = manager_->getEntities(ecs::_grp_BULLETS);
+	Entity* player = manager_->getHandler(ecs::FIGHTER);
+	//auto nave = mngr_->getHandler(ecs::FIGHTER)->getComponent<Transform>();
+
+	//for (auto it = mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).end(); ++it) {
+	for (int i = 0; i < ast.size(); ++i) {
+		if (Collisions::collidesWithRotation(player->getComponent<Transform>()->getPos(), player->getComponent<Transform>()->getW(), player->getComponent<Transform>()->getH(), player->getComponent<Transform>()->getRot(),
+			ast[i]->getComponent<Transform>()->getPos(), ast[i]->getComponent<Transform>()->getW(), ast[i]->getComponent<Transform>()->getH(), ast[i]->getComponent<Transform>()->getRot())) {
+			//aMngr_->destroyAllAsteroids();
+			aManager->onCollision((ast[i]));
+		}
+		/*auto asteroide = (*it)->getComponent<Transform>();
+		for (auto ot = mngr_->getEntitiesByGroup(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntitiesByGroup(ecs::_grp_BULLETS).end(); ++ot) {
+			auto bala = (*ot)->getComponent<Transform>();
+			if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+				(*ot)->setAlive(false);
+				aMngr_->onCollision((*it));
+				return;
+			}
+		}	*/
+
+	}
+
 }
