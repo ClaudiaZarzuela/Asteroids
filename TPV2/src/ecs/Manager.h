@@ -7,24 +7,19 @@
 class Manager: public Singleton<Manager> {
 	friend Singleton<Manager>;
 private:
-	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
-	Manager(): ents_(), entsByGroup_() {
-		for (auto& groupEntities : entsByGroup_) {
+	std::array<std::vector<Entity*>, ecs::maxGroupId> ents_;
+	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
+	Manager(): ents_(), hdlrs_() {
+		for (auto& groupEntities : ents_) {
 			groupEntities.reserve(100);
 		}
-		ents_.reserve(100);
 	};
-	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 
-	std::vector<Entity*> ents_;
 public:
 	virtual ~Manager(){
-		for (auto& ents : entsByGroup_) {
+		for (auto& ents : ents_) {
 			for (auto e : ents)
 				delete e;
-}
-		for (auto e : ents_) {
-			delete e;
 		}
 	};
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {
@@ -37,9 +32,7 @@ public:
 	void refresh();
 	void update();
 	void render();
-	inline const auto& getEntities() { return ents_; }
-	inline const auto& getEntitiesByGroup(ecs::grpId_type gId) {
-		return entsByGroup_[gId];
-	}
+	inline const auto& getEntities(ecs::grpId_type gId) { return ents_[gId]; }
+	
 };
 

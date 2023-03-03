@@ -10,7 +10,7 @@ private:
 	AsteroidManager* aMngr_;
 public:
 	CollisionsManager(AsteroidManager* aMngr) : mngr_(Manager::instance()), aMngr_(aMngr){}
-	bool checkCollisison();
+	void checkCollisison();
 };
 
 

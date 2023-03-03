@@ -6,14 +6,21 @@
 #include "../components/Follow.h"
 #include "Game.h"
 
-void AsteroidManager::createAsteroids(int numAst, int newGen) {
+void AsteroidManager::createAsteroids(int numAst) {
 	for (int i = 0; i < numAst; ++i) {
-		Vector2D p = Vector2D(sdlutils().rand().nextInt(0, sdlutils().width()), sdlutils().rand().nextInt(0, sdlutils().height()));
+		int random = sdlutils().rand().nextInt(0, 4);
+		Vector2D p;
+		switch (random) {
+			case 0: p = Vector2D(sdlutils().rand().nextInt(0, sdlutils().width()), 0); break;
+			case 1: p = Vector2D(sdlutils().rand().nextInt(0, sdlutils().width()), sdlutils().height()); break;
+			case 2: p = Vector2D(0, sdlutils().rand().nextInt(0, sdlutils().height())); break;
+			case 3: p = Vector2D(sdlutils().width(), sdlutils().rand().nextInt(0, sdlutils().height())); break;
+		}
 		Vector2D c = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2) + Vector2D(sdlutils().rand().nextInt(-100, 100), sdlutils().rand().nextInt(-100, 100));
 		float speed = sdlutils().rand().nextInt(1, 10) / 10.0f;
 		Vector2D v = (c - p).normalize() * speed;
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-		as->addComponent<Generations>(newGen);
+		as->addComponent<Generations>(sdlutils().rand().nextInt(0, 3));
 		as->addComponent<Transform>(p, v, 10.0f + 5.0f* as->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as->getComponent<Generations>()->getGeneration(), 0);
 		as->addComponent<ShowAtOppositeSide>();
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
@@ -28,23 +35,21 @@ void AsteroidManager::createAsteroids(int numAst, int newGen) {
 }
 
 void AsteroidManager::addAsteroidFrequently() {
-
-}
-
-void AsteroidManager::update() {
-
+	if (sdlutils().currRealTime() - elapsedTime > 5000) {
+		createAsteroids(1);
+		elapsedTime = sdlutils().currRealTime();
+	}
 }
 
 void AsteroidManager::destroyAllAsteroids() {
-	for (auto it = mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).end(); ++it) {
+	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
 		(*it)->setAlive(false);
 	}
 }
 
 void AsteroidManager::onCollision(Entity* a) {
-	a->setAlive(false);
 	currAsteroids--;
-	if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
+	/*if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		auto r = sdlutils().rand().nextInt(0, 360);
 		auto pos = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
 		auto vel = a->getComponent<Transform>()->getVel().rotate(r) * 1.1f;
@@ -67,5 +72,6 @@ void AsteroidManager::onCollision(Entity* a) {
 			as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
 		}
 		else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
-	}
+	}*/
+	a->setAlive(false);
 }

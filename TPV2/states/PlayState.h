@@ -10,7 +10,6 @@ class PlayState :public GameState
 {
 private:
 	Entity* caza;
-	Entity* bullet;
 	AsteroidManager* aManager;
 	CollisionsManager* cManager;
 	static const string playID;
@@ -19,6 +18,8 @@ public:
 
 	// Constructora de la clase
 	PlayState();
+	virtual void update();
 	virtual string getStateID() const { return playID; }
+	void checkCollision();
 };
 
