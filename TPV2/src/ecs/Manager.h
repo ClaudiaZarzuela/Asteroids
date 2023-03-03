@@ -27,9 +27,11 @@ public:
 			delete e;
 		}
 	};
+
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {
 		hdlrs_[hId] = e;
 	}
+
 	inline Entity* getHandler(ecs::hdlrId_type hId) {
 		return hdlrs_[hId];
 	}

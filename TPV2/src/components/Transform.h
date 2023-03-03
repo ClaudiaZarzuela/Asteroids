@@ -19,11 +19,11 @@ public:
 	float getRot() { return rotation_; }
 	void update() override;
 private:
-	Vector2D position_;
-	Vector2D velocity_;
-	float width_;
-	float height_;
-	float rotation_;
+	Vector2D position_ = { 0, 0 };
+	Vector2D velocity_ = { 0, 0 };
+	float width_ = 0;
+	float height_ = 0;
+	float rotation_ = 0;
 
 };
 

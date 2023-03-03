@@ -42,7 +42,6 @@ void AsteroidManager::destroyAllAsteroids() {
 }
 
 void AsteroidManager::onCollision(Entity* a) {
-	a->setAlive(false);
 	currAsteroids--;
 	if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		auto r = sdlutils().rand().nextInt(0, 360);
@@ -68,4 +67,5 @@ void AsteroidManager::onCollision(Entity* a) {
 		}
 		else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
 	}
+	a->setAlive(false);
 }

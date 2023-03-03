@@ -29,3 +29,8 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 
 	cManager = new CollisionsManager(aManager); // hay que llamar a su check collisions pero no se desde donde jeje
 }
+
+void PlayState::update() {
+	cManager->checkCollisison();
+	GameState::update();
+}

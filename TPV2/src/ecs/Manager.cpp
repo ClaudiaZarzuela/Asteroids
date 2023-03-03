@@ -4,6 +4,7 @@
 		Entity* e = new Entity();
 		e->setAlive(true);
 		ents_.push_back(e);
+		entsByGroup_[gId].push_back(e);
 		return e;
 	}
 
@@ -19,6 +20,20 @@
 				}
 				}), 
 			ents_.end());
+
+		for (int i = 0; i < entsByGroup_.size(); i++) {
+			entsByGroup_[i].erase(
+				std::remove_if(entsByGroup_[i].begin(), entsByGroup_[i].end(), [](Entity* e) {
+					if (e->isAlive()) {
+						return false;
+					}
+					else {
+						delete e;
+						return true;
+					}
+					}),
+				entsByGroup_[i].end());
+		}
 	}
 
 	void Manager::update() {

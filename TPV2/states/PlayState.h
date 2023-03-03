@@ -19,6 +19,7 @@ public:
 
 	// Constructora de la clase
 	PlayState();
+	virtual void update();
 	virtual string getStateID() const { return playID; }
 };
 
