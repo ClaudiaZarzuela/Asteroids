@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include "Manager.h"
 
-Entity::Entity() : mngr_(Manager::instance()), cmps_(), currCmps_(), alive_() {
+Entity::Entity(Manager* m) : mngr_(m), cmps_(), currCmps_(), alive_() {
 	currCmps_.reserve(ecs::maxComponentId);
 };

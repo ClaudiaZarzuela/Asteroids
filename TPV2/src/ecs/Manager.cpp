@@ -1,7 +1,7 @@
 #include "Manager.h"
 
 	Entity* Manager::addEntity(ecs::grpId_type gId) {
-		Entity* e = new Entity();
+		Entity* e = new Entity(this);
 		e->setAlive(true);
 		ents_[gId].push_back(e);
 		return e;

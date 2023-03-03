@@ -13,7 +13,6 @@ const string PlayState::playID = "PLAY";
 
 // Constructora de la clase, que inizializa todos los elementos del juego
 PlayState::PlayState() :GameState(){//Creamos las paredes
-
 	caza = manager_->addEntity();
 	manager_->setHandler(ecs::FIGHTER, caza);
 	caza->addComponent<Transform>(Vector2D(500,500), Vector2D(0, 0), 50, 50, 0);
@@ -24,10 +23,10 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
 
-	aManager = new AsteroidManager();
+	aManager = new AsteroidManager(manager_);
 	aManager->createAsteroids(10);
 
-	cManager = new CollisionsManager(aManager); // hay que llamar a su check collisions pero no se desde donde jeje
+	cManager = new CollisionsManager(aManager, manager_); // hay que llamar a su check collisions pero no se desde donde jeje
 }
 
 void PlayState::update() {

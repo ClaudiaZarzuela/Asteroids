@@ -7,7 +7,7 @@ class Component {
 public:
 	Component() : ent_(), mngr_() {}
 	virtual ~Component() { }
-	inline void setContext(Entity* ent, Manager* mngr) { //el segundo antes era un entity pero creo que estaba mal
+	inline void setContext(Entity* ent, Manager* mngr) { 
 		ent_ = ent;
 		mngr_ = mngr;
 	}

@@ -1,15 +1,17 @@
 #pragma once
 #include "../ecs/Manager.h"
 #include "AsteroidManager.h"
+#include "../ecs/Manager.h"
 #include "../utils/Collisions.h"
 
 class CollisionsManager
 {
 private:
-	Manager* mngr_;
-	AsteroidManager* aMngr_;
+	Manager* manager_;
+	AsteroidManager* aManager;
 public:
-	CollisionsManager(AsteroidManager* aMngr) : mngr_(Manager::instance()), aMngr_(aMngr){}
+
+	CollisionsManager(AsteroidManager* aMngr, Manager* m) : manager_(m), aManager(aMngr){}
 	void checkCollision();
 };
 

@@ -9,7 +9,6 @@ void CollisionsManager::checkCollision() {
 
 	auto nave = mngr_->getHandler(ecs::FIGHTER)->getComponent<Transform>();
 
-	//for (auto it = mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS).end(); ++it) {
 	for (int i = 0; i < ast.size(); ++i) {
 		auto asteroide = ast[i]->getComponent<Transform>();
 		if (Collisions::collidesWithRotation(nave->getPos(), nave->getW(), nave->getH(), nave->getRot(),
