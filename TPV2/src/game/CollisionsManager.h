@@ -7,10 +7,11 @@
 class CollisionsManager
 {
 private:
-	Manager* manager_;
-	AsteroidManager* aManager;
+	Manager* mngr_;
+	AsteroidManager* aMngr_;
 public:
-	CollisionsManager(AsteroidManager* aMngr, Manager* m) : manager_(m), aManager(aMngr){}
+
+	CollisionsManager(AsteroidManager* aMngr, Manager* m) : mngr_(m), aMngr_(aMngr){}
 	void checkCollision();
 };
 

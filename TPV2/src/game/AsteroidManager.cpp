@@ -20,7 +20,7 @@ void AsteroidManager::createAsteroids(int numAst) {
 		float speed = sdlutils().rand().nextInt(1, 10) / 10.0f;
 		Vector2D v = (c - p).normalize() * speed;
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-		as->addComponent<Generations>(sdlutils().rand().nextInt(0, 3));
+		as->addComponent<Generations>(sdlutils().rand().nextInt(1, 4));
 		as->addComponent<Transform>(p, v, 10.0f + 5.0f* as->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as->getComponent<Generations>()->getGeneration(), 0);
 		as->addComponent<ShowAtOppositeSide>();
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
@@ -49,30 +49,37 @@ void AsteroidManager::destroyAllAsteroids() {
 
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
-	a->setAlive(false);
 	if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
-		auto r = sdlutils().rand().nextInt(0, 360);
-		auto pos = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
-		auto pos2 = Vector2D(pos.getX() + 15, pos.getY() + 15);
-		auto vel = a->getComponent<Transform>()->getVel().rotate(r) * 1.1f;
-		
-		Entity* as1 = mngr_->addEntity(ecs::_grp_ASTEROIDS); Entity* as2 = mngr_->addEntity(ecs::_grp_ASTEROIDS);
-		as1->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
-		as2->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
-
-		as1->addComponent<Transform>(pos, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
-		as2->addComponent<Transform>(pos2, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
-
-		as1->addComponent<ShowAtOppositeSide>();
-		as2->addComponent<ShowAtOppositeSide>();
-
-		if (a->hasComponent<Follow>()) {
-			as1->addComponent<Follow>();
-			as2->addComponent<Follow>();
-
-			as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
-			as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
-		}
-		else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
+		Divide(a);
 	}
+	a->setAlive(false);
+}
+
+void AsteroidManager::Divide(Entity* a) {
+	auto r1 = sdlutils().rand().nextInt(0, 360);
+	auto pos1 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r1) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
+	auto vel1 = a->getComponent<Transform>()->getVel().rotate(r1) * 1.1f;
+
+	auto r2 = sdlutils().rand().nextInt(0, 360);
+	auto pos2 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r2) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
+	auto vel2 = a->getComponent<Transform>()->getVel().rotate(r2) * 1.1f;
+
+	Entity* as1 = mngr_->addEntity(ecs::_grp_ASTEROIDS); Entity* as2 = mngr_->addEntity(ecs::_grp_ASTEROIDS);
+	as1->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
+	as2->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
+
+	as1->addComponent<Transform>(pos1, vel1, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
+	as2->addComponent<Transform>(pos2, vel2, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
+
+	as1->addComponent<ShowAtOppositeSide>();
+	as2->addComponent<ShowAtOppositeSide>();
+
+	if (a->hasComponent<Follow>()) {
+		as1->addComponent<Follow>();
+		as2->addComponent<Follow>();
+
+		as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
+		as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
+	}
+	else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
 }

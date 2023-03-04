@@ -1,25 +1,36 @@
 #include "CollisionsManager.h"
 #include "ecs_def.h"
 #include "../components/Transform.h"
+#include "../components/Health.h"
 
 // no se desde donde llamar a este pingo
 void CollisionsManager::checkCollision() {
-	vector<Entity*> ast = manager_->getEntities(ecs::_grp_ASTEROIDS);
-	vector<Entity*> bull = manager_->getEntities(ecs::_grp_BULLETS);
-	Entity* player = manager_->getHandler(ecs::FIGHTER);
+	vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
+	vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
+
+	auto nave = mngr_->getHandler(ecs::FIGHTER)->getComponent<Transform>();
+
 	for (int i = 0; i < ast.size(); ++i) {
-		if (Collisions::collidesWithRotation(player->getComponent<Transform>()->getPos(), player->getComponent<Transform>()->getW(), player->getComponent<Transform>()->getH(), player->getComponent<Transform>()->getRot(),
-			ast[i]->getComponent<Transform>()->getPos(), ast[i]->getComponent<Transform>()->getW(), ast[i]->getComponent<Transform>()->getH(), ast[i]->getComponent<Transform>()->getRot())) {
-			aManager->destroyAllAsteroids();
-		}
 		auto asteroide = ast[i]->getComponent<Transform>();
-		for (auto ot = manager_->getEntities(ecs::_grp_BULLETS).begin(); ot != manager_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
+		if (Collisions::collidesWithRotation(nave->getPos(), nave->getW(), nave->getH(), nave->getRot(),
+			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+			aMngr_->destroyAllAsteroids();
+			for (auto b : bull) b->setAlive(false);
+			auto player = mngr_->getHandler(ecs::FIGHTER);
+			player->getComponent<Health>()->loseLife();
+			//if (player->getComponent<Health>()->getLives() <= 0);//gameover
+			//else;// pause
+			nave->reset();
+			aMngr_->createAsteroids(10);
+		}
+		for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
 			auto bala = (*ot)->getComponent<Transform>();
-			if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+			if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), 
+				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 				(*ot)->setAlive(false);
-				aManager->onCollision((ast[i]));
+				aMngr_->onCollision((ast[i]));
 				return;
 			}
-		}
+		}	
 	}
 }

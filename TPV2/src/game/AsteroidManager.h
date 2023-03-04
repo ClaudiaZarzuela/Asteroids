@@ -15,5 +15,6 @@ public:
 	void addAsteroidFrequently();
 	void destroyAllAsteroids();
 	void onCollision(Entity* a);
+	void Divide(Entity* a);
 };
 
