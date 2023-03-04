@@ -5,7 +5,7 @@
 #include <string>
 #include <list>
 #include "../../states/GameStateMachine.h"
-#include "../../states/PauseState.h"
+#include "../../states/MainMenuState.h"
 #include "../utils/Singleton.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../sdlutils/Music.h"
@@ -13,6 +13,7 @@
 using namespace std;
 
 const int NUM_TEXTURES = 5;
+const int NUM_TEXTS = 3;
 
 enum GameStates {
 	PLAY = 0,
@@ -24,12 +25,21 @@ enum GameStates {
 static const enum TextureNames {
 	NAVE = 0, ASTEROID = 1, HEALTH=2, BULLET =3, ASTEROID_GOLD = 4
 };
+static const enum TextNames {
+	MAINMENU = 0, PAUSA = 1, GAMEOVER = 2
+};
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
 {
 	string filename;
 	int rows;
 	int cols;
+};
+struct Texts
+{
+	string content;
+	int textColor;
+	int backgroundColor;
 };
 
 class Game : public Singleton<Game>
@@ -47,8 +57,14 @@ private:
 		{ " ../../resources/resources/images/fire.png", 1, 1 },
 		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 }
 	};
+	Texts text[NUM_TEXTS] = {
+		{ "Press SPACE to Start", 0x112233ff,0},
+		{ "Press SPACE to Resume", 0x112233ff, 0xfffffff },
+		{ "Press SPACE to Restart", 0x112233ff, 0xfffffff }
+	};
+
 	Texture* textures[NUM_TEXTURES];
-	Texture* pressAnyKey;
+	Texture* texts[NUM_TEXTS];
 	Game() {};
 
     
@@ -64,6 +80,6 @@ public:
 	// Getters
 	Texture* getTexture(int tx) { return textures[tx]; }
 	GameStateMachine* getStateMachine() { return gameStateMachine; }
-	Texture* getText() { return pressAnyKey; }
+	Texture* getText(int tx) { return texts[tx]; }
 };
 

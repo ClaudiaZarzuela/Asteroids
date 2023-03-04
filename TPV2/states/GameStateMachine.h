@@ -1,5 +1,5 @@
 #pragma once
-#include <stack>
+#include <deque>
 #include <list>
 
 using namespace std;
@@ -9,7 +9,7 @@ class GameState;
 class GameStateMachine
 {
 private:
-	stack<GameState*> gameStateStack;
+	deque<GameState*> gameStateStack;
 
 public:
 
@@ -19,12 +19,16 @@ public:
 
 	// Metodos publicos de la clase
 	GameState* currentState() {
-		if (!gameStateStack.empty()) return gameStateStack.top();
+		if (!gameStateStack.empty()) return gameStateStack.front();
 		else return nullptr;
 	}
 	void pushState(GameState* pState);
 	void changeState(GameState* pState);
 	void popState();
+	GameState* lastState() {
+		if (!gameStateStack.empty()) return gameStateStack.back();
+		else return nullptr;
+	}
 
 };
 

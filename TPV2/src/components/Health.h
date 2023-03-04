@@ -17,6 +17,7 @@ public:
 	void loseLife() { actLives--; }
 private:
 	Texture* tex_;
+	int textSize = 30;
 	int maxLives = 3;
 	int actLives = 0;
 };

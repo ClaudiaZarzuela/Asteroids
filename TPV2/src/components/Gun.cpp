@@ -20,13 +20,14 @@ void Gun::instanciateBullet() {
 	bullet->addComponent<DisableOnExit>();
 
 }
-void Gun::update() {
+void Gun::handleInput() {
 	if (shoot && input_->isKeyDown(SDLK_s)) {
 		instanciateBullet();
 		shoot = false;
 		elapsedTime = sdlutils().currRealTime();
 	}
-
+}
+void Gun::update() {
 	if (sdlutils().currRealTime() - elapsedTime > 250) {
 		shoot = true;
 	}

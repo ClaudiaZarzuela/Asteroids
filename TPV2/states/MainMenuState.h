@@ -10,13 +10,14 @@ class MainMenuState : public GameState
 {
 private:
 	static const string menuID;
+	int x, y;
 public:
 
 	// Constructora de la clase
 	MainMenuState();
 
 	// Metodos publicos de la clase
-	void changeState() override;
+	void inputHandler() override;
 	virtual string getStateID() const { return menuID; }
 };
 

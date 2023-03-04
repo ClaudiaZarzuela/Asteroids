@@ -18,7 +18,10 @@ public:
 	// Constructora de la clase
 	PlayState();
 	virtual void update();
-	void changeState() override;
+	void inputHandler() override;
+	void changeState();
+	Manager* getManager() { return manager_; }
+	AsteroidManager* getAManager() { return aManager; }
 	virtual string getStateID() const { return playID; }
 };
 

@@ -15,6 +15,7 @@ public:
 	virtual void initComponent() { }
 	virtual void update() { }
 	virtual void render() { }
+	virtual void handleInput(){}
 protected:
 	Entity* ent_;
 	Manager* mngr_;

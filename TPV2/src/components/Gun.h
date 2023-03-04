@@ -16,6 +16,7 @@ public:
 	virtual ~Gun();
 	//void initComponent() override;
 	void update() override;
+	void handleInput() override;
 	void initComponent() override;
 	InputHandler* input_ = InputHandler::instance();
 

@@ -15,9 +15,17 @@ void Game::init() {
 	{
 		textures[i] = new Texture(renderer, texture[i].filename, texture[i].rows, texture[i].cols);
 	}
+	for (int i = 0; i < NUM_TEXTS; ++i)
+	{
+		if (text[i].backgroundColor == 0) {
+			texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor));
+
+		}
+		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(text[i].backgroundColor));
+	}
 	gameStateMachine = new GameStateMachine();
-	gameStateMachine->pushState(new PlayState());
-	sdl.musics().at("imperial_march").play();
+	gameStateMachine->pushState(new MainMenuState());
+	//sdl.musics().at("imperial_march").play();
 }
 
 //Destructora de la clase
@@ -36,6 +44,7 @@ void Game::run() {
 		Uint32 startTime = sdl.currRealTime();
 		// update the event handler
 		ih.refresh();
+		gameStateMachine->currentState()->inputHandler();
 		gameStateMachine->currentState()->update();
 		// clear screen
 		sdl.clearRenderer();

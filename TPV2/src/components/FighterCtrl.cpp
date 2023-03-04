@@ -7,7 +7,7 @@ void FighterCtrl::initComponent() {
 	assert(tr_ != nullptr);
 }
 
-void FighterCtrl::update() {
+void FighterCtrl::handleInput() {
 	if (input_->isKeyDown(SDLK_UP)) {
 		const float speedLimit = 3.0f;
 		Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;

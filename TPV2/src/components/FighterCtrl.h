@@ -8,7 +8,7 @@ public:
 	FighterCtrl() {};
 	virtual ~FighterCtrl();
 	void initComponent() override;
-	void update() override;
+	void handleInput() override;
 	InputHandler* input_ = InputHandler::instance();
 private:
 	Transform* tr_;

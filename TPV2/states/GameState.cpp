@@ -14,4 +14,7 @@ void GameState::render() const {
 	manager_->render();
 };
 
+void GameState::inputHandler() {
+	manager_->inputHandler();
+}
 
