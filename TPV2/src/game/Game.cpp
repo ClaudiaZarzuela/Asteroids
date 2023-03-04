@@ -8,16 +8,16 @@
 void Game::init() {
 
 	SDLUtils::init("Asteroids!", 800, 600,
-		"resources/config/sdlutilsdemo.resources.json");
+		"resources/resources/config/sdlutilsdemo.resources.json");
 	auto& sdl = *SDLUtils::instance();
 	renderer = sdl.renderer();
 	for (int i = 0; i < NUM_TEXTURES; ++i)
 	{
 		textures[i] = new Texture(renderer, texture[i].filename, texture[i].rows, texture[i].cols);
 	}
-	pressAnyKey = new Texture(renderer, "Press any key to exit", sdl.fonts().at("ARIAL24"), build_sdlcolor(0x112233ff), build_sdlcolor(0xffffffff));
 	gameStateMachine = new GameStateMachine();
-	gameStateMachine->pushState(new PauseState());
+	gameStateMachine->pushState(new PlayState());
+	sdl.musics().at("imperial_march").play();
 }
 
 //Destructora de la clase

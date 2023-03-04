@@ -7,6 +7,9 @@
 #include "../../states/GameStateMachine.h"
 #include "../../states/PauseState.h"
 #include "../utils/Singleton.h"
+#include "../sdlutils/SoundEffect.h"
+#include "../sdlutils/Music.h"
+
 using namespace std;
 
 const int NUM_TEXTURES = 5;
