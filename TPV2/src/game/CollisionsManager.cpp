@@ -2,6 +2,7 @@
 #include "ecs_def.h"
 #include "../components/Transform.h"
 #include "../components/Health.h"
+#include "../sdlutils/SDLUtils.h"
 
 // no se desde donde llamar a este pingo
 void CollisionsManager::checkCollision() {
@@ -14,6 +15,7 @@ void CollisionsManager::checkCollision() {
 		auto asteroide = ast[i]->getComponent<Transform>();
 		if (Collisions::collidesWithRotation(nave->getPos(), nave->getW(), nave->getH(), nave->getRot(),
 			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+			sdlutils().soundEffects().at("explosion").play();
 			aMngr_->destroyAllAsteroids();
 			for (auto b : bull) b->setAlive(false);
 			auto player = mngr_->getHandler(ecs::FIGHTER);
@@ -28,6 +30,7 @@ void CollisionsManager::checkCollision() {
 			auto bala = (*ot)->getComponent<Transform>();
 			if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), 
 				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+				sdlutils().soundEffects().at("gunshot").play();
 				(*ot)->setAlive(false);
 				aMngr_->onCollision((ast[i]));
 				break;

@@ -1,5 +1,7 @@
 #include "FighterCtrl.h"
 #include "../ecs/Entity.h"
+#include "../sdlutils/SDLUtils.h"
+
 FighterCtrl::~FighterCtrl(){}
 
 void FighterCtrl::initComponent() {
@@ -9,6 +11,7 @@ void FighterCtrl::initComponent() {
 
 void FighterCtrl::update() {
 	if (input_->isKeyDown(SDLK_UP)) {
+		sdlutils().soundEffects().at("thrust").play();
 		const float speedLimit = 3.0f;
 		Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;
 		if (newVel.magnitude() >= speedLimit) {

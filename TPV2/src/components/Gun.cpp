@@ -3,12 +3,14 @@
 #include "../ecs/Manager.h"
 #include "Image.h"
 #include "DisableOnExit.h"
+#include "../sdlutils/SDLUtils.h"
 
 Gun::~Gun(){
 
 }
 
 void Gun::instanciateBullet() {
+	sdlutils().soundEffects().at("fire").play();
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
 	Vector2D bPos = tr_->getPos()
 		+ Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)

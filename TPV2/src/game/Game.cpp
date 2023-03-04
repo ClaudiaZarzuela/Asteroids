@@ -17,7 +17,7 @@ void Game::init() {
 	}
 	gameStateMachine = new GameStateMachine();
 	gameStateMachine->pushState(new PlayState());
-	sdl.musics().at("imperial_march").play();
+	//sdl.musics().at("imperial_march").play();
 }
 
 //Destructora de la clase
