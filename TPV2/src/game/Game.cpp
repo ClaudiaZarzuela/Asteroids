@@ -8,7 +8,7 @@
 void Game::init() {
 
 	SDLUtils::init("Asteroids!", 800, 600,
-		"resources/config/sdlutilsdemo.resources.json");
+		"resources/resources/config/sdlutilsdemo.resources.json");
 	auto& sdl = *SDLUtils::instance();
 	renderer = sdl.renderer();
 	for (int i = 0; i < NUM_TEXTURES; ++i)
@@ -17,6 +17,7 @@ void Game::init() {
 	}
 	gameStateMachine = new GameStateMachine();
 	gameStateMachine->pushState(new PlayState());
+	sdl.musics().at("imperial_march").play();
 }
 
 //Destructora de la clase

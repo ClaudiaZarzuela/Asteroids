@@ -22,6 +22,7 @@ void CollisionsManager::checkCollision() {
 			//else;// pause
 			nave->reset();
 			aMngr_->createAsteroids(10);
+			break;
 		}
 		for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
 			auto bala = (*ot)->getComponent<Transform>();
@@ -29,7 +30,7 @@ void CollisionsManager::checkCollision() {
 				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 				(*ot)->setAlive(false);
 				aMngr_->onCollision((ast[i]));
-				return;
+				break;
 			}
 		}	
 	}
