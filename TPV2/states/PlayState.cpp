@@ -27,10 +27,15 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	aManager->createAsteroids(10);
 
 	cManager = new CollisionsManager(aManager, manager_); // hay que llamar a su check collisions pero no se desde donde jeje
+
 }
 
 void PlayState::update() {
 	cManager->checkCollision();
 	aManager->addAsteroidFrequently();
 	GameState::update();
+}
+void PlayState::changeState() {
+	Game::instance()->gameStateMachine->currentState()->deleteState();
+	Game::instance()->gameStateMachine->popState();
 }

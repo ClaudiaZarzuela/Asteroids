@@ -15,8 +15,9 @@ void Game::init() {
 	{
 		textures[i] = new Texture(renderer, texture[i].filename, texture[i].rows, texture[i].cols);
 	}
+	pressAnyKey = new Texture(renderer, "Press any key to exit", sdl.fonts().at("ARIAL24"), build_sdlcolor(0x112233ff), build_sdlcolor(0xffffffff));
 	gameStateMachine = new GameStateMachine();
-	gameStateMachine->pushState(new PlayState());
+	gameStateMachine->pushState(new PauseState());
 }
 
 //Destructora de la clase

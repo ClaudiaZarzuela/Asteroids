@@ -1,14 +1,37 @@
 #include "PauseState.h"
-
+#include "../src/sdlutils/InputHandler.h"
 // Identificador de clase de estado
 const string PauseState::pauseID = "PAUSE";
 
 // Constructora de la clase, que difine sus botones y fondo
-PauseState::PauseState() : MenuGameState() {
+PauseState::PauseState() : GameState() {
 	/*gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2 - 110), 100, 150, game->getTexture(Resume), resumeGame));
 	gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2), 100, 150, game->getTexture(Save), saveGame));
 	gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2 + 110), 100, 150, game->getTexture(Main), goToMainMenu));
 	background = game->getTexture(Pause);*/
+	x = (sdlutils().width() - Game::instance()->getText()->width()) / 2;
+	y = (sdlutils().height() - Game::instance()->getText()->height()) / 2;
+}
+
+void PauseState::update() {
+	Uint32 startTime = SDLUtils::instance()->currRealTime();
+	// exit when any key is down
+	InputHandler::instance()->refresh();
+	if (InputHandler::instance()->keyDownEvent())
+		cout << "Key down" << endl;
+	SDLUtils::instance()->clearRenderer();
+	Game::instance()->getText()->render(x, y);
+	SDLUtils::instance()->presentRenderer();
+	Uint32 frameTime = SDLUtils::instance()->currRealTime() - startTime;
+
+	if (frameTime < 20)
+		SDL_Delay(20 - frameTime);
+	GameState::update();
+}
+
+void PauseState::changeState() {
+	Game::instance()->gameStateMachine->currentState()->deleteState();
+	Game::instance()->gameStateMachine->popState();
 }
 //
 //// Metodo (callback) que reanuda el juego

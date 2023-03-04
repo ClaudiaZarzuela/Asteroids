@@ -1,23 +1,23 @@
 #pragma once
-#include "MenuGameState.h"
+#include "GameState.h"
 #include "PlayState.h"
 #include "MainMenuState.h"
 #include "../src/game/Game.h"
 
 // Clase PAUSESTATE que hereda de MENUGAMESTATE
-class PauseState : public MenuGameState {
+class PauseState : public GameState {
 private:
 	static const string pauseID;
+	Entity* hello;
+	bool exit_ = false;
+	int x, y;
 
 public:
 	// Constructora de la clase
 	PauseState();
-
 	// Metodos publicos de la clase
-	static void resumeGame();
-	static void saveGame();
-	static void goToMainMenu();
-
+	void changeState() override;
+	void update() override;
 	// Getters
 	virtual string getStateID() const { return pauseID; }
 };

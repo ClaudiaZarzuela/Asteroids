@@ -15,10 +15,10 @@ private:
 	static const string playID;
 
 public:
-
 	// Constructora de la clase
 	PlayState();
 	virtual void update();
+	void changeState() override;
 	virtual string getStateID() const { return playID; }
 };
 

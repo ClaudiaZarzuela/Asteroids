@@ -1,12 +1,12 @@
 #pragma once
-#include "MenuGameState.h"
 #include "PauseState.h"
 #include "PlayState.h"
+#include "GameState.h"
 #include "../src/game/Game.h"
 
 
 // Clase MAINMENUSTATE que hereda de MENUGAMESTATE
-class MainMenuState : public MenuGameState
+class MainMenuState : public GameState
 {
 private:
 	static const string menuID;
@@ -16,9 +16,7 @@ public:
 	MainMenuState();
 
 	// Metodos publicos de la clase
-	static void startGame();
-	static void loadGame();
-	static void exitGame();
+	void changeState() override;
 	virtual string getStateID() const { return menuID; }
 };
 

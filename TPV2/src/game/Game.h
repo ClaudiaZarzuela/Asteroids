@@ -5,7 +5,7 @@
 #include <string>
 #include <list>
 #include "../../states/GameStateMachine.h"
-#include "../../states/PlayState.h"
+#include "../../states/PauseState.h"
 #include "../utils/Singleton.h"
 using namespace std;
 
@@ -45,6 +45,7 @@ private:
 		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 }
 	};
 	Texture* textures[NUM_TEXTURES];
+	Texture* pressAnyKey;
 	Game() {};
 
     
@@ -60,5 +61,6 @@ public:
 	// Getters
 	Texture* getTexture(int tx) { return textures[tx]; }
 	GameStateMachine* getStateMachine() { return gameStateMachine; }
+	Texture* getText() { return pressAnyKey; }
 };
 

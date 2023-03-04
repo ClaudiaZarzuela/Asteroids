@@ -14,8 +14,4 @@ void GameState::render() const {
 	manager_->render();
 };
 
-// Llama al handleEvents de los objetos de la lista de gameObjects
-void GameState::handleEvent(SDL_Event event) {
-
-};
 

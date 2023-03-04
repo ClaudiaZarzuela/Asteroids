@@ -4,11 +4,15 @@
 const string MainMenuState::menuID = "MENU";
 
 // Constructora de la clase, que difine sus botones y fondo
-MainMenuState::MainMenuState() :MenuGameState() {
+MainMenuState::MainMenuState() :GameState() {
 	/*gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2 - 110), 100, 150, game->getTexture(Start), startGame));
 	gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2), 100, 150, game->getTexture(Load), loadGame));
 	gameObjects.push_back(new MenuButton(game, Vector2D(WIN_WIDTH / 2 - 90, WIN_HEIGHT / 2 + 110), 100, 150, game->getTexture(Exit), exitGame));
 	background = game->getTexture(Title);*/
+}
+void MainMenuState::changeState() {
+	Game::instance()->gameStateMachine->currentState()->deleteState();
+	Game::instance()->gameStateMachine->changeState(new PlayState());
 }
 //
 //// Metodo (callback) para empezar el juego
