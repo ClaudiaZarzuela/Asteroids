@@ -2,6 +2,7 @@
 #include "../utils/Vector2D.h"
 #include "../game/ecs_def.h"
 #include "../ecs/Component.h"
+#include "../sdlutils/SDLUtils.h"
 
 class Transform : public Component {
 public:
@@ -18,6 +19,11 @@ public:
 	float getH() { return height_; }
 	float getRot() { return rotation_; }
 	void update() override;
+	void reset() { 
+		position_ = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2);
+		velocity_ = Vector2D( 0, 0 );
+		rotation_ = 0;
+	}
 private:
 	Vector2D position_ = { 0, 0 };
 	Vector2D velocity_ = { 0, 0 };

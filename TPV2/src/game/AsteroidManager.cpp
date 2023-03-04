@@ -56,20 +56,20 @@ void AsteroidManager::onCollision(Entity* a) {
 }
 
 void AsteroidManager::Divide(Entity* a) {
-	auto r = sdlutils().rand().nextInt(0, 360);
-	auto pos1 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
-	
-	auto r2 = sdlutils().rand().nextInt(12, 18); auto r3 = sdlutils().rand().nextInt(0, 2);
-	auto pos2 = Vector2D(pos1.getX() - r2, pos1.getY() - r2);
-	if(r3 == 0) pos2 = Vector2D(pos1.getX() + r2, pos1.getY() + r2);
-	auto vel = a->getComponent<Transform>()->getVel().rotate(r) * 1.1f;
+	auto r1 = sdlutils().rand().nextInt(0, 360);
+	auto pos1 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r1) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
+	auto vel1 = a->getComponent<Transform>()->getVel().rotate(r1) * 1.1f;
+
+	auto r2 = sdlutils().rand().nextInt(0, 360);
+	auto pos2 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r2) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
+	auto vel2 = a->getComponent<Transform>()->getVel().rotate(r2) * 1.1f;
 
 	Entity* as1 = mngr_->addEntity(ecs::_grp_ASTEROIDS); Entity* as2 = mngr_->addEntity(ecs::_grp_ASTEROIDS);
 	as1->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
 	as2->addComponent<Generations>(a->getComponent<Generations>()->getGeneration() - 1);
 
-	as1->addComponent<Transform>(pos1, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
-	as2->addComponent<Transform>(pos2, vel, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
+	as1->addComponent<Transform>(pos1, vel1, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
+	as2->addComponent<Transform>(pos2, vel2, 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 10.0f + 5.0f * as1->getComponent<Generations>()->getGeneration(), 0);
 
 	as1->addComponent<ShowAtOppositeSide>();
 	as2->addComponent<ShowAtOppositeSide>();

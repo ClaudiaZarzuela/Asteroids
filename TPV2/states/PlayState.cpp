@@ -8,6 +8,7 @@
 #include "../src/components/Health.h"
 #include "../src/components/Gun.h"
 #include "../src/game/Game.h"
+#include "../src/sdlutils/SDLUtils.h"
 // Identificador de clase de estado
 const string PlayState::playID = "PLAY";
 
@@ -15,7 +16,7 @@ const string PlayState::playID = "PLAY";
 PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza = manager_->addEntity();
 	manager_->setHandler(ecs::FIGHTER, caza);
-	caza->addComponent<Transform>(Vector2D(500,500), Vector2D(0, 0), 50, 50, 0);
+	caza->addComponent<Transform>(Vector2D(sdlutils().width()/2, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<DeAcceleration>();
 	caza->addComponent<FighterCtrl>();

@@ -1,6 +1,7 @@
 #include "CollisionsManager.h"
 #include "ecs_def.h"
 #include "../components/Transform.h"
+#include "../components/Health.h"
 
 // no se desde donde llamar a este pingo
 void CollisionsManager::checkCollision() {
@@ -14,6 +15,13 @@ void CollisionsManager::checkCollision() {
 		if (Collisions::collidesWithRotation(nave->getPos(), nave->getW(), nave->getH(), nave->getRot(),
 			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 			aMngr_->destroyAllAsteroids();
+			for (auto b : bull) b->setAlive(false);
+			auto player = mngr_->getHandler(ecs::FIGHTER);
+			player->getComponent<Health>()->loseLife();
+			//if (player->getComponent<Health>()->getLives() <= 0);//gameover
+			//else;// pause
+			nave->reset();
+			aMngr_->createAsteroids(10);
 		}
 		for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
 			auto bala = (*ot)->getComponent<Transform>();
