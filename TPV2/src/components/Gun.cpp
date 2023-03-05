@@ -22,7 +22,6 @@ void Gun::instanciateBullet() {
 	bullet->addComponent<DisableOnExit>();
 
 }
-
 void Gun::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);

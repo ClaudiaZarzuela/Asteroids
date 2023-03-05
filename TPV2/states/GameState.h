@@ -5,7 +5,8 @@
 #include "../src/sdlutils/Texture.h"
 #include "../src/utils/Vector2D.h"
 #include "../src/ecs/Manager.h"
-
+#include "../src/sdlutils/InputHandler.h"
+#include "../src/components/TextRender.h"
 
 using namespace std;
 
@@ -15,8 +16,12 @@ class GameState
 protected:
 	// Constructora protegida
 	Manager* manager_ ;
-	GameState() { manager_ = new Manager(); };
+	Entity* inputCheck = nullptr;
+	GameState() { 
+		manager_ = new Manager(); 
+	};
 	bool deleted = false;
+	bool inputChangeState = false;
 
 public:
 
@@ -28,7 +33,8 @@ public:
 	virtual void update();
 	virtual void refresh();
 	virtual void render() const;
-	virtual void handleEvent(SDL_Event event);
+	virtual void inputHandler();
+	void setInputChangeState(bool b) { inputChangeState = b; }
 
 	// Getters
 	virtual string getStateID() const = 0;

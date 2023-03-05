@@ -20,7 +20,7 @@ public:
 	float getRot() { return rotation_; }
 	void update() override;
 	void reset() { 
-		position_ = Vector2D(sdlutils().width() / 2, sdlutils().height() / 2);
+		position_ = Vector2D(sdlutils().width() / 2 - width_ / 2, sdlutils().height() / 2);
 		velocity_ = Vector2D( 0, 0 );
 		rotation_ = 0;
 	}

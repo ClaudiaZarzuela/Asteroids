@@ -32,6 +32,7 @@ public:
 	void refresh();
 	void update();
 	void render();
+	void inputHandler();
 	inline const auto& getEntities(ecs::grpId_type gId) { return ents_[gId]; }
 	
 };

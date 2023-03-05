@@ -11,7 +11,7 @@ void FighterCtrl::initComponent() {
 	assert(gn_ != nullptr);
 }
 
-void FighterCtrl::update() {
+void FighterCtrl::handleInput() {
 	if (input_->isKeyDown(SDLK_UP)) {
 		sdlutils().soundEffects().at("thrust").play();
 		const float speedLimit = 3.0f;

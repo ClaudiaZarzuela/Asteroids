@@ -15,6 +15,7 @@ namespace ecs { //not sure
 		_ONEXIT,
 		_FOLLOW,
 		_GENERATIONS,
+		_RENDERTEXT,
 		// do not remove this
 		_LAST_CMP_ID
 	};

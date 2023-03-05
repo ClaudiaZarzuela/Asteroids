@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="states\GameOverState.h" />
+    <ClInclude Include="states\RestartGameState.h" />
+    <ClInclude Include="src\components\TextRender.h" />
     <ClInclude Include="src\game\CollisionsManager.h" />
     <ClInclude Include="src\game\AsteroidManager.h" />
     <ClInclude Include="src\components\Follow.h" />
@@ -58,11 +61,13 @@
     <ClInclude Include="states\GameState.h" />
     <ClInclude Include="states\GameStateMachine.h" />
     <ClInclude Include="states\MainMenuState.h" />
-    <ClInclude Include="states\MenuGameState.h" />
     <ClInclude Include="states\PauseState.h" />
     <ClInclude Include="states\PlayState.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="states\GameOverState.cpp" />
+    <ClCompile Include="states\RestartGameState.cpp" />
+    <ClCompile Include="src\components\TextRender.cpp" />
     <ClCompile Include="src\game\CollisionsManager.cpp" />
     <ClCompile Include="src\game\AsteroidManager.cpp" />
     <ClCompile Include="src\components\Follow.cpp" />
@@ -93,7 +98,6 @@
     <ClCompile Include="states\GameState.cpp" />
     <ClCompile Include="states\GameStateMachine.cpp" />
     <ClCompile Include="states\MainMenuState.cpp" />
-    <ClCompile Include="states\MenuGameState.cpp" />
     <ClCompile Include="states\PauseState.cpp" />
     <ClCompile Include="states\PlayState.cpp" />
   </ItemGroup>

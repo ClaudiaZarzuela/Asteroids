@@ -9,6 +9,7 @@
 #include "../src/components/Gun.h"
 #include "../src/game/Game.h"
 #include "../src/sdlutils/SDLUtils.h"
+
 // Identificador de clase de estado
 const string PlayState::playID = "PLAY";
 
@@ -16,7 +17,7 @@ const string PlayState::playID = "PLAY";
 PlayState::PlayState() :GameState(){
 	caza = manager_->addEntity();
 	manager_->setHandler(ecs::FIGHTER, caza);
-	caza->addComponent<Transform>(Vector2D(sdlutils().width()/2, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
+	caza->addComponent<Transform>(Vector2D(sdlutils().width()/2 - 25, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<DeAcceleration>();
 	caza->addComponent<Gun>(Game::instance()->getTexture(BULLET));
@@ -27,11 +28,31 @@ PlayState::PlayState() :GameState(){
 	aManager = new AsteroidManager(manager_);
 	aManager->createAsteroids(10);
 
-	cManager = new CollisionsManager(aManager, manager_); // hay que llamar a su check collisions pero no se desde donde jeje
+	cManager = new CollisionsManager(aManager, manager_, this); // hay que llamar a su check collisions pero no se desde donde jeje
+
 }
 
 void PlayState::update() {
     cManager->checkCollision();
 	aManager->addAsteroidFrequently();
 	GameState::update();
+}
+
+void PlayState::inputHandler() {
+	GameState::inputHandler();
+	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
+	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
+	if (inputChangeState) {
+		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
+		cout << "Cambio al estado de pausa" << endl;
+		Game::instance()->gameStateMachine->pushState(new PauseState());
+		inputChangeState = false;
+		}
+	}
+}
+
+void PlayState::changeState() {
+	cout << "Cambio al estado de pausa nuevo" << endl;
+	Game::instance()->gameStateMachine->pushState(new RestartGameState());
+	inputChangeState = false;
 }

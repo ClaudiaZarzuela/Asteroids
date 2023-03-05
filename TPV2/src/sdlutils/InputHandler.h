@@ -36,7 +36,12 @@ public:
 			}
 		}
 	}
-
+	inline bool allKeysUp() {
+		for (auto i = 0u; i < SDL_NUM_SCANCODES; ++i) {
+			if (kbState_[i] == 1) return false;
+		}
+		return true;
+	}
 	// update the state with a new event
 	inline void update(const SDL_Event& event) {
 		switch (event.type) {

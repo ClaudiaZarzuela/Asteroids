@@ -66,6 +66,11 @@ public:
 		for (auto i = 0u; i < n; i++)
 			currCmps_[i]->render();
 	}
+	inline void handleInput() {
+		auto n = currCmps_.size();
+		for (auto i = 0u; i < n; i++)
+			currCmps_[i]->handleInput();
+	}
 private:
 	bool alive_;
 	Manager* mngr_;

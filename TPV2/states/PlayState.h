@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "MainMenuState.h"
+#include "RestartGameState.h"
 #include "../src/game/AsteroidManager.h"
 #include "../src/game/CollisionsManager.h"
 
@@ -15,10 +16,13 @@ private:
 	static const string playID;
 
 public:
-
 	// Constructora de la clase
 	PlayState();
 	virtual void update();
+	void inputHandler() override;
+	void changeState();
+	Manager* getManager() { return manager_; }
+	AsteroidManager* getAManager() { return aManager; }
 	virtual string getStateID() const { return playID; }
 };
 

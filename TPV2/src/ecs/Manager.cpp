@@ -40,3 +40,10 @@
 				ents[i]->render();
 		}
 	}
+	void Manager::inputHandler() {
+		for (auto& ents : ents_) {
+			auto n = ents.size();
+			for (auto i = 0u; i < n; i++)
+				ents[i]->handleInput();
+		}
+	}
