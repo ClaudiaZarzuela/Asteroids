@@ -22,8 +22,5 @@ public:
 private:
 	Texture* tex_;
 	Transform* tr_;
-	bool shoot = true;
-	float elapsedTime = 0;
-
 };
 

@@ -1,13 +1,14 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
-
+#include "checkML.h"
 #include <iostream>
-
 #include "sdlutils/sdlutils_demo.h"
 #include "game/Game.h"
 
 int main(int ac, char **av) {
-	try {
-		
+
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	try {	
 		Game::instance()->init();
 		Game::instance()->run();
 		//delete(game);

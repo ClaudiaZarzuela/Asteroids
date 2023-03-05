@@ -13,7 +13,7 @@
 const string PlayState::playID = "PLAY";
 
 // Constructora de la clase, que inizializa todos los elementos del juego
-PlayState::PlayState() :GameState(){//Creamos las paredes
+PlayState::PlayState() :GameState(){
 	caza = manager_->addEntity();
 	manager_->setHandler(ecs::FIGHTER, caza);
 	caza->addComponent<Transform>(Vector2D(sdlutils().width()/2, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
