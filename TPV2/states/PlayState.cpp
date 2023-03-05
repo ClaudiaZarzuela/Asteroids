@@ -52,7 +52,7 @@ void PlayState::inputHandler() {
 }
 
 void PlayState::changeState() {
-	cout << "Cambio al estado de pausa" << endl;
-	Game::instance()->gameStateMachine->pushState(new PauseState());
+	cout << "Cambio al estado de pausa nuevo" << endl;
+	Game::instance()->gameStateMachine->pushState(new RestartGameState());
 	inputChangeState = false;
 }

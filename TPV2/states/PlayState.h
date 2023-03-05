@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "MainMenuState.h"
+#include "RestartGameState.h"
 #include "../src/game/AsteroidManager.h"
 #include "../src/game/CollisionsManager.h"
 

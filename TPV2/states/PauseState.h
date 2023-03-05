@@ -8,7 +8,6 @@
 class PauseState : public GameState {
 private:
 	static const string pauseID;
-	Entity* hello;
 	bool exit_ = false;
 	int x, y;
 
@@ -17,7 +16,6 @@ public:
 	PauseState();
 	// Metodos publicos de la clase
 	void inputHandler() override;
-	void getReadyToChange();
 	// Getters
 	virtual string getStateID() const { return pauseID; }
 };

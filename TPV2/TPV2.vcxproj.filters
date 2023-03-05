@@ -135,9 +135,6 @@
     <ClInclude Include="states\MainMenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="states\MenuGameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="states\PauseState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -154,6 +151,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\AsteroidManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\CollisionsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\TextRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\RestartGameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\GameOverState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -233,9 +242,6 @@
     <ClCompile Include="states\MainMenuState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="states\MenuGameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="states\PauseState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -252,6 +258,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\AsteroidManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\CollisionsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\TextRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="states\RestartGameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="states\GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

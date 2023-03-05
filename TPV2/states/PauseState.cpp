@@ -18,20 +18,9 @@ void PauseState::inputHandler() {
 	if (inputChangeState) {
 		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
 			cout << "Cambio al playState" << endl;
-			getReadyToChange();
 			Game::instance()->gameStateMachine->currentState()->deleteState();
 			Game::instance()->gameStateMachine->popState();
 			inputChangeState = false;
 		}
 	}
-}
-
-void PauseState::getReadyToChange() {
-	if (Game::instance()->gameStateMachine->lastState()->getStateID() == "PLAY") {
-		auto playSt = dynamic_cast<PlayState*>(Game::instance()->gameStateMachine->lastState());
-		playSt->getAManager()->destroyAllAsteroids();
-		playSt->refresh();
-		playSt->getAManager()->createAsteroids(10);
-	}
-	
 }
