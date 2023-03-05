@@ -1,5 +1,13 @@
 #include "../src/checkML.h"
 #include "GameState.h"
+#include "../src/game/Game.h"
+
+// constructora
+GameState::GameState() {
+	manager_ = new Manager();
+	x = (sdlutils().width() - Game::instance()->getText(PAUSA)->width()) / 2;
+	y = ((sdlutils().height() - Game::instance()->getText(PAUSA)->height()) / 2) + 100;
+};
 
 // Llama al update de los objetos de la lista de gameObjects
 void GameState::update() {

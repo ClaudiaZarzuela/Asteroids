@@ -4,6 +4,7 @@
 #include "PauseState.h"
 #include "MainMenuState.h"
 #include "RestartGameState.h"
+#include "GameOverState.h"
 #include "../src/game/AsteroidManager.h"
 #include "../src/game/CollisionsManager.h"
 
@@ -11,7 +12,7 @@
 class PlayState :public GameState
 {
 private:
-	Entity* caza;
+	Entity* fighter;
 	AsteroidManager* aManager;
 	CollisionsManager* cManager;
 	static const string playID;
@@ -28,6 +29,8 @@ public:
 	virtual void update();
 	void inputHandler() override;
 	void changeState();
+	void startGame(bool lifes = false);
+	void callGameOver(string infoState);
 	Manager* getManager() { return manager_; }
 	AsteroidManager* getAManager() { return aManager; }
 	virtual string getStateID() const { return playID; }

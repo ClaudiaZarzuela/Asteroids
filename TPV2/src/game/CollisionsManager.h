@@ -17,6 +17,7 @@ public:
 	// metodos publicos de la clase
 	CollisionsManager(AsteroidManager* aMngr, Manager* m, PlayState* playState) : mngr_(m), aMngr_(aMngr), playState_(playState) {}
 	void checkCollision();
+	void ifCollision();
 };
 
 

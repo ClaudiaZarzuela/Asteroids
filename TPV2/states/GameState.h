@@ -15,12 +15,11 @@ using namespace std;
 class GameState
 {
 protected:
+	int x, y;
 	// Constructora protegida
 	Manager* manager_ ;
 	Entity* inputCheck = nullptr;
-	GameState() { 
-		manager_ = new Manager(); 
-	};
+	GameState();
 	bool deleted = false;
 	bool inputChangeState = false;
 

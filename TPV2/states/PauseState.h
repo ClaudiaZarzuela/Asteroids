@@ -9,14 +9,13 @@
 class PauseState : public GameState {
 private:
 	static const string pauseID;
-	bool exit_ = false;
-	int x, y;
 
 public:
 	// Constructora de la clase
 	PauseState();
 	// Metodos publicos de la clase
 	void inputHandler() override;
+
 	// Getters
 	virtual string getStateID() const { return pauseID; }
 };

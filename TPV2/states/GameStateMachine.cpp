@@ -35,9 +35,22 @@ void GameStateMachine::changeState(GameState* pState) {
 	gameStateStack.push_front(pState);
 }
 
+// vacia la pila de estados
 void GameStateMachine::emptyStates() {
 	while (!gameStateStack.empty()) {
 		delete gameStateStack.front();
 		gameStateStack.pop_front();
 	}
+}
+
+// renderiza todos los estados
+void GameStateMachine::render() {
+	for (auto a : gameStateStack)
+		a->render();
+}
+
+// refresca todos los estados
+void GameStateMachine::refresh() {
+	for (auto a : gameStateStack)
+		a->refresh();
 }

@@ -1,26 +1,28 @@
 #include "../src/checkML.h"
 #include "GameOverState.h"
 #include "../src/sdlutils/InputHandler.h"
-
+#include "PlayState.h"
 // Identificador de clase de estado
 const string GameOverState::gameOverID = "GAMEOVER";
 // Constructora de la clase, que difine sus botones y fondo
-GameOverState::GameOverState(string info) : GameState() {
-	x = (sdlutils().width() - Game::instance()->getText(PAUSA)->width()) / 2;
-	y = (sdlutils().height() - Game::instance()->getText(PAUSA)->height()) / 2;
+GameOverState::GameOverState(string info, PlayState* play) : GameState() {
 	inputCheck = manager_->addEntity();
-	inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), x, y);
+	play_ = play;
+	if (info == "Win") {
+		inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), Game::instance()->getText(WIN), x, y);
+	}
+	else {
+		inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), Game::instance()->getText(LOSE), x, y);
+	}
 }
 
-
+// cambia al MainMenuState si se pulsa el espacio
 void GameOverState::inputHandler() {
 	GameState::inputHandler();
 	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
 	if (inputChangeState) {
 		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
-			cout << "Cambio al mainMenu" << endl;
-			Game::instance()->gameStateMachine->emptyStates();
-			Game::instance()->gameStateMachine->changeState(new MainMenuState());
+			Game::instance()->gameStateMachine->changeState(new MainMenuState(play_));
 			inputChangeState = false;
 		}
 	}

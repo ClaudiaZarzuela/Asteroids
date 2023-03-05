@@ -5,17 +5,17 @@
 #include "GameState.h"
 #include "../src/game/Game.h"
 
-
+class PlayState;
 // Clase MAINMENUSTATE que hereda de MENUGAMESTATE
 class MainMenuState : public GameState
 {
 private:
 	static const string menuID;
-	int x, y;
+	PlayState* playSt_;
 public:
 
 	// Constructora de la clase
-	MainMenuState();
+	MainMenuState(PlayState* playSt);
 
 	// Metodos publicos de la clase
 	void inputHandler() override;

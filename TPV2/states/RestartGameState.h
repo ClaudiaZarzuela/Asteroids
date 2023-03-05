@@ -3,16 +3,15 @@
 #include "GameState.h"
 #include "../src/game/Game.h"
 
+class PlayState;
 class RestartGameState: public GameState
 {
 private:
 	static const string restartID;
-	bool exit_ = false;
-	int x, y;
-
+	PlayState* play_;
 public:
 	// Constructora de la clase
-	RestartGameState();
+	RestartGameState(PlayState* play);
 	// Metodos publicos de la clase
 	void inputHandler() override;
 	// Getters

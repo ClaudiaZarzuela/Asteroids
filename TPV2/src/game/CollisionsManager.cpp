@@ -20,12 +20,11 @@ void CollisionsManager::checkCollision() {
 		auto asteroide = ast[i]->getComponent<Transform>();
 		if (Collisions::collidesWithRotation(playerTransform->getPos(), playerTransform->getW(), playerTransform->getH(), playerTransform->getRot(),
 			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
-			sdlutils().soundEffects().at("explosion").play();
-			player->getComponent<Health>()->loseLife();
-			for (auto b : bull) b->setAlive(false);
-			playerTransform->reset();
+			
+			ifCollision();
+			
 			if (player->getComponent<Health>()->getLives() <= 0) {
-				Game::instance()->gameStateMachine->pushState(new GameOverState("Lose"));
+				playState_->callGameOver("Lose");
 			}
 			else { playState_->changeState();}
 			break;
@@ -41,4 +40,13 @@ void CollisionsManager::checkCollision() {
 			}
 		}	
 	}
+}
+
+void CollisionsManager::ifCollision() {
+	auto player = mngr_->getHandler(ecs::FIGHTER);
+	sdlutils().soundEffects().at("explosion").play();
+	player->getComponent<Health>()->loseLife();
+	for (auto b : mngr_->getEntities(ecs::_grp_BULLETS)) b->setAlive(false);
+	player->getComponent<Transform>()->reset();
+	aMngr_->destroyAllAsteroids();
 }

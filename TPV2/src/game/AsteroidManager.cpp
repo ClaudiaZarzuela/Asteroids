@@ -33,7 +33,6 @@ void AsteroidManager::createAsteroids(int numAst) {
 		else { as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
 	}
 	currAsteroids += numAst;
-	cout << currAsteroids << endl;
 }
 
 // metodo encargado de añadir un nuevo asteroide al juego de forma aleatoria cada periodo determinado de tiempo
@@ -55,7 +54,6 @@ void AsteroidManager::destroyAllAsteroids() {
 // metodo al que se llama cuando un asteroide colisiona con una bala y que determina si este deberia o no dividirse de acuerdo a su num de generaciones y al num total de asteroides
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
-	cout << currAsteroids << endl;
     if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		Divide(a);
 	}
