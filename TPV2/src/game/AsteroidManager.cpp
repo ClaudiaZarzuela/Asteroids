@@ -6,6 +6,7 @@
 #include "../components/Generations.h"
 #include "../../states/GameOverState.h"
 #include "../components/Follow.h"
+#include "../../states/PlayState.h"
 #include "Game.h"
 
 // metodo encargado de crear un numero definido de asteroides en posiciones random a lo largo de los bordes de la pantalla
@@ -38,16 +39,16 @@ void AsteroidManager::createAsteroids(int numAst) {
 
 // metodo encargado de añadir un nuevo asteroide al juego de forma aleatoria cada periodo determinado de tiempo
 void AsteroidManager::addAsteroidFrequently() {
-	if (sdlutils().currRealTime() - elapsedTime > 5000) {
+	/*if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		createAsteroids(1);
 		elapsedTime = sdlutils().currRealTime();
-	}
+	}*/
 }
 
-// metodos+ encargado de destruir todos los asteroides
+// metodo encargado de destruir todos los asteroides
 void AsteroidManager::destroyAllAsteroids() {
 	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
-		(*it)->setAlive(false);
+		if(*it != nullptr)(*it)->setAlive(false);
 	}
 	currAsteroids = 0;
 }
@@ -56,7 +57,12 @@ void AsteroidManager::destroyAllAsteroids() {
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
 	cout << currAsteroids << endl;
-    if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
+	auto playSt = dynamic_cast<PlayState*>(Game::instance()->gameStateMachine->lastState());
+	if (currAsteroids == 0) {
+		playSt->resetGame();
+		playSt->changeGameOvertState("Win");
+	}
+    else if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		Divide(a);
 	}
 	a->setAlive(false);

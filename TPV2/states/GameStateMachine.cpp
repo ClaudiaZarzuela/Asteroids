@@ -45,3 +45,9 @@ void GameStateMachine::render() {
 		gameStateStack[i]->render();
 	}
 }
+
+void GameStateMachine::refresh() {
+	for (int i = 0; i < gameStateStack.size(); ++i) {
+		gameStateStack[i]->refresh();
+	}
+}

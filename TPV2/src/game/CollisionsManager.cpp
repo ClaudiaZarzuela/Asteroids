@@ -22,10 +22,9 @@ void CollisionsManager::checkCollision() {
 			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 			sdlutils().soundEffects().at("explosion").play();
 			player->getComponent<Health>()->loseLife();
-			for (auto b : bull) b->setAlive(false);
 			playState_->resetGame();
 			if (player->getComponent<Health>()->getLives() <= 0) {
-				playState_->changeGameOvertState();
+				playState_->changeGameOvertState("Lose");
 			}
 			else { 
 				playState_->changeRestartState();

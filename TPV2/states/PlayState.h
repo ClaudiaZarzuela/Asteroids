@@ -29,7 +29,7 @@ public:
 	virtual void update();
 	void inputHandler() override;
 	void changeRestartState();
-	void changeGameOvertState();
+	void changeGameOvertState(string info);
 	void startGame();
 	void resetGame();
 	void resetAsteroids();

@@ -20,7 +20,7 @@
 						delete e;
 						return true;
 					}
-					}),
+				}),
 				grpEnts.end());
 		}
 	}

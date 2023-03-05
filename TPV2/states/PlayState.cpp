@@ -30,15 +30,16 @@ PlayState::PlayState() :GameState(){
 }
 
 void PlayState::startGame() {
-	manager_->refresh();
+	//manager_->refresh();
 	resetAsteroids();
 	caza->getComponent<Health>()->resetLives();
 }
 void PlayState::resetGame() {
 	//manager_->refresh();
 	aManager->destroyAllAsteroids();
+	for (auto b : manager_->getEntities(ecs::_grp_BULLETS)) b->setAlive(false);
 	caza->getComponent<Transform>()->reset();
-	manager_->refresh();
+	//manager_->refresh();
 }
 void PlayState::resetAsteroids() {
 	aManager->createAsteroids(10);
@@ -66,7 +67,7 @@ void PlayState::changeRestartState() {
 	Game::instance()->gameStateMachine->pushState(new RestartGameState());
 	inputChangeState = false;
 }
-void PlayState::changeGameOvertState() {
-	Game::instance()->gameStateMachine->pushState(new GameOverState("Lose"));
+void PlayState::changeGameOvertState(string info) {
+	Game::instance()->gameStateMachine->pushState(new GameOverState(info));
 	inputChangeState = false;
 }
