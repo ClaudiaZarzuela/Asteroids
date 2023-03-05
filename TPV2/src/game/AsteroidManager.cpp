@@ -3,6 +3,7 @@
 #include "../components/Transform.h"
 #include "../components/ShowAtOppositeSide.h"
 #include "../components/Generations.h"
+#include "../../states/GameOverState.h"
 #include "../components/Follow.h"
 #include "Game.h"
 
@@ -32,6 +33,7 @@ void AsteroidManager::createAsteroids(int numAst) {
 		}
 	}
 	currAsteroids += numAst;
+	cout << currAsteroids << endl;
 }
 
 void AsteroidManager::addAsteroidFrequently() {
@@ -45,11 +47,13 @@ void AsteroidManager::destroyAllAsteroids() {
 	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
 		(*it)->setAlive(false);
 	}
+	currAsteroids = 0;
 }
 
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
-	if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
+	cout << currAsteroids << endl;
+    if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		Divide(a);
 	}
 	a->setAlive(false);
@@ -82,4 +86,5 @@ void AsteroidManager::Divide(Entity* a) {
 		as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
 	}
 	else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
+	currAsteroids += 2;
 }

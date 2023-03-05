@@ -34,3 +34,9 @@ void GameStateMachine::changeState(GameState* pState) {
 	gameStateStack.push_front(pState);
 }
 
+void GameStateMachine::emptyStates() {
+	while (!gameStateStack.empty()) {
+		delete gameStateStack.front();
+		gameStateStack.pop_front();
+	}
+}
