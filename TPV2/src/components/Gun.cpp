@@ -3,12 +3,14 @@
 #include "../ecs/Manager.h"
 #include "Image.h"
 #include "DisableOnExit.h"
+#include "../sdlutils/SDLUtils.h"
 
 Gun::~Gun(){
 
 }
 
 void Gun::instanciateBullet() {
+	sdlutils().soundEffects().at("fire").play();
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
 	Vector2D bPos = tr_->getPos()
 		+ Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
@@ -20,19 +22,6 @@ void Gun::instanciateBullet() {
 	bullet->addComponent<DisableOnExit>();
 
 }
-void Gun::handleInput() {
-	if (shoot && input_->isKeyDown(SDLK_s)) {
-		instanciateBullet();
-		shoot = false;
-		elapsedTime = sdlutils().currRealTime();
-	}
-}
-void Gun::update() {
-	if (sdlutils().currRealTime() - elapsedTime > 250) {
-		shoot = true;
-	}
-}
-
 void Gun::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);

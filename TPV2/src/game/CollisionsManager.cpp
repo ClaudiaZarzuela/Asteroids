@@ -5,7 +5,8 @@
 #include "Game.h"
 #include "../../states/PlayState.h"
 #include "../../states/GameOverState.h"
-// no se desde donde llamar a este pingo
+#include "../sdlutils/SDLUtils.h"
+
 void CollisionsManager::checkCollision() {
 	vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
@@ -17,6 +18,7 @@ void CollisionsManager::checkCollision() {
 		auto asteroide = ast[i]->getComponent<Transform>();
 		if (Collisions::collidesWithRotation(playerTransform->getPos(), playerTransform->getW(), playerTransform->getH(), playerTransform->getRot(),
 			asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+			sdlutils().soundEffects().at("explosion").play();
 			player->getComponent<Health>()->loseLife();
 			for (auto b : bull) b->setAlive(false);
 			playerTransform->reset();
@@ -32,6 +34,7 @@ void CollisionsManager::checkCollision() {
 			auto bala = (*ot)->getComponent<Transform>();
 			if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), 
 				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+				sdlutils().soundEffects().at("gunshot").play();
 				(*ot)->setAlive(false);
 				aMngr_->onCollision((ast[i]));
 				break;

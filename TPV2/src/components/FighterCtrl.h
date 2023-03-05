@@ -1,6 +1,8 @@
 #pragma once
 #include "Transform.h"
+#include "Gun.h"
 #include "../sdlutils/InputHandler.h"
+
 class FighterCtrl: public Component
 {
 public:
@@ -12,5 +14,8 @@ public:
 	InputHandler* input_ = InputHandler::instance();
 private:
 	Transform* tr_;
+	Gun* gn_;
+	bool shoot = true;
+	float elapsedTime = 0;
 };
 
