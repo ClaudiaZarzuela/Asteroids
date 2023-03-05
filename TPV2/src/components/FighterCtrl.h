@@ -4,11 +4,14 @@
 #include "Gun.h"
 #include "../sdlutils/InputHandler.h"
 
+// componente que se encarga de la recogida del input de la nave
 class FighterCtrl: public Component
 {
 public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_CTRL;
-	FighterCtrl() {};
+	// metodos publicos de la clase
+	FighterCtrl() : tr_(nullptr), gn_(nullptr) {};
 	virtual ~FighterCtrl();
 	void initComponent() override;
 	void handleInput() override;

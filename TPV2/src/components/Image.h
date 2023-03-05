@@ -3,9 +3,12 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 
+// componente encargado de renderizar texturas
 class Image : public Component {
 public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
+	// metodos publicos de la clase
 	Image(Texture* tex) : 
 		tr_(nullptr), 
 		tex_(tex) {

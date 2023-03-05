@@ -5,10 +5,12 @@
 #include "../ecs/Component.h"
 #include "../sdlutils/SDLUtils.h"
 
+// componente encargado de gestionar la posicion, velocidad, rotacion y tamaño de las entidades
 class Transform : public Component {
 public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
-
+	// metodos publicos de la clase
 	Transform (Vector2D pos, Vector2D vel, float w, float h, float r): position_(pos), velocity_(vel), width_(w), height_(h), rotation_(r) {};
 	virtual ~Transform() {}
 	inline Vector2D& getPos() { return position_; }

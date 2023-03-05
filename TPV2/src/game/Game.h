@@ -16,19 +16,20 @@ using namespace std;
 const int NUM_TEXTURES = 5;
 const int NUM_TEXTS = 3;
 
+// enmunerados para los distintos estados, texturas y textos del juego
 enum GameStates {
 	PLAY = 0,
 	PAUSE = 1,
 	END = 2,
 	MENU = 3
 };
-
 static const enum TextureNames {
 	NAVE = 0, ASTEROID = 1, HEALTH=2, BULLET =3, ASTEROID_GOLD = 4
 };
 static const enum TextNames {
 	MAINMENU = 0, PAUSA = 1, GAMEOVER = 2
 };
+
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
 {
@@ -36,6 +37,7 @@ struct Textures
 	int rows;
 	int cols;
 };
+// Estructura que contiene variables para el contenido del texto y su color de las letras y del background
 struct Texts
 {
 	string content;
@@ -43,6 +45,7 @@ struct Texts
 	int backgroundColor;
 };
 
+// clase encargada de crear y cargar los recursos de SDL y que contiene el bucle principal del juego
 class Game : public Singleton<Game>
 {
 	friend Singleton<Game>;
@@ -68,7 +71,7 @@ private:
 	Texture* texts[NUM_TEXTS];
 	Game() {};
 
-    
+   
 public:
 	virtual ~Game();
 	//Constructuctora y destructora de Game

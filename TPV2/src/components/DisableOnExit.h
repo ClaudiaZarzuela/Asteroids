@@ -5,11 +5,14 @@
 #include<iostream>
 
 using namespace std;
+// componente que desactiva las balas si estas salen de la pantalla
 class DisableOnExit : public Component
 {
 public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_ONEXIT;
-	DisableOnExit() :tr_(nullptr) {}
+	// metodos publicos de la clase
+	DisableOnExit() : tr_(nullptr) {}
 	virtual ~DisableOnExit();
 	void initComponent();
 	void update() override;

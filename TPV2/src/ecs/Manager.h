@@ -4,12 +4,14 @@
 #include <array>
 #include "Entity.h"
 
+// declaracion de la clase padre manager
 class Manager {
 private:
 	std::array<std::vector<Entity*>, ecs::maxGroupId> ents_;
 	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 
 public:
+	// metodos publicos de la clase, heredados por el resto de managers
 	Manager(): ents_(), hdlrs_() {
 		for (auto& groupEntities : ents_) {
 			groupEntities.reserve(100);
@@ -23,14 +25,6 @@ public:
 				e = nullptr;
 			}
 		}
-
-		/*for (int i = 0; i < ents_.size(); ++i) {
-			for (int j = 0; j < ents_[i].size(); ++j) {
-				delete ents_[i][j];
-			}
-			delete ents_;
-		}
-		delete[] ents_;*/
 	};
 
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {

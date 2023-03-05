@@ -6,11 +6,14 @@
 #include "../sdlutils/Texture.h"
 #include "Transform.h"
 
+// componente encargado de generar y disparar una bala 
 class Gun : public Component
 {
-public: 
+public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_GUN;
-	Gun(Texture* tex) : tex_(tex) {};
+	// metodos publicos de la clase
+	Gun(Texture* tex) : tr_(nullptr), tex_(tex) {};
 	virtual ~Gun();
 	void initComponent() override;
 	void instanciateBullet();

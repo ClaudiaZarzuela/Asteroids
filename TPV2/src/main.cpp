@@ -4,8 +4,9 @@
 #include "sdlutils/sdlutils_demo.h"
 #include "game/Game.h"
 
+// main
 int main(int ac, char **av) {
-
+	// para comprobar si hay memory leaks
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	try {	

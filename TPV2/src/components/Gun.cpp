@@ -6,10 +6,10 @@
 #include "DisableOnExit.h"
 #include "../sdlutils/SDLUtils.h"
 
-Gun::~Gun(){
+// destructora
+Gun::~Gun() {}
 
-}
-
+// genera una bala con la posicion, velocidad y rotacion correspondientes
 void Gun::instanciateBullet() {
 	sdlutils().soundEffects().at("fire").play();
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
@@ -23,6 +23,8 @@ void Gun::instanciateBullet() {
 	bullet->addComponent<DisableOnExit>();
 
 }
+
+// inicializa las referencias a otros componentes
 void Gun::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);

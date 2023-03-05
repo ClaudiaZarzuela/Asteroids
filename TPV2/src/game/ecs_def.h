@@ -2,7 +2,8 @@
 #include "../checkML.h"
 #include <cstdint>
 
-namespace ecs { //not sure
+// definicion del namespace ecs que contiene los enumerados de Id de componentes, grupos y handlers
+namespace ecs {
 
 	using cmpId_type = uint8_t;
 	enum cmpId : cmpId_type {
@@ -17,7 +18,6 @@ namespace ecs { //not sure
 		_FOLLOW,
 		_GENERATIONS,
 		_RENDERTEXT,
-		// do not remove this
 		_LAST_CMP_ID
 	};
 	constexpr cmpId_type maxComponentId = _LAST_CMP_ID;
@@ -26,7 +26,6 @@ namespace ecs { //not sure
 		_grp_ASTEROIDS,
 		_grp_GENERAL,
 		_grp_BULLETS,
-		//...
 		_LAST_GRP_ID
 	};
 	constexpr grpId_type maxGroupId = _LAST_GRP_ID;

@@ -5,10 +5,13 @@
 #include "Transform.h"
 #include "../ecs/Manager.h"
 
+// componente que hace que los asteoides dorados sigan a la nave
 class Follow : public Component
 {
 public:
+	// id
 	constexpr static ecs::cmpId_type id = ecs::_FOLLOW;
+	// metodos publicos de la clase
 	Follow(): tr_(nullptr), q(nullptr) {}
 	virtual ~Follow();
 	void initComponent() override;

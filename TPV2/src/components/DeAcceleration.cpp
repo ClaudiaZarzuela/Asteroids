@@ -2,13 +2,16 @@
 #include "DeAcceleration.h"
 #include "../ecs/Entity.h"
 
-DeAcceleration::~DeAcceleration() {
+// destructora
+DeAcceleration::~DeAcceleration() {}
 
-}
+// inicializa las referencias a otros componentes
 void DeAcceleration::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
 }
+
+// actualiza la velocidad del cada por una menor a cada llamada del bucle
 void DeAcceleration::update() {
 	if (tr_->getVel().magnitude() < 0.05f) {
 		tr_->setVel(Vector2D(0, 0));

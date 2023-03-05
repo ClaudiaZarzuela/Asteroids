@@ -8,6 +8,7 @@
 #include "../components/Follow.h"
 #include "Game.h"
 
+// metodo encargado de crear un numero definido de asteroides en posiciones random a lo largo de los bordes de la pantalla
 void AsteroidManager::createAsteroids(int numAst) {
 	for (int i = 0; i < numAst; ++i) {
 		int random = sdlutils().rand().nextInt(0, 4);
@@ -29,14 +30,13 @@ void AsteroidManager::createAsteroids(int numAst) {
 			as->addComponent<Follow>();
 			as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
 		}
-		else {
-			as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID));
-		}
+		else { as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
 	}
 	currAsteroids += numAst;
 	cout << currAsteroids << endl;
 }
 
+// metodo encargado de añadir un nuevo asteroide al juego de forma aleatoria cada periodo determinado de tiempo
 void AsteroidManager::addAsteroidFrequently() {
 	if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		createAsteroids(1);
@@ -44,6 +44,7 @@ void AsteroidManager::addAsteroidFrequently() {
 	}
 }
 
+// metodos+ encargado de destruir todos los asteroides
 void AsteroidManager::destroyAllAsteroids() {
 	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
 		(*it)->setAlive(false);
@@ -51,6 +52,7 @@ void AsteroidManager::destroyAllAsteroids() {
 	currAsteroids = 0;
 }
 
+// metodo al que se llama cuando un asteroide colisiona con una bala y que determina si este deberia o no dividirse de acuerdo a su num de generaciones y al num total de asteroides
 void AsteroidManager::onCollision(Entity* a) {
 	currAsteroids--;
 	cout << currAsteroids << endl;
@@ -60,6 +62,7 @@ void AsteroidManager::onCollision(Entity* a) {
 	a->setAlive(false);
 }
 
+// metodo encargado de generar dos nuevos asteroides despues de haber destruido a otro, con una generacion menos y una pos, vel y rot aleatorias
 void AsteroidManager::Divide(Entity* a) {
 	auto r1 = sdlutils().rand().nextInt(0, 360);
 	auto pos1 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r1) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());

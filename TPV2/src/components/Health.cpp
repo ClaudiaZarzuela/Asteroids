@@ -2,10 +2,10 @@
 #include "Health.h"
 #include "../ecs/Entity.h"
 
-Health::~Health() {
+// destructora
+Health::~Health() {}
 
-}
-
+// renderiza las vidas actuales del caza
 void Health::render() {
 	SDL_Rect destRect;
 	destRect.w = textSize; destRect.h = textSize;

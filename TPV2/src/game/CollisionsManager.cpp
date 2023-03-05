@@ -8,6 +8,7 @@
 #include "../../states/GameOverState.h"
 #include "../sdlutils/SDLUtils.h"
 
+// metodo encargado de comprpbar las colisiones de los asteroides con el caza y con las balas, y aplicar los efectos correspondientes de darse estas
 void CollisionsManager::checkCollision() {
 	vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
@@ -26,9 +27,7 @@ void CollisionsManager::checkCollision() {
 			if (player->getComponent<Health>()->getLives() <= 0) {
 				Game::instance()->gameStateMachine->pushState(new GameOverState("Lose"));
 			}
-			else { 
-				playState_->changeState();
-			}
+			else { playState_->changeState();}
 			break;
 		}
 		for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {

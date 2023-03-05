@@ -4,6 +4,7 @@
 #include "../ecs/Entity.h"
 #include "ecs_def.h"
 
+// clase encargada de gestonar los asteroides, su creacion, destruccion y colisiones
 class AsteroidManager
 {
 private: 
@@ -11,6 +12,7 @@ private:
 	int currAsteroids;
 	float elapsedTime = sdlutils().currRealTime();
 public:
+	// metodos publicos de la clase
 	AsteroidManager(Manager* m) : mngr_(m), currAsteroids(0) {}
 	void createAsteroids(int numAst);
 	void addAsteroidFrequently();

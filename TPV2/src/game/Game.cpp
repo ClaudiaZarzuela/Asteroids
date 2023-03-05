@@ -6,6 +6,7 @@
 #include "../sdlutils/macros.h"
 #include "../sdlutils/SDLUtils.h"
 
+// inicializa SDL, las texturas, los textos y la maquina de estados
 void Game::init() {
 
 	SDLUtils::init("Asteroids!", 800, 600,
@@ -38,6 +39,8 @@ Game::~Game() {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
+
+// bucle principal del juego
 void Game::run() {
 	// Initialise the SDLGame singleton
 	auto& sdl = *SDLUtils::instance();
