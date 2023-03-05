@@ -3,8 +3,10 @@
 #include "../ecs/Entity.h"
 #include "../sdlutils/SDLUtils.h"
 
+// destructora
 FighterCtrl::~FighterCtrl(){}
 
+// inicializa las referencias a otros componentes
 void FighterCtrl::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
@@ -12,6 +14,7 @@ void FighterCtrl::initComponent() {
 	assert(gn_ != nullptr);
 }
 
+// responde correspondientemente a los inputs detectados, aplicando sus efectos o llamando a otros métodos
 void FighterCtrl::handleInput() {
 	if (input_->isKeyDown(SDLK_UP)) {
 		sdlutils().soundEffects().at("thrust").play();

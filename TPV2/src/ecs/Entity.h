@@ -9,8 +9,10 @@
 
 using namespace std;
 class Manager;
+// declaracion de la clase padre entity
 class Entity {
 public:
+	// metodos publicos de la clase, hererdados por el resto de entidades
 	Entity(Manager* m);
 	template<typename T>
 	inline void removeComponent() {
