@@ -1,5 +1,7 @@
+#include "../checkML.h"
 #include "FramedImage.h"
 #include "../ecs/Entity.h"
+
 FramedImage::~FramedImage() {
 
 }

@@ -1,6 +1,8 @@
 #pragma once
+#include "../checkML.h"
 #include "Transform.h"
 #include "../sdlutils/Texture.h"
+
 class FramedImage: public Component
 {
 public: 

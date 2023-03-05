@@ -1,4 +1,5 @@
 #pragma once
+#include "../checkML.h"
 #include "Transform.h"
 class DeAcceleration : public Component
 {

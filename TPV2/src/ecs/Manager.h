@@ -1,4 +1,5 @@
 #pragma once
+#include "../checkML.h"
 #include <vector>
 #include <array>
 #include "Entity.h"
@@ -14,11 +15,22 @@ public:
 			groupEntities.reserve(100);
 		}
 	};
+
 	virtual ~Manager(){
 		for (auto& ents : ents_) {
-			for (auto e : ents)
-				delete e;
+			for (auto e : ents) {
+				delete[] e;
+				e = nullptr;
+			}
 		}
+
+		/*for (int i = 0; i < ents_.size(); ++i) {
+			for (int j = 0; j < ents_[i].size(); ++j) {
+				delete ents_[i][j];
+			}
+			delete ents_;
+		}
+		delete[] ents_;*/
 	};
 
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {

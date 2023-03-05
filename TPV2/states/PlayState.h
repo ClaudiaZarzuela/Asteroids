@@ -1,4 +1,5 @@
 #pragma once
+#include "../src/checkML.h"
 #include "GameState.h"
 #include "PauseState.h"
 #include "MainMenuState.h"
@@ -18,6 +19,12 @@ private:
 public:
 	// Constructora de la clase
 	PlayState();
+	~PlayState() {
+		delete aManager;
+		aManager = nullptr;
+		delete cManager;
+		cManager = nullptr;
+	}
 	virtual void update();
 	void inputHandler() override;
 	void changeState();

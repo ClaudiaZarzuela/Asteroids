@@ -1,3 +1,4 @@
+#include "../checkML.h"
 #include "TextRender.h"
 
 void TextRender::render() {

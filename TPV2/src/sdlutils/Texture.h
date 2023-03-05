@@ -114,12 +114,12 @@ private:
 			const Font &font, const SDL_Color *fgColor,
 			const SDL_Color *bgColor = nullptr);
 
-	SDL_Texture *texture_;
-	SDL_Renderer *renderer_;
-	int width_;
-	int height_;
-	int numRows_;
-	int numCols_;
-	int fw, fh;
+	SDL_Texture *texture_ = nullptr;
+	SDL_Renderer *renderer_ = nullptr;
+	int width_ = 0;
+	int height_ = 0;
+	int numRows_ = 0;
+	int numCols_ = 0;
+	int fw = 0, fh = 0;
 	
 };

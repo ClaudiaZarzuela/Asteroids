@@ -1,10 +1,12 @@
 #pragma once
+#include "../checkML.h"
 #include "../game/ecs_def.h"
 #include "Component.h"
 #include<vector>
 #include<array>
 #include<utility>
 #include "../sdlutils/SDLUtils.h"
+
 using namespace std;
 class Manager;
 class Entity {
@@ -49,6 +51,7 @@ public:
 	virtual ~Entity() {
 		for (auto c : currCmps_) {
 			delete c;
+			c = nullptr;
 		}
 	};
 	inline bool isAlive() { return alive_; };

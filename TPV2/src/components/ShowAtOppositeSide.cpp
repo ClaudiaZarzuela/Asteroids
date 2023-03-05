@@ -1,5 +1,7 @@
+#include "../checkML.h"
 #include "ShowAtOppositeSide.h"
 #include "../ecs/Entity.h"
+
 void ShowAtOppositeSide::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);

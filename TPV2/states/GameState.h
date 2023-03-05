@@ -1,4 +1,5 @@
 #pragma once
+#include "../src/checkML.h"
 #include <list>
 #include <windows.h>
 #include "../src/ecs/Entity.h"
@@ -26,7 +27,10 @@ protected:
 public:
 
 	// Destructora de la clase
-	virtual ~GameState(){};
+	virtual ~GameState(){
+		delete manager_;
+		manager_ = nullptr;
+	};
 
 	// Metodos publicos de la clase
 	void deleteState() { deleted = true; };

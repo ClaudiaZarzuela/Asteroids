@@ -1,5 +1,7 @@
 #pragma once
+#include "../checkML.h"
 #include "Transform.h"
+
 class ShowAtOppositeSide: public Component
 {
 public:

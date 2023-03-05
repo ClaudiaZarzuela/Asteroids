@@ -1,3 +1,4 @@
+#include "../checkML.h"
 #include "Game.h"
 #include <iostream>
 #include <SDL.h>
@@ -32,6 +33,7 @@ void Game::init() {
 Game::~Game() {
 	delete  gameStateMachine;
 	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
+	for (int i = 0; i < NUM_TEXTS; ++i) delete texts[i];
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -55,5 +57,7 @@ void Game::run() {
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
 		gameStateMachine->currentState()->refresh();
+		if (InputHandler::instance()->closeWindowEvent())
+			exit_ = true;
 	}
 }

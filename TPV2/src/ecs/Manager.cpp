@@ -1,3 +1,4 @@
+#include "../checkML.h"
 #include "Manager.h"
 
 	Entity* Manager::addEntity(ecs::grpId_type gId) {

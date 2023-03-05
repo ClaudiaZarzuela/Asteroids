@@ -1,8 +1,10 @@
 #pragma once
+#include "../checkML.h"
 #include "../ecs/Component.h"
 #include "../game/ecs_def.h"
 #include "Transform.h"
 #include "../ecs/Manager.h"
+
 class Follow : public Component
 {
 public:
