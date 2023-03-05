@@ -7,6 +7,8 @@ FighterCtrl::~FighterCtrl(){}
 void FighterCtrl::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
+	gn_ = ent_->getComponent<Gun>();
+	assert(gn_ != nullptr);
 }
 
 void FighterCtrl::update() {
@@ -24,5 +26,13 @@ void FighterCtrl::update() {
 	}
 	if (input_->isKeyDown(SDLK_LEFT)) {
 		tr_->setRot(tr_->getRot() - 5.0f);
+	}
+	if (input_->isKeyDown(SDLK_s) && shoot) {
+		gn_->instanciateBullet();
+		shoot = false;
+		elapsedTime = sdlutils().currRealTime();
+	}
+	if (sdlutils().currRealTime() - elapsedTime > 250) {
+		shoot = true;
 	}
 }

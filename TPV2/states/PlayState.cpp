@@ -19,8 +19,8 @@ PlayState::PlayState() :GameState(){//Creamos las paredes
 	caza->addComponent<Transform>(Vector2D(sdlutils().width()/2, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
 	caza->addComponent<ShowAtOppositeSide>();
 	caza->addComponent<DeAcceleration>();
-	caza->addComponent<FighterCtrl>();
 	caza->addComponent<Gun>(Game::instance()->getTexture(BULLET));
+	caza->addComponent<FighterCtrl>();
 	caza->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
 

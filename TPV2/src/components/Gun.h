@@ -15,8 +15,8 @@ public:
 	Gun(Texture* tex) : tex_(tex) {};
 	virtual ~Gun();
 	//void initComponent() override;
-	void update() override;
 	void initComponent() override;
+	void instanciateBullet();
 	InputHandler* input_ = InputHandler::instance();
 
 private:
@@ -24,7 +24,6 @@ private:
 	Transform* tr_;
 	bool shoot = true;
 	float elapsedTime = 0;
-	void instanciateBullet();
 
 };
 

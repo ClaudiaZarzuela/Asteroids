@@ -22,17 +22,6 @@ void Gun::instanciateBullet() {
 	bullet->addComponent<DisableOnExit>();
 
 }
-void Gun::update() {
-	if (shoot && input_->isKeyDown(SDLK_s)) {
-		instanciateBullet();
-		shoot = false;
-		elapsedTime = sdlutils().currRealTime();
-	}
-
-	if (sdlutils().currRealTime() - elapsedTime > 250) {
-		shoot = true;
-	}
-}
 
 void Gun::initComponent() {
 	tr_ = ent_->getComponent<Transform>();
