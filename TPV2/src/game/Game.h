@@ -6,6 +6,7 @@
 #include <list>
 #include "../../states/GameStateMachine.h"
 #include "../../states/MainMenuState.h"
+#include "../../states/PlayState.h"
 #include "../utils/Singleton.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../sdlutils/Music.h"
@@ -13,7 +14,7 @@
 using namespace std;
 
 const int NUM_TEXTURES = 5;
-const int NUM_TEXTS = 3;
+const int NUM_TEXTS = 4;
 
 enum GameStates {
 	PLAY = 0,
@@ -26,7 +27,7 @@ static const enum TextureNames {
 	NAVE = 0, ASTEROID = 1, HEALTH=2, BULLET =3, ASTEROID_GOLD = 4
 };
 static const enum TextNames {
-	MAINMENU = 0, PAUSA = 1, GAMEOVER = 2
+	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3
 };
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
@@ -58,9 +59,10 @@ private:
 		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 }
 	};
 	Texts text[NUM_TEXTS] = {
-		{ "Press SPACE to Start", 0x112233ff,0},
-		{ "Press SPACE to Resume", 0x112233ff, 0xfffffff },
-		{ "Press SPACE to Restart", 0x112233ff, 0xfffffff }
+		{ "Press space to Start", 0x112233ff, 0},
+		{ "Press space to Continue", 0x112233ff, 1 },
+		{ "Game Over: Loser!", 0x112233ff, 0},
+		{ "Game Over: You Win!", 0x112233ff, 0}
 	};
 
 	Texture* textures[NUM_TEXTURES];

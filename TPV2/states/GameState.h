@@ -17,9 +17,9 @@ protected:
 	// Constructora protegida
 	Manager* manager_ ;
 	Entity* inputCheck = nullptr;
-	GameState() { 
-		manager_ = new Manager(); 
-	};
+	Entity* fighter = nullptr;
+	int x, y;
+	GameState();
 	bool deleted = false;
 	bool inputChangeState = false;
 

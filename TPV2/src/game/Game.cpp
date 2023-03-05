@@ -21,9 +21,10 @@ void Game::init() {
 			texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor));
 
 		}
-		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(text[i].backgroundColor));
+		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
 	gameStateMachine = new GameStateMachine();
+	gameStateMachine->pushState(new PlayState());
 	gameStateMachine->pushState(new MainMenuState());
 	//sdl.musics().at("imperial_march").play();
 }
@@ -48,7 +49,7 @@ void Game::run() {
 		gameStateMachine->currentState()->update();
 		// clear screen
 		sdl.clearRenderer();
-		gameStateMachine->currentState()->render();
+		gameStateMachine->render();
 		// present new frame
 		sdl.presentRenderer();
 		Uint32 frameTime = sdl.currRealTime() - startTime;
