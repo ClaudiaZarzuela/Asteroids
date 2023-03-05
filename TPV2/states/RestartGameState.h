@@ -7,8 +7,6 @@ class RestartGameState: public GameState
 {
 private:
 	static const string restartID;
-	bool exit_ = false;
-	int x, y;
 
 public:
 	// Constructora de la clase

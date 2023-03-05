@@ -4,6 +4,7 @@
 #include "PauseState.h"
 #include "MainMenuState.h"
 #include "RestartGameState.h"
+#include "GameOverState.h"
 #include "../src/game/AsteroidManager.h"
 #include "../src/game/CollisionsManager.h"
 
@@ -27,7 +28,11 @@ public:
 	}
 	virtual void update();
 	void inputHandler() override;
-	void changeState();
+	void changeRestartState();
+	void changeGameOvertState();
+	void startGame();
+	void resetGame();
+	void resetAsteroids();
 	Manager* getManager() { return manager_; }
 	AsteroidManager* getAManager() { return aManager; }
 	virtual string getStateID() const { return playID; }

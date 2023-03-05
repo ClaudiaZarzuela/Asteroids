@@ -3,5 +3,8 @@
 
 // renderiza el texto
 void TextRender::render() {
-	text->render(x, y);
+	text1->render(x, y);
+	if (text2 != nullptr) {
+		text2->render(x, 100);
+	}
 }

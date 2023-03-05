@@ -26,7 +26,6 @@ void GameStateMachine::popState() {
 
 // Elimina el primer estado de la pila y añade uno nuevo
 void GameStateMachine::changeState(GameState* pState) {
-
 	if (!gameStateStack.empty()) {
 		if (gameStateStack.front()->getStateID() == pState->getStateID()) return;
 		delete gameStateStack.front();
@@ -39,5 +38,10 @@ void GameStateMachine::emptyStates() {
 	while (!gameStateStack.empty()) {
 		delete gameStateStack.front();
 		gameStateStack.pop_front();
+	}
+}
+void GameStateMachine::render() {
+	for (int i = 0; i < gameStateStack.size(); ++i) {
+		gameStateStack[i]->render();
 	}
 }

@@ -27,6 +27,7 @@ public:
 	void changeState(GameState* pState);
 	void popState();
 	void emptyStates();
+	void render();
 	GameState* lastState() {
 		if (!gameStateStack.empty()) return gameStateStack.back();
 		else return nullptr;

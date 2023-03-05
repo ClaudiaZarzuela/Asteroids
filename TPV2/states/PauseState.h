@@ -10,7 +10,6 @@ class PauseState : public GameState {
 private:
 	static const string pauseID;
 	bool exit_ = false;
-	int x, y;
 
 public:
 	// Constructora de la clase

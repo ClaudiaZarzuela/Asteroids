@@ -25,14 +25,24 @@ PlayState::PlayState() :GameState(){
 	caza->addComponent<FighterCtrl>();
 	caza->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
 	caza->addComponent<Image>(Game::instance()->getTexture(NAVE));
-
 	aManager = new AsteroidManager(manager_);
-	aManager->createAsteroids(10);
-
-	cManager = new CollisionsManager(aManager, manager_, this); // hay que llamar a su check collisions pero no se desde donde jeje
-
+	cManager = new CollisionsManager(aManager, manager_, this);
 }
 
+void PlayState::startGame() {
+	manager_->refresh();
+	resetAsteroids();
+	caza->getComponent<Health>()->resetLives();
+}
+void PlayState::resetGame() {
+	//manager_->refresh();
+	aManager->destroyAllAsteroids();
+	caza->getComponent<Transform>()->reset();
+	manager_->refresh();
+}
+void PlayState::resetAsteroids() {
+	aManager->createAsteroids(10);
+}
 void PlayState::update() {
     cManager->checkCollision();
 	aManager->addAsteroidFrequently();
@@ -45,15 +55,18 @@ void PlayState::inputHandler() {
 	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
 	if (inputChangeState) {
 		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
-		cout << "Cambio al estado de pausa" << endl;
-		Game::instance()->gameStateMachine->pushState(new PauseState());
-		inputChangeState = false;
+			cout << "Cambio al estado de pausa" << endl;
+			Game::instance()->gameStateMachine->pushState(new PauseState());
+			inputChangeState = false;
 		}
 	}
 }
 
-void PlayState::changeState() {
-	cout << "Cambio al estado de pausa nuevo" << endl;
+void PlayState::changeRestartState() {
 	Game::instance()->gameStateMachine->pushState(new RestartGameState());
+	inputChangeState = false;
+}
+void PlayState::changeGameOvertState() {
+	Game::instance()->gameStateMachine->pushState(new GameOverState("Lose"));
 	inputChangeState = false;
 }

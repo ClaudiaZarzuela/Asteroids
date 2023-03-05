@@ -1,32 +1,42 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
-  AsteroidManager.cpp
+  GameOverState.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(28,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(31,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
 C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.h(11,45): warning C4244: 'inicializando': conversión de 'Uint32' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\components\Transform.h(23,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(27,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\Game.h(30,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(15,50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(16,92): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(16,50): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(17,53): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(18,70): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(18,41): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(20,69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(20,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(20,148): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(20,110): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(42,40): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(64,101): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(65,60): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(68,101): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(69,60): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\ecs\Entity.h(40,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
-          with
-          [
-              _Ty=int
-          ]
-C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\TPV2\src\game\AsteroidManager.cpp(25): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Entity::addComponent<Transform,Vector2D&,Vector2D&,float,float,int>(Vector2D &,Vector2D &,float &&,float &&,int &&)" que se está compilando
-          with
-          [
-              T=Transform
-          ]
+     Creando biblioteca C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.lib y objeto C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exp
+MainMenuState.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+MainMenuState.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+GameStateMachine.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+GameState.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Transform.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Collisions.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Collisions.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Collisions.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+SoundEffect.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+SoundEffect.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+sdlutils_demo.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+json_demo.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+json_demo.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Entity.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Entity.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Entity.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Manager.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Manager.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+FramedImage.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+DeAcceleration.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+DeAcceleration.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Generations.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Generations.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Follow.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+Follow.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+AsteroidManager.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+TextRender.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+RestartGameState.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+RestartGameState.obj : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
+SDL2_mixer.lib(SDL2_mixer.dll) : warning LNK4020: un registro de tipo de 'c:\users\claud\onedrive\documentos\asteroids\asteroids\tpv2\x64\debug\vc143.pdb' está dañado; puede que algunos símbolos y tipos no sean accesibles desde el depurador
   TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\Asteroids\bin\TPV2Debug.exe

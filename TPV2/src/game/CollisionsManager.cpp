@@ -23,11 +23,13 @@ void CollisionsManager::checkCollision() {
 			sdlutils().soundEffects().at("explosion").play();
 			player->getComponent<Health>()->loseLife();
 			for (auto b : bull) b->setAlive(false);
-			playerTransform->reset();
+			playState_->resetGame();
 			if (player->getComponent<Health>()->getLives() <= 0) {
-				Game::instance()->gameStateMachine->pushState(new GameOverState("Lose"));
+				playState_->changeGameOvertState();
 			}
-			else { playState_->changeState();}
+			else { 
+				playState_->changeRestartState();
+			}
 			break;
 		}
 		for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {

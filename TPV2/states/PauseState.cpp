@@ -7,8 +7,6 @@ const string PauseState::pauseID = "PAUSE";
 
 // Constructora de la clase, que difine sus botones y fondo
 PauseState::PauseState() : GameState() {
-	x = (sdlutils().width() - Game::instance()->getText(PAUSA)->width()) / 2;
-	y = (sdlutils().height() - Game::instance()->getText(PAUSA)->height()) / 2;
 	inputCheck = manager_->addEntity();
 	inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), x, y);
 }

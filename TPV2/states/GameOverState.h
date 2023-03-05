@@ -7,8 +7,6 @@ class GameOverState: public GameState
 {
 private:
 	static const string gameOverID;
-	bool exit_ = false;
-	int x, y;
 	string infoState;
 
 public:

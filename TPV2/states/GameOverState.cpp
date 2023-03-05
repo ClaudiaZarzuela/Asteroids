@@ -6,12 +6,14 @@
 const string GameOverState::gameOverID = "GAMEOVER";
 // Constructora de la clase, que difine sus botones y fondo
 GameOverState::GameOverState(string info) : GameState() {
-	x = (sdlutils().width() - Game::instance()->getText(PAUSA)->width()) / 2;
-	y = (sdlutils().height() - Game::instance()->getText(PAUSA)->height()) / 2;
 	inputCheck = manager_->addEntity();
-	inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), x, y);
+	if (info == "Win") {
+		inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), Game::instance()->getText(WIN), x, y);
+	}
+	else {
+		inputCheck->addComponent<TextRender>(Game::instance()->getText(PAUSA), Game::instance()->getText(LOSE), x, y);
+	}
 }
-
 
 void GameOverState::inputHandler() {
 	GameState::inputHandler();
@@ -19,7 +21,8 @@ void GameOverState::inputHandler() {
 	if (inputChangeState) {
 		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
 			cout << "Cambio al mainMenu" << endl;
-			Game::instance()->gameStateMachine->emptyStates();
+			auto playSt = dynamic_cast<PlayState*>(Game::instance()->gameStateMachine->lastState());
+			playSt->resetGame();
 			Game::instance()->gameStateMachine->changeState(new MainMenuState());
 			inputChangeState = false;
 		}

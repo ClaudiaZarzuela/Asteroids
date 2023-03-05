@@ -11,7 +11,6 @@ class MainMenuState : public GameState
 {
 private:
 	static const string menuID;
-	int x, y;
 public:
 
 	// Constructora de la clase
