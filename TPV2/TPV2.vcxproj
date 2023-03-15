@@ -19,6 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\systems\RenderSystem.h" />
+    <ClInclude Include="src\systems\CollisionsSystem.h" />
+    <ClInclude Include="src\systems\FighterSystem.h" />
+    <ClInclude Include="src\systems\BulletSystem.h" />
+    <ClInclude Include="src\systems\AsteroidsSystem.h" />
+    <ClInclude Include="src\systems\GameCtrlSystem.h" />
     <ClInclude Include="states\GameOverState.h" />
     <ClInclude Include="states\RestartGameState.h" />
     <ClInclude Include="src\components\TextRender.h" />
@@ -63,8 +69,15 @@
     <ClInclude Include="states\MainMenuState.h" />
     <ClInclude Include="states\PauseState.h" />
     <ClInclude Include="states\PlayState.h" />
+    <ClInclude Include="src\ecs\System.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\systems\RenderSystem.cpp" />
+    <ClCompile Include="src\systems\CollisionsSystem.cpp" />
+    <ClCompile Include="src\systems\FighterSystem.cpp" />
+    <ClCompile Include="src\systems\BulletSystem.cpp" />
+    <ClCompile Include="src\systems\AsteroidsSystem.cpp" />
+    <ClCompile Include="src\systems\GameCtrlSystem.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\RestartGameState.cpp" />
     <ClCompile Include="src\components\TextRender.cpp" />
@@ -100,6 +113,7 @@
     <ClCompile Include="states\MainMenuState.cpp" />
     <ClCompile Include="states\PauseState.cpp" />
     <ClCompile Include="states\PlayState.cpp" />
+    <ClCompile Include="src\ecs\System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\resources\images\asteroid.png" />

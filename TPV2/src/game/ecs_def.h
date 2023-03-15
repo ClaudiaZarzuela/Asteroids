@@ -34,4 +34,28 @@ namespace ecs {
 		FIGHTER,
 		_LAST_HDLR_ID };
 	constexpr hdlrId_type maxHdlrId = _LAST_HDLR_ID;
+	using sysId_type = uint8_t;
+	enum sysId : sysId_type {
+		_sys_CNTRL,
+		_sys_ASTEROIDS,
+		_sys_BULLETS,
+		_LAST_SYS_ID
+	};
+	constexpr sysId_type maxSysId = _LAST_SYS_ID;
+	struct Message {
+		msgId_type id;
+		// _m_STAR_EATEN
+		struct {
+			Entity* e;
+		} star_eaten_data;
+		// _m_ADD_STARS
+		struct {
+			unsigned int n;
+		} add_stars_data;
+	};
+	using msgId_type = uint8_t;
+	enum msgId : msgId_type {
+		_m_STAR_EATEN, //
+		_m_ADD_STARS
+	};
 }

@@ -4,13 +4,13 @@
 	Entity* Manager::addEntity(ecs::grpId_type gId) {
 		Entity* e = new Entity(this);
 		e->setAlive(true);
-		ents_[gId].push_back(e);
+		entsByGroup_[gId].push_back(e);
 		return e;
 	}
 
 	void Manager::refresh() {
 		for (ecs::grpId_type gId = 0; gId < ecs::maxGroupId; ++gId) {
-			auto& grpEnts = ents_[gId];
+			auto& grpEnts = entsByGroup_[gId];
 			grpEnts.erase(
 				std::remove_if(grpEnts.begin(), grpEnts.end(), [](Entity* e) {
 					if (e->isAlive()) {
@@ -26,7 +26,7 @@
 	}
 
 	void Manager::update() {
-		for (auto& ents : ents_) {
+		for (auto& ents : entsByGroup_) {
 			auto n = ents.size();
 			for (auto i = 0u; i < n; i++)
 				ents[i]->update();
@@ -35,14 +35,14 @@
 	}
 
 	void Manager::render() {
-		for (auto& ents : ents_) {
+		for (auto& ents : entsByGroup_) {
 			auto n = ents.size();
 			for (auto i = 0u; i < n; i++)
 				ents[i]->render();
 		}
 	}
 	void Manager::inputHandler() {
-		for (auto& ents : ents_) {
+		for (auto& ents : entsByGroup_) {
 			auto n = ents.size();
 			for (auto i = 0u; i < n; i++)
 				ents[i]->handleInput();
