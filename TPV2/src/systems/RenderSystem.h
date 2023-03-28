@@ -5,7 +5,7 @@
 class RenderSystem : public System {
 public:
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
-	void receive(const Message& m) override;
+	void recieve(const ecs::Message& m) override;
 		// Inicializar el sistema, etc.
 	void initSystem() override;
 		// - Dibujar asteroides, balas y caza (sólo si el juego no está parado).

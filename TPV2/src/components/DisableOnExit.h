@@ -6,7 +6,7 @@
 
 using namespace std;
 // componente que desactiva las balas si estas salen de la pantalla
-class DisableOnExit : public Component
+struct DisableOnExit : public Component
 {
 public:
 	// id
@@ -15,7 +15,7 @@ public:
 	DisableOnExit() : tr_(nullptr) {}
 	virtual ~DisableOnExit();
 	void initComponent();
-	void update() override;
+
 private:
 	Transform* tr_;
 };

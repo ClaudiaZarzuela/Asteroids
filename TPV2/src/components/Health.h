@@ -5,7 +5,7 @@
 #include "../game/ecs_def.h"
 
 // componente encargado de mantener y mostar en pantalla la salud de la nave
-class Health :public Component
+struct Health :public Component
 {
 public:
 	// id
@@ -15,11 +15,11 @@ public:
 		tex_(tex), maxLives(h) {
 		actLives = maxLives;
 	}
-	virtual ~Health();
-	void render() override;
+	virtual ~Health();;
 	void resetLives() { actLives = maxLives; }
 	int getLives() { return actLives; }
 	void loseLife() { actLives--; }
+
 private:
 	Texture* tex_;
 	int textSize = 30;

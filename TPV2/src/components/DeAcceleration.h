@@ -2,7 +2,7 @@
 #include "../checkML.h"
 #include "Transform.h"
 // componente que reduce la velocidad del caza gradualmente
-class DeAcceleration : public Component
+struct DeAcceleration : public Component
 {
 public:
 	// id 
@@ -11,7 +11,7 @@ public:
 	DeAcceleration() : tr_(nullptr){}
 	virtual ~DeAcceleration();
 	void initComponent() override;
-	void update() override;
+
 private:
 	Transform* tr_;
 };

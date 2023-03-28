@@ -38,7 +38,9 @@ namespace ecs {
 	enum sysId : sysId_type {
 		_sys_CNTRL,
 		_sys_ASTEROIDS,
+		_sys_FIGHTER,
 		_sys_BULLETS,
+		_sys_COLLISIONS,
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;

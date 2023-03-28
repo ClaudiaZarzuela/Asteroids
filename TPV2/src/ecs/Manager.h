@@ -61,6 +61,7 @@ public:
 	inline ecs::grpId_type groupId(Entity* e) {
 		return e->gId_;
 	}
+
 	template<typename T, typename ...Ts>
 	inline T* addSystem(Ts &&... args) {
 		constexpr sysId_type sId = T::id;
@@ -84,13 +85,31 @@ public:
 			sys_[sId] = nullptr;
 		}
 	}
-	inline void send(const ecs::Message& m) {
-		for (System* s : sys_) {
-			if (s != nullptr)
-				s->recieve(m);
+	inline void send(const ecs::Message& m, bool delay = false) {
+		if (!delay) {
+			for (System* s : sys_) {
+				if (s != nullptr)
+					s->recieve(m);
+			}
+		}
+		else {
+			msgs_.emplace_back(m);
 		}
 	}
+	inline void flushMessages() {
+		std::swap(msgs_, aux_msgs_);
+		for (auto& m : aux_msgs_) {
+			for (System* s : sys_) {
+				if (s != nullptr)
+					s->recieve(m);
+			}
+		}
+		aux_msgs_.clear();
+	}
+
 private:
+	std::vector<ecs::Message> msgs_;
+	std::vector<ecs::Message> aux_msgs_;
 	std::array<System*, ecs::maxSysId> sys_;
 	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;

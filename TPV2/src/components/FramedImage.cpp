@@ -20,13 +20,13 @@ void FramedImage::render() {
 }
 
 // actualiza las filas y columnas de la textura para cambiar el frame de la animacion
-void FramedImage::update() {
-	if (sdlutils().currRealTime() >= frameTime) {
-		col = (col + 1) % tex_->getCol();
-
-		if (col == tex_->getCol()) {
-			row = (row + 1) % tex_->getRow();
-		}
-		frameTime = sdlutils().currRealTime() + 50;
-	}
-}
+//void FramedImage::update() {
+//	if (sdlutils().currRealTime() >= frameTime) {
+//		col = (col + 1) % tex_->getCol();
+//
+//		if (col == tex_->getCol()) {
+//			row = (row + 1) % tex_->getRow();
+//		}
+//		frameTime = sdlutils().currRealTime() + 50;
+//	}
+//}

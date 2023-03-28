@@ -4,7 +4,7 @@
 #include "../sdlutils/Texture.h"
 
 // componente encargado de renderizar texturas con varios frames paar formar una animacion
-class FramedImage: public Component
+struct FramedImage: public Component
 {
 public:
 	// id
@@ -13,8 +13,6 @@ public:
 	FramedImage(Texture* tex) : tr_(nullptr), tex_(tex) {}
 	virtual ~FramedImage();
 	void initComponent() override;
-	void render() override;
-	void update() override;
 	
 private:
 	Transform* tr_;

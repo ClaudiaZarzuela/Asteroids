@@ -4,7 +4,7 @@
 #include "../game/ecs_def.h"
 
 // componente encargado de mantener las generaciones de cada asteroide
-class Generations : public Component
+struct Generations : public Component
 {
 private:
 	int generation;

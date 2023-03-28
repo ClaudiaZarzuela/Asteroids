@@ -5,7 +5,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 // componente encargado de renderizar texto en pantalla
-class TextRender: public Component
+struct TextRender: public Component
 {
 public:
 	// id
@@ -14,7 +14,7 @@ public:
 	TextRender(Texture* t, int x_, int y_) : x(x_), y(y_), text1(t), text2(nullptr) {};
 	TextRender(Texture* t1, Texture* t2, int x_, int y_) : x(x_), y(y_), text1(t1), text2(t2) {};
 	virtual ~TextRender() {};
-	void render() override;
+
 private:
 	int x = 0;
 	int y = 0;

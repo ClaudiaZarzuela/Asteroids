@@ -6,7 +6,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 // componente encargado de gestionar la posicion, velocidad, rotacion y tamaño de las entidades
-class Transform : public Component {
+struct Transform : public Component {
 public:
 	// id
 	constexpr static ecs::cmpId_type id = ecs::_TRANSFORM;
@@ -21,7 +21,6 @@ public:
 	float getW() { return width_; }
 	float getH() { return height_; }
 	float getRot() { return rotation_; }
-	void update() override;
 	void reset() { 
 		position_ = Vector2D(sdlutils().width() / 2 - width_ / 2, sdlutils().height() / 2);
 		velocity_ = Vector2D( 0, 0 );

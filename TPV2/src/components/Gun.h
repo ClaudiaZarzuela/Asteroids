@@ -7,7 +7,7 @@
 #include "Transform.h"
 
 // componente encargado de generar y disparar una bala 
-class Gun : public Component
+struct Gun : public Component
 {
 public:
 	// id

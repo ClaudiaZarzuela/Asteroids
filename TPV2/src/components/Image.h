@@ -4,7 +4,7 @@
 #include "Transform.h"
 
 // componente encargado de renderizar texturas
-class Image : public Component {
+struct Image : public Component {
 public:
 	// id
 	constexpr static ecs::cmpId_type id = ecs::_IMAGE;
@@ -15,7 +15,7 @@ public:
 	}
 	virtual ~Image(); 
 	void initComponent() override;
-	void render() override;
+
 private:
 	Transform* tr_;
 	Texture* tex_;

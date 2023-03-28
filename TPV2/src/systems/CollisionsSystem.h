@@ -4,8 +4,9 @@
 
 class CollisionsSystem : public System {
 public:
+	constexpr static ecs::sysId_type id = ecs::_sys_COLLISIONS;
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
-	void receive(const Message& m) override;
+	void recieve(const ecs::Message& m) override;
 		// Inicializar el sistema, etc.
 	void initSystem() override;
 		// Si el juego está parado no hacer nada, en otro caso comprobar colisiones como

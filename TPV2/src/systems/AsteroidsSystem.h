@@ -8,7 +8,7 @@ public:
 	constexpr static ecs::sysId_type id = ecs::_sys_ASTEROIDS;
 	AsteroidsSystem();
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
-	void receive(const Message& m) override;
+	virtual void recieve(const ecs::Message& m) override;
 		// Inicializar el sistema, etc.
 	void initSystem() override;
 		// Si el juego está parado no hacer nada, en otro caso mover los asteroides como
@@ -23,8 +23,9 @@ public:
 			tr->setRot(tr->getRot() + 5.0f);
 		}
 	}
-	void recieve(const ecs::Message& m);
 private:
+	void onStarEaten();
+	void addStar();
 	// Para gestionar el mensaje de que ha habido un choque de un asteroide con una
 	// bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
 	// y si no hay más asteroides enviar un mensaje correspondiente.
