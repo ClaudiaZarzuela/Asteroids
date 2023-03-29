@@ -17,7 +17,7 @@ public:
 	void update() override;
 	virtual ~AsteroidsSystem() { }
 	virtual void update() {
-		for (auto e : mngr_->getEntitiesByGroup(ecs::_grp_ASTEROIDS)) {
+		for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
 			auto tr = mngr_->getComponent<Transform>(e);
 			tr->getPos() = tr->getPos() + tr->getVel();
 			tr->setRot(tr->getRot() + 5.0f);

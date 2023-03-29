@@ -12,7 +12,7 @@ public:
 	Manager();
 	virtual ~Manager();
 	inline Entity* addEntity(ecs::grpId_type gId);
-	inline const auto& getEntitiesByGroup(ecs::grpId_type gId);
+	inline const auto& getEntities(ecs::grpId_type gId);
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e);
 	inline Entity* getHandler(ecs::hdlrId_type hId);
 	void update();
