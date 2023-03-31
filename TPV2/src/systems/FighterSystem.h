@@ -2,6 +2,7 @@
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
 #include "../components/Transform.h"
+#include "../sdlutils/InputHandler.h"
 
 class FighterSystem : public System {
 public:
