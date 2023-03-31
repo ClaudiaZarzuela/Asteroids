@@ -56,7 +56,7 @@ void Game::run() {
 		Uint32 frameTime = sdl.currRealTime() - startTime;
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
-		//gameStateMachine->refresh();
+		Manager::instance()->refresh();
 		if (InputHandler::instance()->closeWindowEvent())
 			exit_ = true;
 	}

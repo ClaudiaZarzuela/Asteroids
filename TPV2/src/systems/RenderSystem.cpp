@@ -11,8 +11,26 @@ RenderSystem:: ~RenderSystem() {
 	SDL_DestroyRenderer(renderer);
 }
 void RenderSystem::recieve(const ecs::Message& m) {
-	if (m.id == ecs::_m_CHANGE_STATE) {
-		state_ = currentState;
+	switch (m.id) {
+	case ecs::_m_PLAY: 
+		state_ = PLAY;
+		break;
+
+	case ecs::_m_MAINMENU: //pasa al endState
+		state_ = MENU;
+		break;
+
+	case ecs::_m_RESTART: //pasa al endState
+		state_ = RESTART;
+		break;
+
+	case ecs::_m_PAUSE: //pasa al pauseState
+		state_ = PAUSE;
+		break;
+
+	case ecs::_m_GAME_OVER: //pasa al playState
+		state_ = GAMEOVER;
+		break;
 	}
 }
 
@@ -33,6 +51,7 @@ void RenderSystem::initSystem() {
 	}
 
 	fighter = mngr_->getHandler(ecs::FIGHTER);
+
 	//Textos indicativos en cada estado
 	//text1_ = mngr_->addEntity(ecs::_grp_TEXT);
 	//text2_ = mngr_->addEntity(ecs::_grp_TEXT);
@@ -57,30 +76,58 @@ void RenderSystem::update() {
 	textures[NAVE]->render(dest, f->getRot());
 
 	switch (state_) {
-		case MAINMENU:
-			//RENDER TEXTO
-			text1_ = mngr_->addEntity(ecs::_grp_TEXT);
-			mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100)
-			; break;
-
-		case PLAY:
-			//RENDER TEXTO
-
-			//RENDER BALAS Y ASTEROIDES
-			inGameObjects();
-			; break;
-		case RESTART:
-			//RENDER TEXTO
-			; break;
-		case PAUSE:
-			//RENDER TEXTO
-
-			//RENDER BALAS Y ASTEROIDES
-			inGameObjects();
-			; break;
-		case GAMEOVER:
-			//RENDER TEXTO
-			; break;
+//<<<<<<< HEAD
+//		case MAINMENU:
+//			//RENDER TEXTO
+//			text1_ = mngr_->addEntity(ecs::_grp_TEXT);
+//			mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100)
+//			; break;
+//
+//		case PLAY:
+//			//RENDER TEXTO
+//
+//			//RENDER BALAS Y ASTEROIDES
+//			inGameObjects();
+//			; break;
+//		case RESTART:
+//			//RENDER TEXTO
+//			; break;
+//		case PAUSE:
+//			//RENDER TEXTO
+//
+//			//RENDER BALAS Y ASTEROIDES
+//			inGameObjects();
+//			; break;
+//		case GAMEOVER:
+//			//RENDER TEXTO
+//			; break;
+//=======
+		case System::MENU:
+				//RENDER TEXTO
+			std::cout << "MENU" << std::endl;
+				; break;
+		case System::PLAY:
+				//RENDER TEXTO
+			std::cout << "PLAY" << std::endl;
+				//RENDER BALAS Y ASTEROIDES
+				animateAsteroids();
+				inGameObjects();
+				; break;
+		case System::RESTART:
+				//RENDER TEXTO
+			std::cout << "RESTART" << std::endl;
+				; break;
+		case System::PAUSE:
+				//RENDER TEXTO
+			std::cout << "PAUSE" << std::endl;
+				//RENDER BALAS Y ASTEROIDES
+				animateAsteroids();
+				inGameObjects();
+				; break;
+		case System::GAMEOVER:
+				//RENDER TEXTO
+			std::cout << "GAMEOVER" << std::endl;
+				; break;
 	}
 	
 	//RENDER TEXTOS
@@ -127,5 +174,32 @@ void RenderSystem::inGameObjects() {
 		Transform* tr_ = mngr_->getComponent<Transform>(grpBullets[i]);
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 		textures[BULLET]->render(dest, tr_->getRot());
+	}
+}
+
+void RenderSystem::animateAsteroids() {
+	if (sdlutils().currRealTime() >= frameTime) {
+		auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
+		for (auto i = 0; i < grpAst.size(); i++)
+		{
+			int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
+			int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
+			int colTotal;
+			int rowTotal;
+			if (mngr_->hasComponent<Follow>(grpAst[i])) {
+				colTotal = textures[ASTEROID_GOLD]->getCol();
+				rowTotal = textures[ASTEROID_GOLD]->getRow();
+			}
+			else {
+				colTotal = textures[ASTEROID]->getCol();
+				rowTotal = textures[ASTEROID]->getRow();
+			}
+				
+			col = (col + 1) % colTotal;
+			if (col == colTotal) {
+				row = (row + 1) % rowTotal;
+			}
+			frameTime = sdlutils().currRealTime() + 50;
+		}
 	}
 }

@@ -4,7 +4,15 @@
 #include "../components/Health.h"
 
 void CollisionsSystem::recieve(const ecs::Message& m) {
-
+	switch (m.id)
+	{
+	case ecs::_m_ROUND_OVER:
+		onRoundOver(); break;
+	case ecs::_m_ROUND_START:
+		onRoundStart(); break;
+		default:
+			break;
+	}
 }
 // Inicializar el sistema, etc.
 void CollisionsSystem::initSystem() {
