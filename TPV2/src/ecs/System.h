@@ -16,6 +16,7 @@ protected:
 	Manager* mngr_ = nullptr;
 	enum states{MAINMENU, PLAY, RESTART, PAUSE, GAMEOVER};
 	int currentState = MAINMENU;
+
 };
 
 

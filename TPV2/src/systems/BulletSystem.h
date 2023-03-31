@@ -13,10 +13,12 @@ public:
 	// desactivar las que salen de la ventana como en la práctica 1.
 	void update() override;
 private:
+	Vector2D bPos = { 0, 0 };
+	Vector2D bVel = { 0, 0 };
 	// Para gestionar el mensaje de que el jugador ha disparado. Añadir una bala al
 	// juego, como en la práctica 1. Recuerda que la rotación de la bala sería
 	// vel.angle(Vector2D(0.0f,-1.0f))
-	void shoot(Vector2D pos, Vector2D vel, double width, double height);
+	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
 	// Para gestionar el mensaje de que ha habido un choque entre una bala y un
 	// asteroide. Desactivar la bala “b”.
 	void onCollision_BulletAsteroid(Entity* b);
@@ -29,4 +31,3 @@ private:
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_;
 };
-

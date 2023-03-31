@@ -27,11 +27,6 @@ void CollisionsSystem::update() {
 
 				ifCollision();
 
-				if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
-					//playState_->callGameOver("Lose");
-				}
-				else { //playState_->changeState();
-				}
 				break;
 			}
 			for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
@@ -56,6 +51,11 @@ void CollisionsSystem::ifCollision() {
 	mngr_->getComponent<Health>(player)->loseLife();
 	for (auto b : mngr_->getEntities(ecs::_grp_BULLETS)) mngr_->setAlive(b, false);
 	mngr_->getComponent<Transform>(player)->reset();
+
+	if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
+		playState_->callGameOver("Lose");
+	}
+	else { playState_->changeState(); }
 
 	ecs::Message m; m.id = ecs::_m_ROUND_OVER; 
 	//aMngr_->destroyAllAsteroids();

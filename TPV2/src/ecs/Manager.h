@@ -32,15 +32,46 @@ public:
 			}
 		}
 	};
-	Entity* addEntity(ecs::grpId_type gId);
+	//Entity* addEntity(ecs::grpId_type gId);
 	inline const auto& getEntities(ecs::grpId_type gId) { return entsByGroup_[gId]; }
 	inline void setHandler(ecs::hdlrId_type hId, Entity* e) { hdlrs_[hId] = e;}
 	inline Entity* getHandler(ecs::hdlrId_type hId) { return hdlrs_[hId];}
 
-	void update();
+	//void update();
 	//void render();
-	void refresh();
+	//void refresh();
 	//void inputHandler();
+
+	Entity* addEntity(ecs::grpId_type gId) {
+		Entity* e = new Entity(gId);
+		setAlive(e, true);
+		entsByGroup_[gId].push_back(e);
+		return e;
+	}
+
+	void refresh() {
+		for (ecs::grpId_type gId = 0; gId < ecs::maxGroupId; ++gId) {
+			auto& grpEnts = entsByGroup_[gId];
+			grpEnts.erase(
+				std::remove_if(grpEnts.begin(), grpEnts.end(), [this](Entity* e) {
+					if (isAlive(e)) {
+						return false;
+					}
+					else {
+						delete e;
+						return true;
+					}
+					}),
+				grpEnts.end());
+		}
+	}
+
+	void update() {
+		for (auto& sys : sys_) {
+			sys->update();
+		}
+
+	}
 
 	//new methods in next slides
 	template<typename T, typename ...Ts>

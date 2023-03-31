@@ -1,11 +1,12 @@
 #include "BulletSystem.h"
 #include "../components/Transform.h"
+#include "../components/Image.h"
 
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 	case ecs::_m_SHOOT:
-		//shoot(); break;
+		shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
 	case ecs::_m_STAR_SHOT:
 		onCollision_BulletAsteroid(m.star_eaten_data.e); break;
 	case ecs::_m_ROUND_OVER:
@@ -26,8 +27,12 @@ void BulletSystem::update() {
 	if (active_) {
 		for (auto e : mngr_->getEntities(ecs::_grp_BULLETS)) {
 			auto tr = mngr_->getComponent<Transform>(e);
-			tr->getPos() = tr->getPos() + tr->getVel();
+			tr->setPos(tr->getPos() + tr->getVel());
 			tr->setRot(tr->getRot() + 5.0f);
+			if (tr->getPos().getX() > sdlutils().width() || tr->getPos().getX() < 0 - tr->getW() ||
+				tr->getPos().getY() > sdlutils().height() || tr->getPos().getY() < 0 - tr->getH()) {
+				mngr_->setAlive(e, false);
+			}
 		}
 	}
 }
@@ -35,18 +40,11 @@ void BulletSystem::update() {
 // Para gestionar el mensaje de que el jugador ha disparado. Añadir una bala al
 // juego, como en la práctica 1. Recuerda que la rotación de la bala sería
 // vel.angle(Vector2D(0.0f,-1.0f))
-void BulletSystem::shoot(Vector2D pos, Vector2D vel, double width, double height) {
-
-	/*Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
-	Vector2D bPos = tr_->getPos()
-		+ Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
-		- Vector2D(0.0f, tr_->getH() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot())
-		- Vector2D(2.0f, 10.0f);
-	Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(tr_->getRot()) * (tr_->getVel().magnitude() + 5.0f);
-	bullet->addComponent<Transform>(bPos, bVel, 5, 20, tr_->getRot());
-	bullet->addComponent<Image>(tex_);
-	bullet->addComponent<DisableOnExit>();*/
-
+void BulletSystem::shoot(Vector2D pos, Vector2D vel, double width, double height, double rot) {
+	sdlutils().soundEffects().at("fire").play();
+	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
+	mngr_->addComponent<Transform>(bullet, pos, vel, width, height, rot);
+	//mngr_->addComponent<Image>(bullet, tex_);
 }
 // Para gestionar el mensaje de que ha habido un choque entre una bala y un
 // asteroide. Desactivar la bala “b”.

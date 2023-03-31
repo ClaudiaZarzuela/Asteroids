@@ -3,40 +3,51 @@
 void GameCtrlSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_STAR_SHOT: score_ += 1; break;
+	case ecs::_m_FIGHTER_CRASHED:
+		onCollision_FighterAsteroid();
+		/*ecs::Message m; m.id = ecs::_m_ROUND_OVER;
+		mngr_->send(m, true);*/ break;
+
 	default: break;
 	}
 }
 
+// Para gestionar el mensaje de que ha habido un choque entre el fighter y un
+	// un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
+	// al fighter, y si no hay más vidas avisar que ha acabado el juego (y quien
+	// es el ganador).
+void onCollision_FighterAsteroid() {
+
+}
+// Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que
+// ha acabado la ronda y además que ha acabado el juego (y quien es el ganador)
+void onAsteroidsExtinction() {
+
+}
+
 void GameCtrlSystem::update() {
-	if (input_->isKeyDown(SDLK_UP)) {
-		sdlutils().soundEffects().at("thrust").play();
-		ecs::Message m; m.id = ecs::_m_UP;
-		mngr_->send(m, true);
-		/*const float speedLimit = 3.0f;
-		Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;
-		if (newVel.magnitude() >= speedLimit) {
-			newVel = newVel.normalize() * speedLimit;
+	if (input_->isKeyDown(SDLK_SPACE)) {
+		ecs::Message m; m.id = ecs::_m_CHANGE_STATE;
+		switch (currentState)
+		{
+		case System::MAINMENU:
+			currentState = System::PLAY;
+			break;
+		case System::PLAY:
+			currentState = System::PAUSE;
+			break;
+		case System::PAUSE:
+			currentState = System::PLAY;
+			break;
+		case System::GAMEOVER:
+			currentState = System::MAINMENU;
+			break;
+		case System::RESTART:
+			currentState = System::PLAY;
+			break;
+		default:
+			break;
 		}
-		tr_->setVel(newVel);*/
-	}
-	if (input_->isKeyDown(SDLK_RIGHT)) {
-		ecs::Message m; m.id = ecs::_m_RIGHT;
 		mngr_->send(m, true);
-		//tr_->setRot(tr_->getRot() + 5.0f);
-	}
-	if (input_->isKeyDown(SDLK_LEFT)) {
-		ecs::Message m; m.id = ecs::_m_LEFT;
-		mngr_->send(m, true);
-		//tr_->setRot(tr_->getRot() - 5.0f);
-	}
-	if (input_->isKeyDown(SDLK_s) && shoot) {
-		//gn_->instanciateBullet();
-		ecs::Message m; m.id = ecs::_m_SHOOT;
-		mngr_->send(m, true);
-		shoot = false;
-		elapsedTime = sdlutils().currRealTime();
-	}
-	if (sdlutils().currRealTime() - elapsedTime > 250) {
-		shoot = true;
 	}
 }

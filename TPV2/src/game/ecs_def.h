@@ -1,5 +1,6 @@
 #pragma once
 #include "../checkML.h"
+#include "../utils/Vector2D.h"
 #include <cstdint>
 
 class Entity;
@@ -52,25 +53,34 @@ namespace ecs {
 	enum msgId : msgId_type {
 		//_m_STAR_EATEN, //
 		_m_STAR_SHOT,
-		_m_ADD_STARS,
+		_m_FIGHTER_CRASHED,
 		_m_LEFT,
 		_m_RIGHT,
 		_m_UP,
-		_m_DOWN,
 		_m_SHOOT,
 		_m_ROUND_OVER,
 		_m_ROUND_START, 
 		_m_CHANGE_STATE
 	};
+
 	struct Message {
 		msgId_type id;
 		// _m_STAR_EATEN
 		struct {
 			Entity* e;
+
 		}star_eaten_data;
 		// _m_ADD_STARS
 		struct{
 			unsigned int n;
 		}add_stars_data;
+
+		struct {
+			Vector2D pos;
+			Vector2D vel;
+			double rot;
+			int width;
+			int height;
+		} bullet_data;
 	};
 }
