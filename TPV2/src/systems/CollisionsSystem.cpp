@@ -28,9 +28,10 @@ void CollisionsSystem::update() {
 				ifCollision();
 
 				if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
-					playState_->callGameOver("Lose");
+					//playState_->callGameOver("Lose");
 				}
-				else { playState_->changeState(); }
+				else { //playState_->changeState();
+				}
 				break;
 			}
 			for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {

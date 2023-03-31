@@ -5,9 +5,9 @@
 #include <SDL_image.h>
 #include <string>
 #include <list>
-#include "../../states/GameStateMachine.h"
-#include "../../states/MainMenuState.h"
-#include "../../states/PlayState.h"
+//#include "../../states/GameStateMachine.h"
+//#include "../../states/MainMenuState.h"
+//#include "../../states/PlayState.h"
 #include "../utils/Singleton.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../sdlutils/Music.h"
@@ -79,13 +79,13 @@ public:
 	//Constructuctora y destructora de Game
 
 	// Estado actual del juego
-	GameStateMachine* gameStateMachine = nullptr;
+	//GameStateMachine* gameStateMachine = nullptr;
 	void init();
 	void run();
 
 	// Getters
 	Texture* getTexture(int tx) { return textures[tx]; }
-	GameStateMachine* getStateMachine() { return gameStateMachine; }
+	//GameStateMachine* getStateMachine() { return gameStateMachine; }
 	Texture* getText(int tx) { return texts[tx]; }
 };
 

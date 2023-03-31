@@ -47,6 +47,7 @@ namespace ecs {
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
 
+	using msgId_type = uint8_t;
 	enum msgId : msgId_type {
 		//_m_STAR_EATEN, //
 		_m_STAR_SHOT,
@@ -59,16 +60,15 @@ namespace ecs {
 		_m_ROUND_OVER,
 		_m_ROUND_START
 	};
-	using msgId_type = uint8_t;
 	struct Message {
 		msgId_type id;
 		// _m_STAR_EATEN
-		struct star_eaten_data {
+		struct {
 			Entity* e;
-		};
+		}star_eaten_data;
 		// _m_ADD_STARS
-		struct add_stars_data{
+		struct{
 			unsigned int n;
-		};
+		}add_stars_data;
 	};
 }

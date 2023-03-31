@@ -3,9 +3,9 @@
 #include "../components/Transform.h"
 #include "../components/Health.h"
 #include "Game.h"
-#include "../../states/PlayState.h"
+//#include "../../states/PlayState.h"
 #include "../checkML.h"
-#include "../../states/GameOverState.h"
+//#include "../../states/GameOverState.h"
 #include "../sdlutils/SDLUtils.h"
 
 // metodo encargado de comprpbar las colisiones de los asteroides con el caza y con las balas, y aplicar los efectos correspondientes de darse estas

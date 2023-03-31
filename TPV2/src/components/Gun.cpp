@@ -10,6 +10,7 @@ Gun::~Gun() {}
 // genera una bala con la posicion, velocidad y rotacion correspondientes
 void Gun::instanciateBullet() {
 	sdlutils().soundEffects().at("fire").play();
+	/*
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
 	Vector2D bPos = tr_->getPos()
 		+ Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
@@ -19,7 +20,7 @@ void Gun::instanciateBullet() {
 	mngr_->addComponent<Transform>(bullet, bPos, bVel, 5, 20, tr_->getRot());
 	mngr_->addComponent<Image>(bullet,tex_);
 	mngr_->addComponent<DisableOnExit>(bullet);
-
+	mngr_*/
 }
 
 // inicializa las referencias a otros componentes

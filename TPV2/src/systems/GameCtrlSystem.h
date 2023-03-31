@@ -30,4 +30,4 @@ private:
 	InputHandler* input_ = InputHandler::instance();
 	bool shoot = true;
 	float elapsedTime = 0;
-}
+};

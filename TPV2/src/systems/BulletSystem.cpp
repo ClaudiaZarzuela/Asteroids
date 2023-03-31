@@ -5,7 +5,7 @@ void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 	case ecs::_m_SHOOT:
-		shoot(); break;
+		//shoot(); break;
 	case ecs::_m_STAR_SHOT:
 		onCollision_BulletAsteroid(m.star_eaten_data.e); break;
 	case ecs::_m_ROUND_OVER:

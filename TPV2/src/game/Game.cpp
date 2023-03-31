@@ -25,15 +25,15 @@ void Game::init() {
 		}
 		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
-	gameStateMachine = new GameStateMachine();
+	/*gameStateMachine = new GameStateMachine();
 	gameStateMachine->pushState(new PlayState());
-	gameStateMachine->pushState(new MainMenuState(static_cast<PlayState*>(gameStateMachine->currentState())));
+	gameStateMachine->pushState(new MainMenuState(static_cast<PlayState*>(gameStateMachine->currentState())));*/
 	//sdl.musics().at("imperial_march").play();
 }
 
 //Destructora de la clase
 Game::~Game() {
-	delete  gameStateMachine;
+	//delete  gameStateMachine;
 	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
 	for (int i = 0; i < NUM_TEXTS; ++i) delete texts[i];
 	SDL_DestroyRenderer(renderer);
@@ -51,7 +51,7 @@ void Game::run() {
 		// update the event handler
 		ih.refresh();
 		//gameStateMachine->currentState()->inputHandler();
-		gameStateMachine->currentState()->update();
+		//gameStateMachine->currentState()->update();
 		// clear screen
 		sdl.clearRenderer();
 		//gameStateMachine->render();
@@ -60,7 +60,7 @@ void Game::run() {
 		Uint32 frameTime = sdl.currRealTime() - startTime;
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);
-		gameStateMachine->refresh();
+		//gameStateMachine->refresh();
 		if (InputHandler::instance()->closeWindowEvent())
 			exit_ = true;
 	}

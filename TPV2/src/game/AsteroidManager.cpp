@@ -4,7 +4,7 @@
 #include "../components/Transform.h"
 #include "../components/ShowAtOppositeSide.h"
 #include "../components/Generations.h"
-#include "../../states/GameOverState.h"
+//#include "../../states/GameOverState.h"
 #include "../components/Follow.h"
 #include "Game.h"
 

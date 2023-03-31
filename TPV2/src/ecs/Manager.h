@@ -46,10 +46,12 @@ public:
 	template<typename T, typename ...Ts>
 	inline T* addComponent(Entity* e, Ts&& ...args) {
 		T* c = new T(std::forward<Ts>(args)...);
+
 		constexpr ecs::cmpId_type cId = T::id;
-		removeComponent<T>();
+		removeComponent<T>(e);
 		e->currCmps_.push_back(c);
 		e->cmps_[cId] = c;
+
 		c->setContext(e, this);
 		c->initComponent();
 		return c;

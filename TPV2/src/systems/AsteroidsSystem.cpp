@@ -61,11 +61,11 @@ void AsteroidsSystem::addAsteroidFrequently() {
 }
 
 // metodos+ encargado de destruir todos los asteroides
-void AsteroidManager::destroyAllAsteroids() {
+void AsteroidsSystem::destroyAllAsteroids() {
 	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
 		mngr_->setAlive((*it), false);
 	}
-	currAsteroids = 0;
+	numOfAsteroids_ = 0;
 }
 
 void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
