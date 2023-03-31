@@ -11,8 +11,8 @@ public:
 	// id
 	constexpr static ecs::cmpId_type id = ecs::_HEALTH;
 	// metodos publicos de la clase
-	Health(Texture* tex, int h) :
-		tex_(tex), maxLives(h) {
+	Health(int h) :
+	    maxLives(h) {
 		actLives = maxLives;
 	}
 	virtual ~Health();;
@@ -21,7 +21,6 @@ public:
 	void loseLife() { actLives--; }
 
 private:
-	Texture* tex_;
 	int textSize = 30;
 	int maxLives = 3;
 	int actLives;

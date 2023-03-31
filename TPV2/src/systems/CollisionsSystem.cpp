@@ -53,9 +53,9 @@ void CollisionsSystem::ifCollision() {
 	mngr_->getComponent<Transform>(player)->reset();
 
 	if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
-		playState_->callGameOver("Lose");
+		//playState_->callGameOver("Lose");
 	}
-	else { playState_->changeState(); }
+	//else { playState_->changeState(); }
 
 	ecs::Message m; m.id = ecs::_m_ROUND_OVER; 
 	//aMngr_->destroyAllAsteroids();

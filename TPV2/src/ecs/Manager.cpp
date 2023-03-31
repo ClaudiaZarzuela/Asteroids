@@ -28,7 +28,6 @@ void Manager::refresh() {
 void Manager::update() {
 	for (auto sys : sys_) {
 		if(sys != nullptr) sys->update();
-	}
-		   
+	}   
 }
 

@@ -13,9 +13,9 @@
 
 
 using namespace std;
-
-const int NUM_TEXTURES = 5;
-const int NUM_TEXTS = 4;
+//
+//const int NUM_TEXTURES = 5;
+//const int NUM_TEXTS = 4;
 
 // enmunerados para los distintos estados, texturas y textos del juego
 enum GameStates {
@@ -24,27 +24,27 @@ enum GameStates {
 	END = 2,
 	MENU = 3
 };
-static const enum TextureNames {
-	NAVE = 0, ASTEROID = 1, HEALTH=2, BULLET =3, ASTEROID_GOLD = 4
-};
-static const enum TextNames {
-	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3
-};
-
-// Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
-struct Textures
-{
-	string filename;
-	int rows;
-	int cols;
-};
-// Estructura que contiene variables para el contenido del texto y su color de las letras y del background
-struct Texts
-{
-	string content;
-	int textColor;
-	int backgroundColor;
-};
+//static const enum TextureNames {
+//	NAVE = 0, ASTEROID = 1, HEALTH=2, BULLET =3, ASTEROID_GOLD = 4
+//};
+//static const enum TextNames {
+//	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3
+//};
+//
+//// Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
+//struct Textures
+//{
+//	string filename;
+//	int rows;
+//	int cols;
+//};
+//// Estructura que contiene variables para el contenido del texto y su color de las letras y del background
+//struct Texts
+//{
+//	string content;
+//	int textColor;
+//	int backgroundColor;
+//};
 
 // clase encargada de crear y cargar los recursos de SDL y que contiene el bucle principal del juego
 class Game : public Singleton<Game>
@@ -53,9 +53,9 @@ class Game : public Singleton<Game>
 private:
 
 	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	//SDL_Renderer* renderer = nullptr;
 	bool exit_ = false;
-	Textures texture[NUM_TEXTURES] = {
+	/*Textures texture[NUM_TEXTURES] = {
 		{ " ../../resources/resources/images/fighter.png", 1, 1 },
 		{ " ../../resources/resources/images/asteroid.png", 5, 6 },
 		{ " ../../resources/resources/images/heart.png", 1, 1 },
@@ -70,10 +70,10 @@ private:
 	};
 
 	Texture* textures[NUM_TEXTURES];
-	Texture* texts[NUM_TEXTS];
+	Texture* texts[NUM_TEXTS];*/
 	Game() {};
 
-   
+
 public:
 	virtual ~Game();
 	//Constructuctora y destructora de Game
@@ -84,9 +84,9 @@ public:
 	void run();
 
 	// Getters
-	Texture* getTexture(int tx) { return textures[tx]; }
+	//Texture* getTexture(int tx) { return textures[tx]; }
 	//GameStateMachine* getStateMachine() { return gameStateMachine; }
-	Texture* getText(int tx) { return texts[tx]; }
-	SDL_Renderer* getRenderer() { return renderer; }
+	//Texture* getText(int tx) { return texts[tx]; }
+	//SDL_Renderer* getRenderer() { return renderer; }
 };
 

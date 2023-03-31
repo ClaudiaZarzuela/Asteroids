@@ -7,8 +7,8 @@ Follow::~Follow() {}
 // inicializa las referencias a otros componentes
 void Follow::initComponent() {
 	//tr_ = ent_->getComponent<Transform>();
-	assert(tr_ != nullptr);
-	mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
+	//assert(tr_ != nullptr);
+	//mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
 }
 
 // actualiza la posicion del ateroide con respecto a la de la nave

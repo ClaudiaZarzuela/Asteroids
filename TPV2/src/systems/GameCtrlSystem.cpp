@@ -16,12 +16,12 @@ void GameCtrlSystem::recieve(const ecs::Message& m) {
 	// un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
 	// al fighter, y si no hay más vidas avisar que ha acabado el juego (y quien
 	// es el ganador).
-void onCollision_FighterAsteroid() {
+void GameCtrlSystem::onCollision_FighterAsteroid() {
 
 }
 // Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que
 // ha acabado la ronda y además que ha acabado el juego (y quien es el ganador)
-void onAsteroidsExtinction() {
+void GameCtrlSystem::onAsteroidsExtinction() {
 
 }
 
@@ -30,20 +30,20 @@ void GameCtrlSystem::update() {
 		ecs::Message m; m.id = ecs::_m_CHANGE_STATE;
 		switch (currentState)
 		{
-		case System::MAINMENU:
-			currentState = System::PLAY;
+		case MAINMENU:
+			currentState = PLAY;
 			break;
-		case System::PLAY:
-			currentState = System::PAUSE;
+		case PLAY:
+			currentState = PAUSE;
 			break;
-		case System::PAUSE:
-			currentState = System::PLAY;
+		case PAUSE:
+			currentState = PLAY;
 			break;
-		case System::GAMEOVER:
-			currentState = System::MAINMENU;
+		case GAMEOVER:
+			currentState = MAINMENU;
 			break;
-		case System::RESTART:
-			currentState = System::PLAY;
+		case RESTART:
+			currentState = PLAY;
 			break;
 		default:
 			break;

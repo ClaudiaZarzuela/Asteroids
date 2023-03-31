@@ -9,8 +9,8 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_STAR_SHOT:
 		onCollision_AsteroidBullet(m.star_eaten_data.e); break;
-	case ecs::_m_ADD_STARS:
-		addStar(m.add_stars_data.n); break;
+	//case ecs::_m_ADD_STARS:
+	//	addStar(m.add_stars_data.n); break;
 	case ecs::_m_ROUND_OVER:
 		onRoundOver(); break;
 	case ecs::_m_ROUND_START:
@@ -47,9 +47,10 @@ void AsteroidsSystem::addStar(unsigned int n) {
 		mngr_->addComponent<ShowAtOppositeSide>(as);
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			mngr_->addComponent<Follow>(as);
-			mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
+			//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
 		}
-		else { mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID)); }
+		else { //mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID)); 
+		}
 	}
 	numOfAsteroids_ += n;
 }
@@ -83,10 +84,10 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 
 			if (mngr_->hasComponent<Follow>(a)) {
 				mngr_->addComponent<Follow>(as);
-				mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
+				//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
 			}
 			else {
-				mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID));
+				//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID));
 			}
 		}
 		numOfAsteroids_ += 2;
