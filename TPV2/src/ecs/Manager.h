@@ -11,10 +11,22 @@ class Manager {
 public:
 	Manager();
 	virtual ~Manager();
-	inline Entity* addEntity(ecs::grpId_type gId);
-	inline const auto& getEntities(ecs::grpId_type gId);
-	inline void setHandler(ecs::hdlrId_type hId, Entity* e);
-	inline Entity* getHandler(ecs::hdlrId_type hId);
+	inline Entity* addEntity(ecs::grpId_type gId) { 
+		Entity* e = new Entity(gId);
+		e->alive_ = true;
+		//e->context_ = this;
+		entsByGroup_[gId].push_back(e);
+		return e;
+	}
+	inline const auto& getEntities(ecs::grpId_type gId) { 
+		return entsByGroup_[gId]; 
+	}
+	inline void setHandler(ecs::hdlrId_type hId, Entity* e) {
+		hdlrs_[hId] = e;
+	}
+	inline Entity* getHandler(ecs::hdlrId_type hId) {
+		return hdlrs_[hId];
+	}
 	void update();
 	void render();
 	void refresh();

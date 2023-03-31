@@ -16,16 +16,11 @@ public:
 		// de los 10 al principio de cada ronda).
 	void update() override;
 	virtual ~AsteroidsSystem() { }
-	virtual void update() {
-		for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
-			auto tr = mngr_->getComponent<Transform>(e);
-			tr->getPos() = tr->getPos() + tr->getVel();
-			tr->setRot(tr->getRot() + 5.0f);
-		}
-	}
 private:
-	void onStarEaten();
-	void addStar();
+	float elapsedTime = sdlutils().currRealTime();
+	void destroyAllAsteroids();
+	void addAsteroidFrequently();
+	void addStar(unsigned int n);
 	// Para gestionar el mensaje de que ha habido un choque de un asteroide con una
 	// bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
 	// y si no hay más asteroides enviar un mensaje correspondiente.
@@ -38,7 +33,7 @@ private:
 	void onRoundStart();
 		// El número actual de asteroides en el juego (recuerda que no puede superar un
 		// límite)
-		Uint8 numOfAsteroids_;
+	Uint8 numOfAsteroids_;
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_;

@@ -2,7 +2,7 @@
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
 
-class BulletsSystem : public System {
+class BulletSystem : public System {
 public:
 	constexpr static ecs::sysId_type id = ecs::_sys_BULLETS;
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
