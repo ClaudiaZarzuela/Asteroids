@@ -33,8 +33,10 @@ void FighterSystem::recieve(const ecs::Message& m) {
 // mensaje con las características físicas de la bala. Recuerda que se puede disparar
 // sólo una bala cada 0.25sec.
 void FighterSystem::update() {
+	//std::cout << "nope"<< std::endl;
+
 	if (active_) {
-		if (InputHandler::instance()->isKeyDown(SDLK_UP)) {
+		if (input_->isKeyDown(SDLK_UP)) {
 			sdlutils().soundEffects().at("thrust").play();
 			const float speedLimit = 3.0f;
 			Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;

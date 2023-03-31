@@ -1,7 +1,10 @@
 #include "RenderSystem.h"
 #include "../components/TextRender.h"
 #include "../sdlutils/Texture.h"
-
+#include "../components/Transform.h"
+#include "../components/Health.h"
+#include "../components/FramedImage.h"
+#include "../components/Follow.h"
 RenderSystem:: ~RenderSystem() {
 	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
 	for (int i = 0; i < NUM_TEXTS; ++i) delete texts[i];
@@ -29,6 +32,7 @@ void RenderSystem::initSystem() {
 		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
 
+	fighter = mngr_->getHandler(ecs::FIGHTER);
 	//Textos indicativos en cada estado
 	//text1_ = mngr_->addEntity(ecs::_grp_TEXT);
 	//text2_ = mngr_->addEntity(ecs::_grp_TEXT);
@@ -40,6 +44,43 @@ void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
 
+	//RENDERIZAR LAS VIDAS
+	for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
+		Vector2D pos = Vector2D((textures[HEALTH]->width()/3) * i, 0);
+		SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width()/3, textures[HEALTH]->height()/3);
+		textures[HEALTH]->render(dest, 0);
+	}
+
+	//RENDERIZA LA NAVE 
+	Transform* f = mngr_->getComponent<Transform>(fighter);
+	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
+	textures[NAVE]->render(dest, f->getRot());
+
+	switch (state_) {
+		case MAINMENU:
+			//RENDER TEXTO
+			; break;
+
+		case PLAY:
+			//RENDER TEXTO
+
+			//RENDER BALAS Y ASTEROIDES
+			inGameObjects();
+			; break;
+		case RESTART:
+			//RENDER TEXTO
+			; break;
+		case PAUSE:
+			//RENDER TEXTO
+
+			//RENDER BALAS Y ASTEROIDES
+			inGameObjects();
+			; break;
+		case GAMEOVER:
+			//RENDER TEXTO
+			; break;
+	}
+	
 	//RENDER TEXTOS
 	/*for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
 		if (e != nullptr) {
@@ -54,49 +95,35 @@ void RenderSystem::update() {
 }
 
 void RenderSystem::onRoundStart() {
-	switch (state_) {
-	case MAINMENU:
-
-		; break;
-	case PLAY:; break;
-	case RESTART:; break;
-	case PAUSE:; break;
-	case GAMEOVER:; break;
-	}
 }
 
 void RenderSystem::onRoundOver() {
-	switch (state_) {
-	case MAINMENU:
-
-		; break;
-	case PLAY:; break;
-	case RESTART:; break;
-	case PAUSE:; break;
-	case GAMEOVER:; break;
-	}
 }
 
 void RenderSystem::onGameStart() {
-	switch (state_) {
-	case MAINMENU:
-
-		; break;
-	case PLAY:; break;
-	case RESTART:; break;
-	case PAUSE:; break;
-	case GAMEOVER:; break;
-	}
 }
 
 void RenderSystem::onGameOver() {
-	switch (state_) {
-	case MAINMENU:
+}
 
-		; break;
-	case PLAY:; break;
-	case RESTART:; break;
-	case PAUSE:; break;
-	case GAMEOVER:; break;
+void RenderSystem::inGameObjects() {
+	auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
+	for (auto i = 0; i < grpAst.size(); i++)
+	{
+		Transform* tr_ = mngr_->getComponent<Transform>(grpAst[i]);
+		int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
+		int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
+		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+		if (mngr_->hasComponent<Follow>(grpAst[i]))
+			textures[ASTEROID_GOLD]->renderFrame(dest, row, col, tr_->getRot());
+		else
+			textures[ASTEROID]->renderFrame(dest, row, col, tr_->getRot());
+	}
+	auto& grpBullets = mngr_->getEntities(ecs::_grp_BULLETS);
+	for (auto i = 0; i < grpBullets.size(); i++)
+	{
+		Transform* tr_ = mngr_->getComponent<Transform>(grpBullets[i]);
+		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+		textures[BULLET]->render(dest, tr_->getRot());
 	}
 }

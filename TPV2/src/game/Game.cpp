@@ -15,6 +15,12 @@ void Game::init() {
 	renderer = sdl.renderer();*/
 	
 	//manager_ = Manager::instance();
+	
+	Manager::instance()->addSystem<FighterSystem>();
+	Manager::instance()->addSystem<AsteroidsSystem>();
+	Manager::instance()->addSystem<BulletSystem>();
+	Manager::instance()->addSystem<CollisionsSystem>();
+	Manager::instance()->addSystem<GameCtrlSystem>();
 	Manager::instance()->addSystem<RenderSystem>();
 	//Manager::instance()->addSystem<BulletSystem>(ecs::_sys_BULLETS);
 }
@@ -46,6 +52,7 @@ void Game::run() {
 		//gameStateMachine->render();
 		// present new frame
 		//sdl.presentRenderer();
+		Manager::instance()->flushMessages();
 		Uint32 frameTime = sdl.currRealTime() - startTime;
 		if (frameTime < 20)
 			SDL_Delay(20 - frameTime);

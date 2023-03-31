@@ -10,7 +10,7 @@ GameOverState::GameOverState(string info, PlayState* play) : GameState() {
 	Entity* text_ = manager_->addEntity(ecs::_grp_TEXT);
 	play_ = play;
 	if (info == "Win") {
-		manager_->addComponent<TextRender>(text_, Game::instance()->getText(PAUSA), Game::instance()->getText(WIN), x, y);
+		//manager_->addComponent<TextRender>(text_, Game::instance()->getText(PAUSA), Game::instance()->getText(WIN), x, y);
 	}
 	else {
 		manager_->addComponent<TextRender>(text_, Game::instance()->getText(PAUSA), Game::instance()->getText(LOSE), x, y);

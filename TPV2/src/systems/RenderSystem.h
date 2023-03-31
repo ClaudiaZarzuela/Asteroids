@@ -64,12 +64,14 @@ private:
 	Texture* textures[NUM_TEXTURES];
 	Texture* texts[NUM_TEXTS];
 	SDL_Renderer* renderer = nullptr;
+	Entity* fighter = nullptr;
 	// Para gestionar los mensajes correspondientes y actualizar los atributos
 	// winner_ y state_. 
 	void onRoundStart();
 	void onRoundOver();
 	void onGameStart();
 	void onGameOver();
+	void inGameObjects();
 
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;

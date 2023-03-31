@@ -28,7 +28,7 @@ void BulletSystem::update() {
 		for (auto e : mngr_->getEntities(ecs::_grp_BULLETS)) {
 			auto tr = mngr_->getComponent<Transform>(e);
 			tr->setPos(tr->getPos() + tr->getVel());
-			tr->setRot(tr->getRot() + 5.0f);
+			//tr->setRot(tr->getRot() + 5.0f);
 			if (tr->getPos().getX() > sdlutils().width() || tr->getPos().getX() < 0 - tr->getW() ||
 				tr->getPos().getY() > sdlutils().height() || tr->getPos().getY() < 0 - tr->getH()) {
 				mngr_->setAlive(e, false);

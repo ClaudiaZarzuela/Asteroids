@@ -10,6 +10,10 @@
 #include "../sdlutils/Music.h"
 #include "../systems/RenderSystem.h"
 #include "../systems/BulletSystem.h"
+#include "../systems/FighterSystem.h"
+#include "../systems/CollisionsSystem.h"
+#include "../systems/GameCtrlSystem.h"
+#include "../systems/AsteroidsSystem.h"
 
 
 using namespace std;

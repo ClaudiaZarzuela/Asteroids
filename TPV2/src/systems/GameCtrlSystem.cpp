@@ -44,23 +44,30 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 
 void GameCtrlSystem::update() {
 	if (input_->isKeyDown(SDLK_SPACE)) {
-		ecs::Message m; m.id = ecs::_m_CHANGE_STATE;
+		ecs::Message m;
+		m.id = ecs::_m_ROUND_START;
 		switch (currentState)
 		{
 		case MAINMENU:
 			currentState = PLAY;
+			m.id = ecs::_m_ROUND_START;
+			std::cout << "Cambio a " << currentState << std::endl;
 			break;
 		case PLAY:
 			currentState = PAUSE;
+			std::cout << "Cambio a " << currentState << std::endl;
 			break;
 		case PAUSE:
 			currentState = PLAY;
+			std::cout << "Cambio a " << currentState << std::endl;
 			break;
 		case GAMEOVER:
 			currentState = MAINMENU;
+			std::cout << "Cambio a " << currentState << std::endl;
 			break;
 		case RESTART:
 			currentState = PLAY;
+			std::cout << "Cambio a " << currentState << std::endl;
 			break;
 		default:
 			break;

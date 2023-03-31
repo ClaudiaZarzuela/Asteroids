@@ -13,6 +13,8 @@ public:
 	FramedImage(Texture* tex) : tr_(nullptr), tex_(tex) {}
 	virtual ~FramedImage();
 	void initComponent() override;
+	int getCol() { return col; }
+	int getRow() { return row; }
 	
 private:
 	Transform* tr_;

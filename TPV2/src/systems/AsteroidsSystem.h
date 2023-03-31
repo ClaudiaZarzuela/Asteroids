@@ -6,11 +6,11 @@
 class AsteroidsSystem : public System {
 public:
 	constexpr static ecs::sysId_type id = ecs::_sys_ASTEROIDS;
-	AsteroidsSystem();
+	AsteroidsSystem(){};
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	virtual void recieve(const ecs::Message& m) override;
 	// Inicializar el sistema, etc.
-	void initSystem() override;
+	void initSystem() override{};
 	// Si el juego está parado no hacer nada, en otro caso mover los asteroides como
 	// en la práctica 1 y generar 1 asteroide nuevo cada 5 segundos (aparte
 	// de los 10 al principio de cada ronda).
