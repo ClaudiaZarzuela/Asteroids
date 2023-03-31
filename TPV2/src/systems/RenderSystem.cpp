@@ -59,6 +59,8 @@ void RenderSystem::update() {
 	switch (state_) {
 		case MAINMENU:
 			//RENDER TEXTO
+			text1_ = mngr_->addEntity(ecs::_grp_TEXT);
+			mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100)
 			; break;
 
 		case PLAY:

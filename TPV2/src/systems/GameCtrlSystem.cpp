@@ -43,7 +43,7 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 }
 
 void GameCtrlSystem::update() {
-	if (input_->isKeyDown(SDLK_SPACE)) {
+	if (input_->isKeyJustDown(SDLK_SPACE)) {
 		ecs::Message m;
 		m.id = ecs::_m_ROUND_START;
 		switch (currentState)

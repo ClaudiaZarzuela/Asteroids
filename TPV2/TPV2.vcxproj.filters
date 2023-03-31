@@ -126,21 +126,6 @@
     <ClInclude Include="src\components\ShowAtOppositeSide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="states\GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\GameStateMachine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\MainMenuState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\PauseState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\PlayState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\DisableOnExit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -157,12 +142,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\components\TextRender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\RestartGameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="states\GameOverState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ecs\System.h">
@@ -254,21 +233,6 @@
     <ClCompile Include="src\components\ShowAtOppositeSide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="states\GameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\GameStateMachine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\MainMenuState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\PauseState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\PlayState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\components\DisableOnExit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -285,12 +249,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\components\TextRender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\RestartGameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="states\GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ecs\System.cpp">

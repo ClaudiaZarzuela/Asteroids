@@ -13,7 +13,7 @@ public:
 	// metodos publicos de la clase
 	TextRender(Texture* t, int x_, int y_) : x(x_), y(y_), text(t) {};
 	virtual ~TextRender() {};
-
+	void render();
 	Texture* getTexture() { return text; }
 	void setTexture(Texture* t1) { text = t1; }
 	Vector2D getPos() { return Vector2D(x, y); }

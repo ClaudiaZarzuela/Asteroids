@@ -25,8 +25,6 @@
     <ClInclude Include="src\systems\BulletSystem.h" />
     <ClInclude Include="src\systems\AsteroidsSystem.h" />
     <ClInclude Include="src\systems\GameCtrlSystem.h" />
-    <ClInclude Include="states\GameOverState.h" />
-    <ClInclude Include="states\RestartGameState.h" />
     <ClInclude Include="src\components\TextRender.h" />
     <ClInclude Include="src\game\CollisionsManager.h" />
     <ClInclude Include="src\game\AsteroidManager.h" />
@@ -64,11 +62,6 @@
     <ClInclude Include="src\utils\Singleton.h" />
     <ClInclude Include="src\utils\Vector2D.h" />
     <ClInclude Include="src\components\Transform.h" />
-    <ClInclude Include="states\GameState.h" />
-    <ClInclude Include="states\GameStateMachine.h" />
-    <ClInclude Include="states\MainMenuState.h" />
-    <ClInclude Include="states\PauseState.h" />
-    <ClInclude Include="states\PlayState.h" />
     <ClInclude Include="src\ecs\System.h" />
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +71,6 @@
     <ClCompile Include="src\systems\BulletSystem.cpp" />
     <ClCompile Include="src\systems\AsteroidsSystem.cpp" />
     <ClCompile Include="src\systems\GameCtrlSystem.cpp" />
-    <ClCompile Include="states\GameOverState.cpp" />
-    <ClCompile Include="states\RestartGameState.cpp" />
     <ClCompile Include="src\components\TextRender.cpp" />
     <ClCompile Include="src\game\CollisionsManager.cpp" />
     <ClCompile Include="src\game\AsteroidManager.cpp" />
@@ -108,11 +99,6 @@
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />
     <ClCompile Include="src\components\Transform.cpp" />
-    <ClCompile Include="states\GameState.cpp" />
-    <ClCompile Include="states\GameStateMachine.cpp" />
-    <ClCompile Include="states\MainMenuState.cpp" />
-    <ClCompile Include="states\PauseState.cpp" />
-    <ClCompile Include="states\PlayState.cpp" />
     <ClCompile Include="src\ecs\System.cpp" />
   </ItemGroup>
   <ItemGroup>
