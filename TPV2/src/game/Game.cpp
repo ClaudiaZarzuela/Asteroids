@@ -25,10 +25,10 @@ void Game::init() {
 		}
 		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
-	/*gameStateMachine = new GameStateMachine();
-	gameStateMachine->pushState(new PlayState());
-	gameStateMachine->pushState(new MainMenuState(static_cast<PlayState*>(gameStateMachine->currentState())));*/
-	//sdl.musics().at("imperial_march").play();
+	
+	//manager_ = Manager::instance();
+	Manager::instance()->addSystem<RenderSystem>();
+	//Manager::instance()->addSystem<BulletSystem>(ecs::_sys_BULLETS);
 }
 
 //Destructora de la clase
@@ -54,6 +54,7 @@ void Game::run() {
 		//gameStateMachine->currentState()->update();
 		// clear screen
 		sdl.clearRenderer();
+		Manager::instance()->update();
 		//gameStateMachine->render();
 		// present new frame
 		sdl.presentRenderer();

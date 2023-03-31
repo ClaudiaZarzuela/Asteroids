@@ -5,12 +5,12 @@
 #include <SDL_image.h>
 #include <string>
 #include <list>
-//#include "../../states/GameStateMachine.h"
-//#include "../../states/MainMenuState.h"
-//#include "../../states/PlayState.h"
 #include "../utils/Singleton.h"
 #include "../sdlutils/SoundEffect.h"
 #include "../sdlutils/Music.h"
+#include "../systems/RenderSystem.h"
+#include "../systems/BulletSystem.h"
+
 
 using namespace std;
 
@@ -87,5 +87,6 @@ public:
 	Texture* getTexture(int tx) { return textures[tx]; }
 	//GameStateMachine* getStateMachine() { return gameStateMachine; }
 	Texture* getText(int tx) { return texts[tx]; }
+	SDL_Renderer* getRenderer() { return renderer; }
 };
 

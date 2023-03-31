@@ -7,23 +7,23 @@
 #include "Entity.h"
 #include "System.h"
 #include "../game/ecs_def.h"
+#include "../utils/Singleton.h"
 // declaracion de la clase padre manager
-class Manager {
-
+class Manager: public Singleton<Manager> {
+	friend Singleton<Manager>;
 private:
 	std::vector<ecs::Message> msgs_;
 	std::vector<ecs::Message> aux_msgs_;
 	std::array<System*, ecs::maxSysId> sys_;
 	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
-public:
-
 	Manager() : entsByGroup_(), hdlrs_(), msgs_(), aux_msgs_(), sys_() {
 		for (auto& groupEntities : entsByGroup_) {
 			groupEntities.reserve(100);
 		}
 	};
-		
+
+public:
 	virtual ~Manager(){
 		for (auto& ents : entsByGroup_) {
 			for (auto e : ents) {
@@ -98,6 +98,7 @@ public:
 		sys_[sId] = s;
 		return static_cast<T*>(s);
 	}
+
 	template<typename T>
 	inline T* getSystem() {
 		constexpr ecs::sysId_type sId = T::id;

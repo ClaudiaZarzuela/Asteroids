@@ -43,6 +43,7 @@ namespace ecs {
 		_sys_FIGHTER,
 		_sys_BULLETS,
 		_sys_COLLISIONS,
+		_sys_RENDER,	
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
@@ -58,7 +59,8 @@ namespace ecs {
 		_m_DOWN,
 		_m_SHOOT,
 		_m_ROUND_OVER,
-		_m_ROUND_START
+		_m_ROUND_START, 
+		_m_CHANGE_STATE
 	};
 	struct Message {
 		msgId_type id;
