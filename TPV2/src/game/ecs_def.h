@@ -54,12 +54,12 @@ namespace ecs {
 		//_m_STAR_EATEN, //
 		_m_STAR_SHOT,
 		_m_FIGHTER_CRASHED,
-		_m_LEFT,
-		_m_RIGHT,
-		_m_UP,
 		_m_SHOOT,
+		_m_STAR_EXTINCTION,
 		_m_ROUND_OVER,
-		_m_ROUND_START, 
+		_m_ROUND_START,
+		_m_GAME_OVER,
+		_m_GAME_START,
 		_m_CHANGE_STATE
 	};
 

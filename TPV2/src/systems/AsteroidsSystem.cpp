@@ -9,8 +9,6 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_STAR_SHOT:
 		onCollision_AsteroidBullet(m.star_eaten_data.e); break;
-	//case ecs::_m_ADD_STARS:
-	//	addStar(m.add_stars_data.n); break;
 	case ecs::_m_ROUND_OVER:
 		onRoundOver(); break;
 	case ecs::_m_ROUND_START:
@@ -24,6 +22,9 @@ void AsteroidsSystem::update() {
 		auto tr = mngr_->getComponent<Transform>(e);
 		tr->getPos() = tr->getPos() + tr->getVel();
 		tr->setRot(tr->getRot() + 5.0f);
+		if (mngr_->hasComponent<Follow>(e)) { 
+			tr->setVel(tr->getVel().rotate(tr->getVel().angle(mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER))->getPos() - tr->getPos()) > 0 ? 1.0f : -1.0f));
+		}
 	}
 	addAsteroidFrequently();
 }
@@ -71,7 +72,8 @@ void AsteroidsSystem::destroyAllAsteroids() {
 }
 
 void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
-	if (mngr_->getComponent<Generations>(a)->getGeneration() > 1 && numOfAsteroids_ < 30) {
+	sdlutils().soundEffects().at("gunshot").play();
+	if (mngr_->getComponent<Generations>(a)->getGeneration() > 1 && numOfAsteroids_+2 < 30) {
 		for (int i = 0; i < 2; ++i) {
 			auto r = sdlutils().rand().nextInt(0, 360);
 			auto pos = mngr_->getComponent<Transform>(a)->getPos() + mngr_->getComponent<Transform>(a)->getVel().rotate(r) * 2 * max(mngr_->getComponent<Transform>(a)->getW(), mngr_->getComponent<Transform>(a)->getH());
@@ -91,7 +93,12 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 			}
 		}
 		numOfAsteroids_ += 2;
-		mngr_->setAlive(a, false);
+	}
+	mngr_->setAlive(a, false);
+	numOfAsteroids_--;
+	if (numOfAsteroids_ == 0) {
+		ecs::Message m; m.id = ecs::_m_STAR_EXTINCTION;
+		mngr_->send(m, true);
 	}
 }
 
