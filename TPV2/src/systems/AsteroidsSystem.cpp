@@ -25,6 +25,7 @@ void AsteroidsSystem::update() {
 		tr->getPos() = tr->getPos() + tr->getVel();
 		tr->setRot(tr->getRot() + 5.0f);
 	}
+	addAsteroidFrequently();
 }
 
 void AsteroidsSystem::addStar(unsigned int n) {
@@ -55,17 +56,16 @@ void AsteroidsSystem::addStar(unsigned int n) {
 
 void AsteroidsSystem::addAsteroidFrequently() {
 	if (sdlutils().currRealTime() - elapsedTime > 5000) {
-		addStar(1);
+		if (numOfAsteroids_ + 1 < 30) addStar(1);
 		elapsedTime = sdlutils().currRealTime();
 	}
 }
 
-// metodos+ encargado de destruir todos los asteroides
-void AsteroidManager::destroyAllAsteroids() {
-	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
-		mngr_->setAlive((*it), false);
+void AsteroidsSystem::destroyAllAsteroids() {
+	for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
+		mngr_->setAlive(e, false);
 	}
-	currAsteroids = 0;
+	numOfAsteroids_ = 0;
 }
 
 void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
@@ -94,9 +94,7 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 }
 
 void AsteroidsSystem::onRoundOver() {
-	for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
-		mngr_->setAlive(e, false);
-	}
+	destroyAllAsteroids();
 	active_ = false;
 }
 
