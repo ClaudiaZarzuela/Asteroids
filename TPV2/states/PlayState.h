@@ -26,8 +26,7 @@ public:
 		delete cManager;
 		cManager = nullptr;
 	}
-	virtual void update();
-	void inputHandler() override;
+	void update() override;
 	void changeState();
 	void startGame(bool lifes = false);
 	void callGameOver(string infoState);

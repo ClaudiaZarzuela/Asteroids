@@ -50,11 +50,11 @@ void Game::run() {
 		Uint32 startTime = sdl.currRealTime();
 		// update the event handler
 		ih.refresh();
-		gameStateMachine->currentState()->inputHandler();
+		//gameStateMachine->currentState()->inputHandler();
 		gameStateMachine->currentState()->update();
 		// clear screen
 		sdl.clearRenderer();
-		gameStateMachine->render();
+		//gameStateMachine->render();
 		// present new frame
 		sdl.presentRenderer();
 		Uint32 frameTime = sdl.currRealTime() - startTime;

@@ -1,6 +1,5 @@
 #include "../checkML.h"
 #include "Health.h"
-#include "../ecs/Entity.h"
 
 // destructora
 Health::~Health() {}

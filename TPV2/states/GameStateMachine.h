@@ -27,7 +27,6 @@ public:
 	void changeState(GameState* pState);
 	void popState();
 	void emptyStates();
-	void render();
 	void refresh();
 
 	GameState* lastState() {

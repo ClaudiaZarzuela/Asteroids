@@ -1,14 +1,13 @@
 #include "../checkML.h"
 #include "ShowAtOppositeSide.h"
-#include "../ecs/Entity.h"
 
 // destructora
 ShowAtOppositeSide::~ShowAtOppositeSide() {}
 
 // inicializa las referencias a otros componentes
 void ShowAtOppositeSide::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
-	assert(tr_ != nullptr);
+	/*tr_ = ent_->getComponent<Transform>();
+	assert(tr_ != nullptr);*/
 }
 
 // comprueba constantemente la posicion de la nave para trasladarla en cuanto salga de los limites de la pantalla

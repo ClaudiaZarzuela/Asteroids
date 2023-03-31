@@ -1,6 +1,7 @@
 #pragma once
-#include "Manager.h"
+#include "../game/ecs_def.h"
 
+class Manager;
 class System {
 public:
 	System() {};
@@ -8,11 +9,11 @@ public:
 	void setContext(Manager* mngr) {
 		mngr_ = mngr;
 	}
-	virtual void initSystem() { }
-	virtual void update() { }
+	virtual void initSystem(){};
+	virtual void update() {}
 	virtual void recieve(const ecs::Message& m) { }
 protected:
-	Manager* mngr_;
+	Manager* mngr_ = nullptr;
 };
 
 

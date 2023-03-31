@@ -8,7 +8,6 @@ GameStateMachine:: ~GameStateMachine() {
 		delete gameStateStack.front();
 		gameStateStack.pop_front();
 	}
-
 }
 
 // Añade un estado a lo alto de la pila
@@ -41,12 +40,6 @@ void GameStateMachine::emptyStates() {
 		delete gameStateStack.front();
 		gameStateStack.pop_front();
 	}
-}
-
-// renderiza todos los estados
-void GameStateMachine::render() {
-	for (auto a : gameStateStack)
-		a->render();
 }
 
 // refresca todos los estados

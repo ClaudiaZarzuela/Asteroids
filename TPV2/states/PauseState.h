@@ -14,8 +14,7 @@ public:
 	// Constructora de la clase
 	PauseState();
 	// Metodos publicos de la clase
-	void inputHandler() override;
-
+	void update() override;
 	// Getters
 	virtual string getStateID() const { return pauseID; }
 };

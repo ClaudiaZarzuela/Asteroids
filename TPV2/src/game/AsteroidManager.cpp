@@ -10,7 +10,7 @@
 
 // metodo encargado de crear un numero definido de asteroides en posiciones random a lo largo de los bordes de la pantalla
 void AsteroidManager::createAsteroids(int numAst) {
-	for (int i = 0; i < numAst; ++i) {
+	/*for (int i = 0; i < numAst; ++i) {
 		int random = sdlutils().rand().nextInt(0, 4);
 		Vector2D p;
 		switch (random) {
@@ -32,37 +32,37 @@ void AsteroidManager::createAsteroids(int numAst) {
 		}
 		else { as->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
 	}
-	currAsteroids += numAst;
+	currAsteroids += numAst;*/
 }
 
 // metodo encargado de añadir un nuevo asteroide al juego de forma aleatoria cada periodo determinado de tiempo
 void AsteroidManager::addAsteroidFrequently() {
-	if (sdlutils().currRealTime() - elapsedTime > 5000) {
+	/*if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		createAsteroids(1);
 		elapsedTime = sdlutils().currRealTime();
-	}
+	}*/
 }
 
 // metodos+ encargado de destruir todos los asteroides
 void AsteroidManager::destroyAllAsteroids() {
-	for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
+	/*for (auto it = mngr_->getEntities(ecs::_grp_ASTEROIDS).begin(); it != mngr_->getEntities(ecs::_grp_ASTEROIDS).end(); ++it) {
 		(*it)->setAlive(false);
 	}
-	currAsteroids = 0;
+	currAsteroids = 0;*/
 }
 
 // metodo al que se llama cuando un asteroide colisiona con una bala y que determina si este deberia o no dividirse de acuerdo a su num de generaciones y al num total de asteroides
 void AsteroidManager::onCollision(Entity* a) {
-	currAsteroids--;
+	/*currAsteroids--;
     if (a->getComponent<Generations>()->getGeneration() > 1 && currAsteroids < 30) { 
 		Divide(a);
 	}
-	a->setAlive(false);
+	a->setAlive(false);*/
 }
 
 // metodo encargado de generar dos nuevos asteroides despues de haber destruido a otro, con una generacion menos y una pos, vel y rot aleatorias
 void AsteroidManager::Divide(Entity* a) {
-	auto r1 = sdlutils().rand().nextInt(0, 360);
+	/*auto r1 = sdlutils().rand().nextInt(0, 360);
 	auto pos1 = a->getComponent<Transform>()->getPos() + a->getComponent<Transform>()->getVel().rotate(r1) * 2 * max(a->getComponent<Transform>()->getW(), a->getComponent<Transform>()->getH());
 	auto vel1 = a->getComponent<Transform>()->getVel().rotate(r1) * 1.1f;
 
@@ -88,5 +88,5 @@ void AsteroidManager::Divide(Entity* a) {
 		as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID_GOLD));
 	}
 	else { as1->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); as2->addComponent<FramedImage>(Game::instance()->getTexture(ASTEROID)); }
-	currAsteroids += 2;
+	currAsteroids += 2;*/
 }

@@ -1,15 +1,14 @@
 #include "../checkML.h"
 #include "Follow.h"
-#include "../ecs/Manager.h"
 
 // destructora
 Follow::~Follow() {}
 
 // inicializa las referencias a otros componentes
 void Follow::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
+	/*tr_ = ent_->getComponent<Transform>();
 	assert(tr_ != nullptr);
-	q = mngr_->getHandler(ecs::FIGHTER)->getComponent<Transform>();
+	q = mngr_->getHandler(ecs::FIGHTER)->getComponent<Transform>();*/
 }
 
 // actualiza la posicion del ateroide con respecto a la de la nave

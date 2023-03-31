@@ -1,6 +1,5 @@
 #pragma once
 #include "../checkML.h"
-#include "../game/ecs_def.h"
 #include "Component.h"
 #include<vector>
 #include<array>
@@ -8,27 +7,19 @@
 #include "../sdlutils/SDLUtils.h"
 
 using namespace std;
-class Manager;
-// declaracion de la clase padre entity
 class Entity {
 public:
 	Entity(ecs::grpId_type gId);
 	Entity(const Entity&) = delete;
 	Entity& operator=(const Entity&) = delete;
-	virtual ~Entity();
-	void update();
-	/*inline void update() {
-//		auto n = currCmps_.size();
-//		for (auto i = 0u; i < n; i++)
-//			currCmps_[i]->update();*/
-	void render();
-	/*inline void render() {
-//		auto n = currCmps_.size();
-//		for (auto i = 0u; i < n; i++)
-//			currCmps_[i]->render();
-//	}*/
+	virtual ~Entity() {
+		for (auto c : currCmps_) {
+			delete c;
+			c = nullptr;
+		}
+	};
 private:
-	friend Manager;
+	friend class Manager;
 	std::vector<Component*> currCmps_;
 	std::array<Component*, ecs::maxComponentId> cmps_;
 	bool alive_;

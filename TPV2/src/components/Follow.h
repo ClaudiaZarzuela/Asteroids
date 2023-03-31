@@ -3,7 +3,6 @@
 #include "../ecs/Component.h"
 #include "../game/ecs_def.h"
 #include "Transform.h"
-#include "../ecs/Manager.h"
 
 // componente que hace que los asteoides dorados sigan a la nave
 struct Follow : public Component

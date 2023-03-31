@@ -12,8 +12,7 @@ private:
 public:
 	// Constructora de la clase
 	GameOverState(string stateInfo, PlayState* play);
-	// Metodos publicos de la clase
-	void inputHandler() override;
+	void update() override;
 	// Getters
 	virtual string getStateID() const { return gameOverID; }
 };

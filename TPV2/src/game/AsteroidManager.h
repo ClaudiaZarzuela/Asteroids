@@ -14,7 +14,7 @@ private:
 public:
 	// metodos publicos de la clase
 	AsteroidManager(Manager* m) : mngr_(m), currAsteroids(0) {}
-	virtual void update();
+	//virtual void update();
 	void createAsteroids(int numAst);
 	void addAsteroidFrequently();
 	void destroyAllAsteroids();

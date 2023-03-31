@@ -2,7 +2,6 @@
 #include "../checkML.h"
 #include "../ecs/Manager.h"
 #include "AsteroidManager.h"
-#include "../ecs/Manager.h"
 #include "../utils/Collisions.h"
 
 class PlayState;

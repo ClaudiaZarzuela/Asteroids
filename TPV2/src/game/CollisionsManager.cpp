@@ -9,7 +9,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 // metodo encargado de comprpbar las colisiones de los asteroides con el caza y con las balas, y aplicar los efectos correspondientes de darse estas
-void CollisionsManager::checkCollision() {
+void CollisionsManager::checkCollision() {/*
 	vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
 
@@ -39,14 +39,14 @@ void CollisionsManager::checkCollision() {
 				break;
 			}
 		}	
-	}
+	}*/
 }
 
-void CollisionsManager::ifCollision() {
+void CollisionsManager::ifCollision() {/*
 	auto player = mngr_->getHandler(ecs::FIGHTER);
 	sdlutils().soundEffects().at("explosion").play();
 	player->getComponent<Health>()->loseLife();
 	for (auto b : mngr_->getEntities(ecs::_grp_BULLETS)) b->setAlive(false);
 	player->getComponent<Transform>()->reset();
-	aMngr_->destroyAllAsteroids();
+	aMngr_->destroyAllAsteroids();*/
 }

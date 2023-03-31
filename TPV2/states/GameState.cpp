@@ -7,6 +7,7 @@ GameState::GameState() {
 	manager_ = new Manager();
 	x = (sdlutils().width() - Game::instance()->getText(PAUSA)->width()) / 2;
 	y = ((sdlutils().height() - Game::instance()->getText(PAUSA)->height()) / 2) + 100;
+	//input_ = InputHandler::instance();
 };
 
 // Llama al update de los objetos de la lista de gameObjects
@@ -17,13 +18,3 @@ void GameState::update() {
 void GameState::refresh() {
 	manager_->refresh();
 }
-
-// Llama al render de los objetos de la lista de gameObjects
-void GameState::render() const {
-	manager_->render();
-};
-
-void GameState::inputHandler() {
-	manager_->inputHandler();
-}
-

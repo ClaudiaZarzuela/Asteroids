@@ -7,18 +7,17 @@
 #include "../src/utils/Vector2D.h"
 #include "../src/ecs/Manager.h"
 #include "../src/sdlutils/InputHandler.h"
-#include "../src/components/TextRender.h"
+#include <string>
 
-using namespace std;
+//using namespace std;
 
 // Clase GAMESTATE
-class GameState
-{
+class GameState {
 protected:
 	int x, y;
 	// Constructora protegida
-	Manager* manager_ ;
-	Entity* inputCheck = nullptr;
+	Manager* manager_;
+	//InputHandler* input_ = nullptr;
 	GameState();
 	bool deleted = false;
 	bool inputChangeState = false;
@@ -35,11 +34,9 @@ public:
 	void deleteState() { deleted = true; };
 	virtual void update();
 	virtual void refresh();
-	virtual void render() const;
-	virtual void inputHandler();
 	void setInputChangeState(bool b) { inputChangeState = b; }
 
 	// Getters
-	virtual string getStateID() const = 0;
+	virtual std::string getStateID() const {}
 };
 

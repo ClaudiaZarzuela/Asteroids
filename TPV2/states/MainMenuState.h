@@ -18,7 +18,7 @@ public:
 	MainMenuState(PlayState* playSt);
 
 	// Metodos publicos de la clase
-	void inputHandler() override;
+	void update() override;
 	virtual string getStateID() const { return menuID; }
 };
 

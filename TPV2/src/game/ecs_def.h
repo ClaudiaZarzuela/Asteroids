@@ -2,6 +2,7 @@
 #include "../checkML.h"
 #include <cstdint>
 
+class Entity;
 // definicion del namespace ecs que contiene los enumerados de Id de componentes, grupos y handlers
 namespace ecs {
 
@@ -26,6 +27,7 @@ namespace ecs {
 		_grp_ASTEROIDS,
 		_grp_GENERAL,
 		_grp_BULLETS,
+		_grp_TEXT,
 		_LAST_GRP_ID
 	};
 	constexpr grpId_type maxGroupId = _LAST_GRP_ID;
@@ -44,20 +46,20 @@ namespace ecs {
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
-	struct Message {
-		msgId_type id;
-		// _m_STAR_EATEN
-		struct {
-			Entity* e;
-		} star_eaten_data;
-		// _m_ADD_STARS
-		struct {
-			unsigned int n;
-		} add_stars_data;
-	};
 	using msgId_type = uint8_t;
 	enum msgId : msgId_type {
 		_m_STAR_EATEN, //
 		_m_ADD_STARS
+	};
+	struct Message {
+		msgId_type id;
+		// _m_STAR_EATEN
+		struct star_eaten_data {
+			Entity* e;
+		};
+		// _m_ADD_STARS
+		struct add_stars_data{
+			unsigned int n;
+		};
 	};
 }

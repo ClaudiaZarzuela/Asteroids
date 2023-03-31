@@ -16,15 +16,15 @@ const string PlayState::playID = "PLAY";
 
 // Constructora de la clase, que inizializa todos los elementos del juego
 PlayState::PlayState() :GameState(){
-	fighter = manager_->addEntity();
+	fighter = manager_->addEntity(ecs::_grp_GENERAL);
 	manager_->setHandler(ecs::FIGHTER, fighter);
-	fighter->addComponent<Transform>(Vector2D(sdlutils().width()/2 - 25, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
-	fighter->addComponent<ShowAtOppositeSide>();
-	fighter->addComponent<DeAcceleration>();
-	fighter->addComponent<Gun>(Game::instance()->getTexture(BULLET));
-	fighter->addComponent<FighterCtrl>();
-	fighter->addComponent<Health>(Game::instance()->getTexture(HEALTH), 3);
-	fighter->addComponent<Image>(Game::instance()->getTexture(NAVE));
+	manager_->addComponent<Transform>(fighter, Vector2D(sdlutils().width()/2 - 25, sdlutils().height()/2), Vector2D(0, 0), 50, 50, 0);
+	manager_->addComponent<ShowAtOppositeSide>(fighter);
+	manager_->addComponent<DeAcceleration>(fighter);
+	manager_->addComponent<Gun>(fighter, Game::instance()->getTexture(BULLET));
+	manager_->addComponent<FighterCtrl>(fighter);
+	manager_->addComponent<Health>(fighter, Game::instance()->getTexture(HEALTH), 3);
+	manager_->addComponent<Image>(fighter, Game::instance()->getTexture(NAVE));
 
 	aManager = new AsteroidManager(manager_);
 	cManager = new CollisionsManager(aManager, manager_, this); // hay que llamar a su check collisions pero no se desde donde jeje
@@ -34,27 +34,35 @@ PlayState::PlayState() :GameState(){
 // actualiza el PlayState
 void PlayState::update() {
 	if (manager_->getEntities(ecs::_grp_ASTEROIDS).size() == 0) {
-		for (auto b : manager_->getEntities(ecs::_grp_BULLETS)) b->setAlive(false);
-		fighter->getComponent<Transform>()->reset();
+		for (auto b : manager_->getEntities(ecs::_grp_BULLETS)) manager_->setAlive(b, false);
+		manager_->getComponent<Transform>(fighter)->reset();
 		callGameOver("Win");
 	}
     cManager->checkCollision();
 	aManager->addAsteroidFrequently();
-	GameState::update();
-}
-
-// comprueba si se pulsa space para cambiar de estado
-void PlayState::inputHandler() {
-	GameState::inputHandler();
-	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
-	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
+	//GameState::update();
+	if (!inputChangeState && input_->allKeysUp()) inputChangeState = true;
+	if (!inputChangeState && input_->allKeysUp()) inputChangeState = true;
 	if (inputChangeState) {
-		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
+		if (input_->isKeyDown(SDLK_SPACE)) {
 			Game::instance()->gameStateMachine->pushState(new PauseState());
 			inputChangeState = false;
 		}
 	}
 }
+//
+//// comprueba si se pulsa space para cambiar de estado
+//void PlayState::inputHandler() {
+//	GameState::inputHandler();
+//	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
+//	if (!inputChangeState && InputHandler::instance()->allKeysUp()) inputChangeState = true;
+//	if (inputChangeState) {
+//		if (InputHandler::instance()->isKeyDown(SDLK_SPACE)) {
+//			Game::instance()->gameStateMachine->pushState(new PauseState());
+//			inputChangeState = false;
+//		}
+//	}
+//}
 
 // cambia de estado al RestartGameState
 void PlayState::changeState() {
@@ -72,6 +80,6 @@ void PlayState::callGameOver(string infoState) {
 void PlayState::startGame(bool lifes) {
 	aManager->createAsteroids(10);
 	if (lifes) {
-		fighter->getComponent<Health>()->resetLives();
+		manager_->getComponent<Health>(fighter)->resetLives();
 	}
 }

@@ -1,14 +1,13 @@
 #include "../checkML.h"
 #include "DeAcceleration.h"
-#include "../ecs/Entity.h"
 
 // destructora
 DeAcceleration::~DeAcceleration() {}
 
 // inicializa las referencias a otros componentes
-void DeAcceleration::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
-	assert(tr_ != nullptr);
+void DeAcceleration::initComponent() {/*
+	tr_ = mngr_->getComponent<Transform>();
+	assert(tr_ != nullptr);*/
 }
 
 //// actualiza la velocidad del cada por una menor a cada llamada del bucle

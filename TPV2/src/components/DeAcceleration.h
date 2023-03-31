@@ -1,6 +1,7 @@
 #pragma once
 #include "../checkML.h"
 #include "Transform.h"
+#include "../ecs/Component.h"
 // componente que reduce la velocidad del caza gradualmente
 struct DeAcceleration : public Component
 {

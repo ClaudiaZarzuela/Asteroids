@@ -1,14 +1,13 @@
 #include "../checkML.h"
 #include "Image.h"
-#include "../ecs/Entity.h"
 
 // destructora
 Image::~Image() {}
 
 // inicializa las referencias a otros componentes
 void Image::initComponent() {
-	tr_ = ent_->getComponent<Transform>();
-	assert(tr_ != nullptr);
+	/*tr_ = ent_->getComponent<Transform>();
+	assert(tr_ != nullptr);*/
 }
 
 // renderiza la textura
