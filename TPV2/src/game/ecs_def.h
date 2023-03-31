@@ -56,10 +56,14 @@ namespace ecs {
 		_m_FIGHTER_CRASHED,
 		_m_SHOOT,
 		_m_STAR_EXTINCTION,
-		_m_ROUND_OVER,
 		_m_ROUND_START,
+		_m_ROUND_OVER,
+		_m_RESTART,
+		_m_PLAY,
+		_m_PAUSE,
+		_m_CONTINUE,
 		_m_GAME_OVER,
-		_m_GAME_START,
+		_m_MAINMENU,
 		_m_CHANGE_STATE
 	};
 

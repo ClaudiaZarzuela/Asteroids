@@ -44,6 +44,7 @@ public:
 	}
 	// update the state with a new event
 	inline void update(const SDL_Event& event) {
+		canPress = true;
 		switch (event.type) {
 		case SDL_KEYDOWN:
 			onKeyDown(event);
@@ -98,7 +99,10 @@ public:
 	}
 
 	inline bool isKeyJustDown(SDL_Keycode key) {
-		return isKeyDown(SDL_GetScancodeFromKey(key));
+		if (canPress) {
+			canPress = false;
+			return isKeyDown(SDL_GetScancodeFromKey(key));
+		}
 	}
 
 	inline bool isKeyDown(SDL_Scancode key) {
@@ -151,6 +155,7 @@ public:
 
 private:
 
+	bool canPress = true;
 	bool isQuit = false;
 
 	InputHandler() {

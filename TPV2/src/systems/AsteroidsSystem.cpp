@@ -48,10 +48,9 @@ void AsteroidsSystem::addStar(unsigned int n) {
 		mngr_->addComponent<ShowAtOppositeSide>(as);
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			mngr_->addComponent<Follow>(as);
-			//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
+			mngr_->addComponent<FramedImage>(as);
 		}
-		else { //mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID)); 
-		}
+		else { mngr_->addComponent<FramedImage>(as); }
 	}
 	numOfAsteroids_ += n;
 }
@@ -86,10 +85,10 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 
 			if (mngr_->hasComponent<Follow>(a)) {
 				mngr_->addComponent<Follow>(as);
-				//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID_GOLD));
+				mngr_->addComponent<FramedImage>(as);
 			}
 			else {
-				//mngr_->addComponent<FramedImage>(as, Game::instance()->getTexture(ASTEROID));
+				mngr_->addComponent<FramedImage>(as);
 			}
 		}
 		numOfAsteroids_ += 2;

@@ -25,7 +25,7 @@ private:
 	void onAsteroidsExtinction();
 	Uint8 score_;
 	Uint8 winner_; // 0 - None, 1 - Asteroids, 2- Fighter
-	//Uint8 state_; // El estado actual del juego (en lugar del componente State);
+	Uint8 state_; // El estado actual del juego (en lugar del componente State);
 
 	InputHandler* input_ = InputHandler::instance();
 };

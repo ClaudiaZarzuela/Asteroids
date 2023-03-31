@@ -4,12 +4,39 @@
 
 void GameCtrlSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
-	case ecs::_m_STAR_SHOT: score_ += 1; break;
-	case ecs::_m_FIGHTER_CRASHED:
-		onCollision_FighterAsteroid(); break;
-	case ecs::_m_STAR_EXTINCTION:
-		onAsteroidsExtinction(); break;
-	default: break;
+		case ecs::_m_STAR_SHOT: 
+			score_ += 1; 
+			break;
+
+		case ecs::_m_FIGHTER_CRASHED:
+			onCollision_FighterAsteroid(); 
+			break;
+
+		case ecs::_m_STAR_EXTINCTION:
+			onAsteroidsExtinction(); 
+			break;
+
+		case ecs::_m_PLAY:
+			state_ = PLAY;
+			break;
+
+		case ecs::_m_MAINMENU: //pasa al endState
+			state_ = MENU;
+			break;
+
+		case ecs::_m_RESTART: //pasa al endState
+			state_ = RESTART;
+			break;
+
+		case ecs::_m_PAUSE: //pasa al pauseState
+			state_ = PAUSE;
+			break;
+
+		case ecs::_m_GAME_OVER: //pasa al playState
+			state_ = GAMEOVER;
+			break;
+
+		default: break;
 	}
 }
 
@@ -24,12 +51,16 @@ void GameCtrlSystem::onCollision_FighterAsteroid() {
 	mngr_->getComponent<Transform>(player)->reset();
 
 	if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
+		ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
+		mngr_->send(m1, true);
 		ecs::Message m; m.id = ecs::_m_GAME_OVER;
 		mngr_->send(m, true);
 	}
 	else {
-		ecs::Message m; m.id = ecs::_m_ROUND_OVER;
-		mngr_->send(m, true);
+		ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
+		mngr_->send(m1, true);
+		ecs::Message m2; m2.id = ecs::_m_RESTART;
+		mngr_->send(m2, true);
 	}
 }
 // Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que
@@ -43,35 +74,32 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 }
 
 void GameCtrlSystem::update() {
-	if (input_->isKeyDown(SDLK_SPACE)) {
-		ecs::Message m;
-		m.id = ecs::_m_ROUND_START;
-		switch (currentState)
-		{
-		case MAINMENU:
-			currentState = PLAY;
-			m.id = ecs::_m_ROUND_START;
-			std::cout << "Cambio a " << currentState << std::endl;
-			break;
-		case PLAY:
-			currentState = PAUSE;
-			std::cout << "Cambio a " << currentState << std::endl;
-			break;
-		case PAUSE:
-			currentState = PLAY;
-			std::cout << "Cambio a " << currentState << std::endl;
-			break;
-		case GAMEOVER:
-			currentState = MAINMENU;
-			std::cout << "Cambio a " << currentState << std::endl;
-			break;
-		case RESTART:
-			currentState = PLAY;
-			std::cout << "Cambio a " << currentState << std::endl;
-			break;
-		default:
-			break;
+	if (input_->isKeyJustDown(SDLK_SPACE)) {
+		ecs::Message m1; ecs::Message m2;
+		switch (state_)
+			{
+			case MAINMENU:
+				m1.id = ecs::_m_PLAY;
+				m2.id = ecs::_m_ROUND_START;
+				break;
+			case PLAY:
+				m1.id = ecs::_m_PAUSE;
+				break;
+			case PAUSE:
+				m1.id = ecs::_m_PLAY;
+				break;
+			case GAMEOVER:
+				m1.id = ecs::_m_MAINMENU;
+				break;
+			case RESTART:
+				m1.id = ecs::_m_PLAY;
+				m2.id = ecs::_m_ROUND_START;
+				break;
+
+			default:
+				break;
 		}
-		mngr_->send(m, true);
+		mngr_->send(m1, true);
+		mngr_->send(m2, true);
 	}
 }
