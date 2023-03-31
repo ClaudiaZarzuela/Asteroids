@@ -17,6 +17,7 @@ private:
 	std::array<Entity*, ecs::maxHdlrId> hdlrs_;
 	std::array<std::vector<Entity*>, ecs::maxGroupId> entsByGroup_;
 public:
+
 	Manager() : entsByGroup_(), hdlrs_(), msgs_(), aux_msgs_(), sys_() {
 		for (auto& groupEntities : entsByGroup_) {
 			groupEntities.reserve(100);
