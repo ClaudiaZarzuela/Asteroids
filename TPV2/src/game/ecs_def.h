@@ -71,9 +71,10 @@ namespace ecs {
 		msgId_type id;
 		// _m_STAR_EATEN
 		struct {
-			Entity* e;
+			Entity* bullet;
+			Entity* asteroid;
 
-		}star_eaten_data;
+		}star_shot_data;
 		// _m_ADD_STARS
 		struct{
 			unsigned int n;

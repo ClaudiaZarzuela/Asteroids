@@ -5,16 +5,28 @@
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
-	case ecs::_m_SHOOT:
-		shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
-	case ecs::_m_STAR_SHOT:
-		onCollision_BulletAsteroid(m.star_eaten_data.e); break;
-	case ecs::_m_ROUND_OVER:
-		onRoundOver(); break;
-	case ecs::_m_ROUND_START:
-		onRoundStart(); break;
-	default:
-		break;
+		case ecs::_m_SHOOT:
+			shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
+		
+		case ecs::_m_STAR_SHOT:
+			onCollision_BulletAsteroid(m.star_shot_data.bullet); break;
+
+		case ecs::_m_PAUSE:
+			onRoundOver(); break;
+
+		case ecs::_m_ROUND_OVER:
+			onRoundOver(); 
+			for (auto e : mngr_->getEntities(ecs::_grp_BULLETS)) {
+				mngr_->setAlive(e, false);
+			}
+			break;
+
+		case ecs::_m_PLAY:
+		case ecs::_m_ROUND_START:
+			onRoundStart(); break;
+
+		default: break;
+	
 	}
 }
 // Inicializar el sistema, etc.
@@ -54,9 +66,6 @@ void BulletSystem::onCollision_BulletAsteroid(Entity* b) {
 // Para gestionar el mensaje de que ha acabado la ronda. Desactivar todas las
 // balas, y desactivar el sistema.
 void BulletSystem::onRoundOver() {
-	for (auto e : mngr_->getEntities(ecs::_grp_BULLETS)) {
-		mngr_->setAlive(e, false);
-	}
 	active_ = false;
 }
 // Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.

@@ -7,26 +7,42 @@
 
 void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
-	case ecs::_m_STAR_SHOT:
-		onCollision_AsteroidBullet(m.star_eaten_data.e); break;
-	case ecs::_m_ROUND_OVER:
-		onRoundOver(); break;
-	case ecs::_m_ROUND_START:
-		onRoundStart(); break;
-	default: break;
+		case ecs::_m_STAR_SHOT:
+			onCollision_AsteroidBullet(m.star_shot_data.asteroid); break;
+	
+		case ecs::_m_PAUSE:
+			onRoundOver(); break;
+		case ecs::_m_ROUND_OVER:
+			onRoundOver(); 
+			destroyAllAsteroids(); break;
+
+		case ecs::_m_PLAY:
+			onRoundStart(); break;
+		case ecs::_m_ROUND_START:
+			onRoundStart();
+			addStar(10); break;
+	
+		default: break;
 	}
 }
 
 void AsteroidsSystem::update() {
-	for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
-		auto tr = mngr_->getComponent<Transform>(e);
-		tr->getPos() = tr->getPos() + tr->getVel();
-		tr->setRot(tr->getRot() + 5.0f);
-		if (mngr_->hasComponent<Follow>(e)) { 
-			tr->setVel(tr->getVel().rotate(tr->getVel().angle(mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER))->getPos() - tr->getPos()) > 0 ? 1.0f : -1.0f));
+	if (active_) {
+		for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
+			auto tr = mngr_->getComponent<Transform>(e);
+			tr->getPos() = tr->getPos() + tr->getVel();
+			tr->setRot(tr->getRot() + 5.0f);
+			if (mngr_->hasComponent<Follow>(e)) { 
+				tr->setVel(tr->getVel().rotate(tr->getVel().angle(mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER))->getPos() - tr->getPos()) > 0 ? 1.0f : -1.0f));
+			}
+			if (tr->getPos().getX() > sdlutils().width()) { tr->setPos(Vector2D(0 - tr->getW(), tr->getPos().getY())); }
+			else if (tr->getPos().getX() < 0 - tr->getW()) { tr->setPos(Vector2D(sdlutils().width(), tr->getPos().getY())); }
+			if (tr->getPos().getY() > sdlutils().height()) { tr->setPos(Vector2D(tr->getPos().getX(), 0 - tr->getH())); }
+			else if (tr->getPos().getY() < 0 - tr->getH()) { tr->setPos(Vector2D(tr->getPos().getX(), sdlutils().height())); }
+
 		}
+		addAsteroidFrequently();
 	}
-	addAsteroidFrequently();
 }
 
 void AsteroidsSystem::addStar(unsigned int n) {
@@ -45,7 +61,6 @@ void AsteroidsSystem::addStar(unsigned int n) {
 		Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
 		mngr_->addComponent<Generations>(as, sdlutils().rand().nextInt(1, 4));
 		mngr_->addComponent<Transform>(as, p, v, 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 0);
-		mngr_->addComponent<ShowAtOppositeSide>(as);
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			mngr_->addComponent<Follow>(as);
 			mngr_->addComponent<FramedImage>(as);
@@ -102,11 +117,9 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 }
 
 void AsteroidsSystem::onRoundOver() {
-	destroyAllAsteroids();
 	active_ = false;
 }
 
 void AsteroidsSystem::onRoundStart() {
 	active_ = true;
-	addStar(10);
 }

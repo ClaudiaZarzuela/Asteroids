@@ -85,7 +85,7 @@ void RenderSystem::update() {
 				//RENDER TEXTO
 			std::cout << "PLAY" << std::endl;
 				//RENDER BALAS Y ASTEROIDES
-				animateAsteroids();
+				//animateAsteroids();
 				inGameObjects();
 				; break;
 		case System::RESTART:
@@ -96,7 +96,6 @@ void RenderSystem::update() {
 				//RENDER TEXTO
 			std::cout << "PAUSE" << std::endl;
 				//RENDER BALAS Y ASTEROIDES
-				animateAsteroids();
 				inGameObjects();
 				; break;
 		case System::GAMEOVER:
@@ -153,7 +152,7 @@ void RenderSystem::inGameObjects() {
 }
 
 void RenderSystem::animateAsteroids() {
-	if (sdlutils().currRealTime() >= frameTime) {
+	/*if (sdlutils().currRealTime() >= frameTime) {
 		auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 		for (auto i = 0; i < grpAst.size(); i++)
 		{
@@ -176,5 +175,5 @@ void RenderSystem::animateAsteroids() {
 			}
 			frameTime = sdlutils().currRealTime() + 50;
 		}
-	}
+	}*/
 }

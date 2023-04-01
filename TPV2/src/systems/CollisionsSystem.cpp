@@ -6,12 +6,14 @@
 void CollisionsSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
-	case ecs::_m_ROUND_OVER:
-		onRoundOver(); break;
-	case ecs::_m_ROUND_START:
-		onRoundStart(); break;
-		default:
-			break;
+		case ecs::_m_PAUSE:
+		case ecs::_m_ROUND_OVER:
+			onRoundOver(); break;
+
+		case ecs::_m_PLAY:
+		case ecs::_m_ROUND_START:
+			onRoundStart(); break;
+		default: break;
 	}
 }
 // Inicializar el sistema, etc.
@@ -41,7 +43,7 @@ void CollisionsSystem::update() {
 				auto bala = mngr_->getComponent<Transform>((*ot));
 				if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(),asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 					
-					ecs::Message m; m.id = ecs::_m_STAR_SHOT; m.star_eaten_data.e = ast[i];
+					ecs::Message m; m.id = ecs::_m_STAR_SHOT; m.star_shot_data.asteroid = ast[i];  m.star_shot_data.bullet = (*ot);
 					mngr_->send(m, true);
 					break;
 				}

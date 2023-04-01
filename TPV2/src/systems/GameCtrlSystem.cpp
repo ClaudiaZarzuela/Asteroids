@@ -47,18 +47,14 @@ void GameCtrlSystem::onCollision_FighterAsteroid() {
 	auto player = mngr_->getHandler(ecs::FIGHTER);
 	sdlutils().soundEffects().at("explosion").play();
 	mngr_->getComponent<Health>(player)->loseLife();
-	for (auto b : mngr_->getEntities(ecs::_grp_BULLETS)) mngr_->setAlive(b, false);
-	mngr_->getComponent<Transform>(player)->reset();
+	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
+	mngr_->send(m1, true);
 
 	if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
-		ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
-		mngr_->send(m1, true);
 		ecs::Message m; m.id = ecs::_m_GAME_OVER;
 		mngr_->send(m, true);
 	}
 	else {
-		ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
-		mngr_->send(m1, true);
 		ecs::Message m2; m2.id = ecs::_m_RESTART;
 		mngr_->send(m2, true);
 	}

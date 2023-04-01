@@ -16,14 +16,20 @@ void FighterSystem::initSystem() {
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
-	case ecs::_m_FIGHTER_CRASHED:
-		onCollision_FighterAsteroid(); break;
-	case ecs::_m_ROUND_OVER:
-		onRoundOver(); break;
-	case ecs::_m_ROUND_START:
-		onRoundStart(); break;
-	default:
-		break;
+		case ecs::_m_FIGHTER_CRASHED:
+			onCollision_FighterAsteroid(); break;
+
+		case ecs::_m_PAUSE:
+		case ecs::_m_ROUND_OVER:
+			onRoundOver(); break;
+
+		case ecs::_m_PLAY:
+			onRoundStart(); break;
+		case ecs::_m_ROUND_START:
+			onRoundStart();
+			resetLives(); break;
+
+		default: break;
 	}
 }
 
@@ -33,8 +39,6 @@ void FighterSystem::recieve(const ecs::Message& m) {
 // mensaje con las características físicas de la bala. Recuerda que se puede disparar
 // sólo una bala cada 0.25sec.
 void FighterSystem::update() {
-	//std::cout << "nope"<< std::endl;
-
 	if (active_) {
 		if (input_->isKeyDown(SDLK_UP)) {
 			sdlutils().soundEffects().at("thrust").play();
@@ -82,4 +86,9 @@ void FighterSystem::onRoundOver() {
 // Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.
 void FighterSystem::onRoundStart() {
 	active_ = true;
+}
+
+void FighterSystem::resetLives() {
+	auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::FIGHTER));
+	if (health->getLives() == 0) health->resetLives();
 }
