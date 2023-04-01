@@ -96,5 +96,5 @@ void FighterSystem::onRoundStart() {
 // Resetea el numero de vidas del caza
 void FighterSystem::resetLives() {
 	auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::FIGHTER));
-	if (health->getLives() == 0) health->resetLives();
+	if (health->getLives() <= 0) health->resetLives();
 }

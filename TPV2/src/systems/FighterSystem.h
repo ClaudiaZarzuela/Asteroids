@@ -35,7 +35,7 @@ private:
 	void onRoundStart();
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
-	bool active_;
+	bool active_ = false;
 	// Resetea el numero de vidas del caza
 	void resetLives();
 };

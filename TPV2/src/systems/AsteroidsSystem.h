@@ -19,6 +19,8 @@ public:
 	virtual ~AsteroidsSystem() { }
 private:
 	float elapsedTime = sdlutils().currRealTime();
+	//desactiva el asteroide con el que ha chocado la nave
+	void FighterCrashed(Entity* a);
 	// Destruye todos los asteroides
 	void destroyAllAsteroids();
 	// Añade un asteroide cada 5 secs
@@ -40,5 +42,5 @@ private:
 	Uint8 numOfAsteroids_ = 0;
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
-	bool active_;
+	bool active_  = false;
 };

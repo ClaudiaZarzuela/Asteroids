@@ -82,6 +82,10 @@ namespace ecs {
 		}add_stars_data;
 
 		struct {
+			Entity* a;
+		}star_crashed_data;
+
+		struct {
 			Vector2D pos;
 			Vector2D vel;
 			double rot;

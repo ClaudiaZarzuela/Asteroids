@@ -34,7 +34,7 @@ void CollisionsSystem::update() {
 			if (Collisions::collidesWithRotation(playerTransform->getPos(), playerTransform->getW(), playerTransform->getH(), playerTransform->getRot(),
 				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 
-				ecs::Message m; m.id = ecs::_m_FIGHTER_CRASHED;
+				ecs::Message m; m.id = ecs::_m_FIGHTER_CRASHED; m.star_crashed_data.a = ast[i];
 				mngr_->send(m, true);
 				break;
 			}

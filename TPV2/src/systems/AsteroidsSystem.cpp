@@ -8,6 +8,9 @@
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
+		case ecs::_m_FIGHTER_CRASHED:
+			FighterCrashed(m.star_crashed_data.a); break;
+
 		case ecs::_m_STAR_SHOT:
 			onCollision_AsteroidBullet(m.star_shot_data.asteroid); break;
 	
@@ -87,6 +90,10 @@ void AsteroidsSystem::destroyAllAsteroids() {
 		mngr_->setAlive(e, false);
 	}
 	numOfAsteroids_ = 0;
+}
+
+void AsteroidsSystem::FighterCrashed(Entity* a) {
+	mngr_->setAlive(a, false);
 }
 
 // Para gestionar el mensaje de que ha habido un choque de un asteroide con una bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
