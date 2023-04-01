@@ -5,6 +5,7 @@
 #include "../components/Health.h"
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
+
 RenderSystem:: ~RenderSystem() {
 	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
 	for (int i = 0; i < NUM_TEXTS; ++i) delete texts[i];
@@ -76,32 +77,6 @@ void RenderSystem::update() {
 	textures[NAVE]->render(dest, f->getRot());
 
 	switch (state_) {
-//<<<<<<< HEAD
-//		case MAINMENU:
-//			//RENDER TEXTO
-//			text1_ = mngr_->addEntity(ecs::_grp_TEXT);
-//			mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100)
-//			; break;
-//
-//		case PLAY:
-//			//RENDER TEXTO
-//
-//			//RENDER BALAS Y ASTEROIDES
-//			inGameObjects();
-//			; break;
-//		case RESTART:
-//			//RENDER TEXTO
-//			; break;
-//		case PAUSE:
-//			//RENDER TEXTO
-//
-//			//RENDER BALAS Y ASTEROIDES
-//			inGameObjects();
-//			; break;
-//		case GAMEOVER:
-//			//RENDER TEXTO
-//			; break;
-//=======
 		case System::MENU:
 				//RENDER TEXTO
 			std::cout << "MENU" << std::endl;
@@ -131,13 +106,13 @@ void RenderSystem::update() {
 	}
 	
 	//RENDER TEXTOS
-	/*for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
+	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
 		if (e != nullptr) {
 			TextRender* t = mngr_->getComponent<TextRender>(e);
 			if(t != nullptr)
 				t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
 		}
-	}*/
+	}
 	
 
 	sdl.presentRenderer();

@@ -97,7 +97,7 @@ public:
 
         if (canPress) {
             canPress = false;
-            return isKeyDownEvent_;
+            return isKeyDown(SDL_GetScancodeFromKey(key));
         }
     }
 
