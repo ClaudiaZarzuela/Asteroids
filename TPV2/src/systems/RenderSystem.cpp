@@ -138,7 +138,6 @@ void RenderSystem::animateAsteroids() {
 			int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
 			int colTotal = textures[ASTEROID]->getCol();
 			int rowTotal = textures[ASTEROID]->getRow();
-			std::cout << rowTotal << " " << colTotal << std::endl;
 				
 			mngr_->getComponent<FramedImage>(grpAst[i])->setCol((col + 1) % colTotal);
 

@@ -19,7 +19,7 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); break;
 		case ecs::_m_ROUND_START:
 			onRoundStart();
-			addStar(1); break;
+			addStar(10); break;
 	
 		default: break;
 	}
