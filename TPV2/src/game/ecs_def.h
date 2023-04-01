@@ -62,7 +62,8 @@ namespace ecs {
 		_m_PLAY,
 		_m_PAUSE,
 		_m_CONTINUE,
-		_m_GAME_OVER,
+		_m_GAME_OVER_WIN,
+		_m_GAME_OVER_LOSE,
 		_m_MAINMENU,
 		_m_CHANGE_STATE
 	};

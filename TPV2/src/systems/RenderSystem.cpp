@@ -29,10 +29,14 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		state_ = PAUSE;
 		break;
 
-	case ecs::_m_GAME_OVER: //pasa al playState
-		state_ = GAMEOVER;
+	case ecs::_m_GAME_OVER_WIN: //pasa al playState
+		state_ = GAMEOVERWIN;
+		break;
+	case ecs::_m_GAME_OVER_LOSE: //pasa al playState
+		state_ = GAMEOVERLOSE;
 		break;
 	}
+	changeText();
 }
 
 void RenderSystem::initSystem() {
@@ -52,12 +56,7 @@ void RenderSystem::initSystem() {
 	}
 
 	fighter = mngr_->getHandler(ecs::FIGHTER);
-
-	//Textos indicativos en cada estado
-	//text1_ = mngr_->addEntity(ecs::_grp_TEXT);
-	//text2_ = mngr_->addEntity(ecs::_grp_TEXT);
-	//mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
-
+	changeText();
 }
 
 void RenderSystem::update() {
@@ -76,44 +75,22 @@ void RenderSystem::update() {
 	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
 	textures[NAVE]->render(dest, f->getRot());
 
-	switch (state_) {
-		case System::MENU:
-				//RENDER TEXTO
-			std::cout << "MENU" << std::endl;
-				; break;
-		case System::PLAY:
-				//RENDER TEXTO
-			std::cout << "PLAY" << std::endl;
-				//RENDER BALAS Y ASTEROIDES
-				//animateAsteroids();
-				inGameObjects();
-				; break;
-		case System::RESTART:
-				//RENDER TEXTO
-			std::cout << "RESTART" << std::endl;
-				; break;
-		case System::PAUSE:
-				//RENDER TEXTO
-			std::cout << "PAUSE" << std::endl;
-				//RENDER BALAS Y ASTEROIDES
-				inGameObjects();
-				; break;
-		case System::GAMEOVER:
-				//RENDER TEXTO
-			std::cout << "GAMEOVER" << std::endl;
-				; break;
+	if (state_ == PLAY) {
+		inGameObjects();
 	}
-	
-	//RENDER TEXTOS
-	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
-		if (e != nullptr) {
-			TextRender* t = mngr_->getComponent<TextRender>(e);
-			if(t != nullptr)
-				t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
+	else {
+		//RENDER TEXTOS
+		if (state_ == PAUSA) {
+			inGameObjects();
+		}
+		for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
+			if (e != nullptr) {
+				TextRender* t = mngr_->getComponent<TextRender>(e);
+				if (t != nullptr)
+					t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
+			}
 		}
 	}
-	
-
 	sdl.presentRenderer();
 }
 
@@ -136,6 +113,7 @@ void RenderSystem::inGameObjects() {
 		Transform* tr_ = mngr_->getComponent<Transform>(grpAst[i]);
 		int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
 		int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
+		std::cout << row << " " << col << std::endl;
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 		if (mngr_->hasComponent<Follow>(grpAst[i]))
 			textures[ASTEROID_GOLD]->renderFrame(dest, row, col, tr_->getRot());
@@ -176,4 +154,30 @@ void RenderSystem::animateAsteroids() {
 			frameTime = sdlutils().currRealTime() + 50;
 		}
 	}*/
+}
+
+void RenderSystem::changeText() {
+	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
+		if (e != nullptr) {
+			TextRender* t = mngr_->getComponent<TextRender>(e);
+			if(t != nullptr)
+				mngr_->setAlive(e, false);
+		}
+	}
+	if (state_ == MAINMENU) {
+		text1_ = mngr_->addEntity(ecs::_grp_TEXT);
+		mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
+	}
+	else {
+		text1_ = mngr_->addEntity(ecs::_grp_TEXT); 
+		mngr_->addComponent<TextRender>(text1_, texts[PAUSE], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
+		if (state_ == GAMEOVERLOSE) {
+			text2_ = mngr_->addEntity(ecs::_grp_TEXT);
+			mngr_->addComponent<TextRender>(text2_, texts[LOSE], (sdlutils().width()- texts[LOSE]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) -100);
+		}
+		else if (state_ == GAMEOVERWIN) {
+			text2_ = mngr_->addEntity(ecs::_grp_TEXT);
+			mngr_->addComponent<TextRender>(text2_, texts[WIN], (sdlutils().width() - texts[WIN]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) - 100);
+		}
+	}
 }

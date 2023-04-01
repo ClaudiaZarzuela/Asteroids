@@ -3,7 +3,6 @@
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
 #include "../game/Game.h"
-#include "../components/ShowAtOppositeSide.h"
 
 void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
@@ -20,7 +19,7 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); break;
 		case ecs::_m_ROUND_START:
 			onRoundStart();
-			addStar(10); break;
+			addStar(1); break;
 	
 		default: break;
 	}
@@ -71,10 +70,10 @@ void AsteroidsSystem::addStar(unsigned int n) {
 }
 
 void AsteroidsSystem::addAsteroidFrequently() {
-	if (sdlutils().currRealTime() - elapsedTime > 5000) {
+	/*if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		if (numOfAsteroids_ + 1 < 30) addStar(1);
 		elapsedTime = sdlutils().currRealTime();
-	}
+	}*/
 }
 
 // metodos+ encargado de destruir todos los asteroides
@@ -96,7 +95,6 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 			Entity* as = mngr_->addEntity(ecs::_grp_ASTEROIDS);
 			mngr_->addComponent<Generations>(as, mngr_->getComponent<Generations>(a)->getGeneration() - 1);
 			mngr_->addComponent<Transform>(as, pos, vel, 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 0);
-			mngr_->addComponent<ShowAtOppositeSide>(as);
 
 			if (mngr_->hasComponent<Follow>(a)) {
 				mngr_->addComponent<Follow>(as);

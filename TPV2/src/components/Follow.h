@@ -11,12 +11,9 @@ public:
 	// id
 	constexpr static ecs::cmpId_type id = ecs::_FOLLOW;
 	// metodos publicos de la clase
-	Follow(): tr_(nullptr), q(nullptr) {}
+	Follow(){}
 	virtual ~Follow();
 	void initComponent() override;
 
-private:
-	Transform* tr_;
-	Transform* q;
 };
 

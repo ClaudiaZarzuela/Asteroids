@@ -17,6 +17,8 @@ void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_FIGHTER_CRASHED:
+		case ecs::_m_GAME_OVER_LOSE:
+		case ecs::_m_GAME_OVER_WIN:
 			onCollision_FighterAsteroid(); break;
 
 		case ecs::_m_PAUSE:

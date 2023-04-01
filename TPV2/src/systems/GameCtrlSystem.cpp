@@ -32,10 +32,13 @@ void GameCtrlSystem::recieve(const ecs::Message& m) {
 			state_ = PAUSE;
 			break;
 
-		case ecs::_m_GAME_OVER: //pasa al playState
-			state_ = GAMEOVER;
+		case ecs::_m_GAME_OVER_LOSE: //pasa al playState
+			state_ = GAMEOVERLOSE;
 			break;
 
+		case ecs::_m_GAME_OVER_WIN: //pasa al playState
+			state_ = GAMEOVERWIN;
+			break;
 		default: break;
 	}
 }
@@ -51,7 +54,7 @@ void GameCtrlSystem::onCollision_FighterAsteroid() {
 	mngr_->send(m1, true);
 
 	if (mngr_->getComponent<Health>(player)->getLives() <= 0) {
-		ecs::Message m; m.id = ecs::_m_GAME_OVER;
+		ecs::Message m; m.id = ecs::_m_GAME_OVER_LOSE;
 		mngr_->send(m, true);
 	}
 	else {
@@ -64,7 +67,7 @@ void GameCtrlSystem::onCollision_FighterAsteroid() {
 void GameCtrlSystem::onAsteroidsExtinction() {
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
 	mngr_->send(m1, true);
-	ecs::Message m2; m2.id = ecs::_m_GAME_OVER;
+	ecs::Message m2; m2.id = ecs::_m_GAME_OVER_WIN;
 	mngr_->send(m2, true);
 
 }
@@ -84,7 +87,10 @@ void GameCtrlSystem::update() {
 			case PAUSE:
 				m1.id = ecs::_m_PLAY;
 				break;
-			case GAMEOVER:
+			case GAMEOVERLOSE:
+				m1.id = ecs::_m_MAINMENU;
+				break;
+			case GAMEOVERWIN:
 				m1.id = ecs::_m_MAINMENU;
 				break;
 			case RESTART:

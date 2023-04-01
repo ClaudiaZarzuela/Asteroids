@@ -14,7 +14,7 @@ public:
 	virtual void recieve(const ecs::Message& m) { }
 protected:
 	Manager* mngr_ = nullptr;
-	enum states{MENU, PLAY, RESTART, PAUSE, GAMEOVER};
+	enum states{MENU, PAUSE, PLAY, GAMEOVERLOSE, GAMEOVERWIN, RESTART};
 };
 
 

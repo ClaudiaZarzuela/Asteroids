@@ -73,7 +73,7 @@ private:
 	void onGameOver();
 	void inGameObjects();
 	void animateAsteroids();
-
+	void changeText();
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
 	Uint8 winner_; // 0 - None, 1 - Asteroid, 2- Fighter

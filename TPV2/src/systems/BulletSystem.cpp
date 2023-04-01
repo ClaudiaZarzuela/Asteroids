@@ -1,6 +1,5 @@
 #include "BulletSystem.h"
 #include "../components/Transform.h"
-#include "../components/Image.h"
 
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
