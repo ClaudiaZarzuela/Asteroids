@@ -5,10 +5,17 @@
 #include "../components/Health.h"
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
+#include "../checkML.h"
 
 RenderSystem:: ~RenderSystem() {
-	for (int i = 0; i < NUM_TEXTURES; ++i) delete textures[i];
-	for (int i = 0; i < NUM_TEXTS; ++i) delete texts[i];
+	for (int i = 0; i < NUM_TEXTURES; ++i) {
+		delete textures[i];
+		textures[i] = nullptr;
+	}
+	for (int i = 0; i < NUM_TEXTS; ++i) {
+		delete texts[i];
+		texts[i] = nullptr;
+	}
 	SDL_DestroyRenderer(renderer);
 }
 void RenderSystem::recieve(const ecs::Message& m) {
@@ -113,7 +120,6 @@ void RenderSystem::inGameObjects() {
 		Transform* tr_ = mngr_->getComponent<Transform>(grpAst[i]);
 		int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
 		int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
-		std::cout << row << " " << col << std::endl;
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 		if (mngr_->hasComponent<Follow>(grpAst[i]))
 			textures[ASTEROID_GOLD]->renderFrame(dest, row, col, tr_->getRot());

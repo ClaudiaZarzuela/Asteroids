@@ -31,6 +31,10 @@ public:
 				e = nullptr;
 			}
 		}
+		for (auto& sys : sys_) {
+			delete sys;
+			sys = nullptr;
+		}
 	};
 	//Entity* addEntity(ecs::grpId_type gId);
 	inline const auto& getEntities(ecs::grpId_type gId) { return entsByGroup_[gId]; }

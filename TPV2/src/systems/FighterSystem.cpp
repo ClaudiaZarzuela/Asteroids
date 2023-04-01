@@ -1,6 +1,8 @@
 #include "FighterSystem.h"
 #include "../components/Health.h"
 #include "../sdlutils/InputHandler.h"
+#include "../checkML.h"
+
 // Crear la entidad del caza, añadir sus componentes, asociarla con un handler
 // correspondiente, etc.
 void FighterSystem::initSystem() {

@@ -1,36 +1,3 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(503,5): warning MSB8004: El directorio Output no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Output.
-  AsteroidsSystem.cpp
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\RenderSystem.h(28,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\RenderSystem.h(31,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.h(20,45): warning C4244: 'inicializando': conversión de 'Uint32' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(38,89): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(40,111): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(48,20): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(52,49): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(53,91): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(53,49): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(54,52): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(55,69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(55,40): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(57,69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(57,44): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(57,148): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(57,110): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(75,40): warning C4244: '=': conversión de 'Uint32' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(50,32): warning C4101: 'e': variable local sin referencia
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(47,1): message : al compilar la función del miembro clase plantilla "SoundEffect &SDLUtils::map_access_wrapper<SoundEffect>::at(std::string)"
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\sdlutils\SDLUtils.h(194,34): message : Vea la referencia a la creación de una instancia de clase plantilla "SDLUtils::map_access_wrapper<SoundEffect>" que se está compilando
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(92,112): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(93,66): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\ecs\Manager.h(48,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
-          with
-          [
-              _Ty=int
-          ]
-C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\TPV2\src\systems\AsteroidsSystem.cpp(62,185): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Manager::addComponent<Transform,Vector2D&,Vector2D&,float,float,int>(Entity *,Vector2D &,Vector2D &,float &&,float &&,int &&)" que se está compilando
-          with
-          [
-              T=Transform
-          ]
+     Creando biblioteca C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\bin\TPV2Debug.lib y objeto C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\bin\TPV2Debug.exp
   TPV2.vcxproj -> C:\Users\witiz\Documents\UCM\TPV2\Practicas\Practica1\Asteroids\bin\TPV2Debug.exe
