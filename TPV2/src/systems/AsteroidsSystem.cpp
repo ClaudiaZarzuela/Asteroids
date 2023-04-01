@@ -63,9 +63,8 @@ void AsteroidsSystem::addStar(unsigned int n) {
 		mngr_->addComponent<Transform>(as, p, v, 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 10.0f + 5.0f * mngr_->getComponent<Generations>(as)->getGeneration(), 0);
 		if (sdlutils().rand().nextInt(0, 10) < 3) {
 			mngr_->addComponent<Follow>(as);
-			mngr_->addComponent<FramedImage>(as);
 		}
-		else { mngr_->addComponent<FramedImage>(as); }
+		mngr_->addComponent<FramedImage>(as);
 	}
 	numOfAsteroids_ += n;
 }
@@ -99,11 +98,8 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 
 			if (mngr_->hasComponent<Follow>(a)) {
 				mngr_->addComponent<Follow>(as);
-				mngr_->addComponent<FramedImage>(as);
 			}
-			else {
-				mngr_->addComponent<FramedImage>(as);
-			}
+			mngr_->addComponent<FramedImage>(as);
 		}
 		numOfAsteroids_ += 2;
 	}
