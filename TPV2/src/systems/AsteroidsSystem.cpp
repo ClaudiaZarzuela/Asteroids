@@ -19,7 +19,7 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); break;
 		case ecs::_m_ROUND_START:
 			onRoundStart();
-			addStar(1); break;
+			addStar(10); break;
 	
 		default: break;
 	}
@@ -70,10 +70,10 @@ void AsteroidsSystem::addStar(unsigned int n) {
 }
 
 void AsteroidsSystem::addAsteroidFrequently() {
-	/*if (sdlutils().currRealTime() - elapsedTime > 5000) {
+	if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		if (numOfAsteroids_ + 1 < 30) addStar(1);
 		elapsedTime = sdlutils().currRealTime();
-	}*/
+	}
 }
 
 // metodos+ encargado de destruir todos los asteroides
