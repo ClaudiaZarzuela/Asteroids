@@ -37,10 +37,8 @@ void FighterSystem::recieve(const ecs::Message& m) {
 	}
 }
 
-// Si el juego está parado no hacer nada, en otro caso actualizar la velocidad
-// del caza y moverlo como en la práctica 1 (acelerar, desacelerar, etc). Además, 
-// si el juego no está parado y el jugador pulsa la tecla de disparo, enviar un
-// mensaje con las características físicas de la bala. Recuerda que se puede disparar
+// Si el juego está parado no hacer nada, en otro caso actualizar la velocidad del caza y moverlo como en la práctica 1 (acelerar, desacelerar, etc). Además, 
+// si el juego no está parado y el jugador pulsa la tecla de disparo, enviar un mensaje con las características físicas de la bala. Recuerda que se puede disparar
 // sólo una bala cada 0.25sec.
 void FighterSystem::update() {
 	if (active_) {
@@ -77,21 +75,25 @@ void FighterSystem::update() {
 		else if (tr_->getPos().getY() < 0 - tr_->getH()) { tr_->setPos(Vector2D(tr_->getPos().getX(), sdlutils().height())); }
 	}
 }
-// Para reaccionar al mensaje de que ha habido un choque entre el fighter y un
-// un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No
+
+// Para reaccionar al mensaje de que ha habido un choque entre el fighter y un un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No
 // hace falta desactivar la entidad (no dibujarla si el juego está parado).
 void FighterSystem::onCollision_FighterAsteroid() {
+	sdlutils().soundEffects().at("explosion").play();
 	tr_->reset();
 }
+
 // Para gestionar el mensaje de que ha acabado una ronda. Desactivar el sistema.
 void FighterSystem::onRoundOver() {
 	active_ = false;
 }
+
 // Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.
 void FighterSystem::onRoundStart() {
 	active_ = true;
 }
 
+// Resetea el numero de vidas del caza
 void FighterSystem::resetLives() {
 	auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::FIGHTER));
 	if (health->getLives() == 0) health->resetLives();

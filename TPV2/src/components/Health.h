@@ -4,7 +4,7 @@
 #include "../ecs/Component.h"
 #include "../game/ecs_def.h"
 
-// componente encargado de mantener y mostar en pantalla la salud de la nave
+// componente encargado de mantener la salud de la nave
 struct Health :public Component
 {
 public:

@@ -9,7 +9,7 @@ public:
 	// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 	void recieve(const ecs::Message& m) override;
 	// Inicializar el sistema, etc.
-	void initSystem() override;
+	void initSystem() override { };
 	// Si el juego está parado no hacer nada, en otro caso mover las balas y
 	// desactivar las que salen de la ventana como en la práctica 1.
 	void update() override;

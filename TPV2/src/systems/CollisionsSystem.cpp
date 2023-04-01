@@ -4,6 +4,7 @@
 #include "../components/Health.h"
 #include "../checkML.h"
 
+// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void CollisionsSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
@@ -17,10 +18,7 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 		default: break;
 	}
 }
-// Inicializar el sistema, etc.
-void CollisionsSystem::initSystem() {
 
-}
 // Si el juego está parado no hacer nada, en otro caso comprobar colisiones como
 // en la práctica 1 y enviar mensajes correspondientes.
 void CollisionsSystem::update() {
@@ -57,6 +55,7 @@ void CollisionsSystem::update() {
 void CollisionsSystem::onRoundOver() {
 	active_ = false;
 }
+
 // Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.
 void CollisionsSystem::onRoundStart() {
 	active_ = true;

@@ -2,6 +2,7 @@
 #include "../components/Transform.h"
 #include "../checkML.h"
 
+// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
@@ -29,10 +30,7 @@ void BulletSystem::recieve(const ecs::Message& m) {
 	
 	}
 }
-// Inicializar el sistema, etc.
-void BulletSystem::initSystem() {
 
-}
 // Si el juego está parado no hacer nada, en otro caso mover las balas y
 // desactivar las que salen de la ventana como en la práctica 1.
 void BulletSystem::update() {
@@ -58,16 +56,19 @@ void BulletSystem::shoot(Vector2D pos, Vector2D vel, double width, double height
 	mngr_->addComponent<Transform>(bullet, pos, vel, width, height, rot);
 	//mngr_->addComponent<Image>(bullet, tex_);
 }
+
 // Para gestionar el mensaje de que ha habido un choque entre una bala y un
 // asteroide. Desactivar la bala “b”.
 void BulletSystem::onCollision_BulletAsteroid(Entity* b) {
 	mngr_->setAlive(b, false);
 }
+
 // Para gestionar el mensaje de que ha acabado la ronda. Desactivar todas las
 // balas, y desactivar el sistema.
 void BulletSystem::onRoundOver() {
 	active_ = false;
 }
+
 // Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema.
 void BulletSystem::onRoundStart() {
 	active_ = true;

@@ -5,6 +5,7 @@
 #include "../game/Game.h"
 #include "../checkML.h"
 
+// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void AsteroidsSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 		case ecs::_m_STAR_SHOT:
@@ -26,6 +27,8 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 	}
 }
 
+// Si el juego está parado no hacer nada, en otro caso mover los asteroides como en la práctica 1 y generar 1 asteroide nuevo cada 5 segundos (aparte
+// de los 10 al principio de cada ronda).
 void AsteroidsSystem::update() {
 	if (active_) {
 		for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
@@ -45,6 +48,7 @@ void AsteroidsSystem::update() {
 	}
 }
 
+// añade el numero de asteroides especificado
 void AsteroidsSystem::addStar(unsigned int n) {
 	for (int i = 0; i < n; ++i) {
 		int random = sdlutils().rand().nextInt(0, 4);
@@ -69,6 +73,7 @@ void AsteroidsSystem::addStar(unsigned int n) {
 	numOfAsteroids_ += n;
 }
 
+// Añade un asteroide cada 5 secs
 void AsteroidsSystem::addAsteroidFrequently() {
 	if (sdlutils().currRealTime() - elapsedTime > 5000) {
 		if (numOfAsteroids_ + 1 < 30) addStar(1);
@@ -76,7 +81,7 @@ void AsteroidsSystem::addAsteroidFrequently() {
 	}
 }
 
-// metodos+ encargado de destruir todos los asteroides
+// Destruye todos los asteroides
 void AsteroidsSystem::destroyAllAsteroids() {
 	for (auto e : mngr_->getEntities(ecs::_grp_ASTEROIDS)) {
 		mngr_->setAlive(e, false);
@@ -84,6 +89,8 @@ void AsteroidsSystem::destroyAllAsteroids() {
 	numOfAsteroids_ = 0;
 }
 
+// Para gestionar el mensaje de que ha habido un choque de un asteroide con una bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
+// y si no hay más asteroides enviar un mensaje correspondiente.
 void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 	sdlutils().soundEffects().at("gunshot").play();
 	if (mngr_->getComponent<Generations>(a)->getGeneration() > 1 && numOfAsteroids_+2 < 30) {
@@ -111,10 +118,12 @@ void AsteroidsSystem::onCollision_AsteroidBullet(Entity* a) {
 	}
 }
 
+// Para gestionar el mensaje de que ha acabado la ronda. Desactivar todos los asteroides, y desactivar el sistema.
 void AsteroidsSystem::onRoundOver() {
 	active_ = false;
 }
 
+// Para gestionar el mensaje de que ha empezado una ronda. Activar el sistema y añadir los asteroides iniciales (como en la práctica 1).
 void AsteroidsSystem::onRoundStart() {
 	active_ = true;
 }

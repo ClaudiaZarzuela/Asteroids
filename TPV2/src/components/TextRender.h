@@ -4,6 +4,7 @@
 #include "../game/ecs_def.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
+
 // componente encargado de renderizar texto en pantalla
 struct TextRender: public Component
 {

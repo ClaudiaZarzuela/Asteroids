@@ -7,6 +7,7 @@
 #include "../components/Follow.h"
 #include "../checkML.h"
 
+// Destructora de la clase
 RenderSystem:: ~RenderSystem() {
 	for (int i = 0; i < NUM_TEXTURES; ++i) {
 		delete textures[i];
@@ -18,6 +19,8 @@ RenderSystem:: ~RenderSystem() {
 	}
 	SDL_DestroyRenderer(renderer);
 }
+
+// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void RenderSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_PLAY: 
@@ -46,6 +49,7 @@ void RenderSystem::recieve(const ecs::Message& m) {
 	changeText();
 }
 
+// Inicializar el sistema, etc.
 void RenderSystem::initSystem() {
 	auto& sdl = *SDLUtils::instance();
 	renderer = sdl.renderer();
@@ -66,6 +70,9 @@ void RenderSystem::initSystem() {
 	changeText();
 }
 
+// - Dibujar asteroides, balas y caza (sólo si el juego no está parado).
+// - Dibujar las vidas (siempre).
+// - Dibujar los mensajes correspondientes: si el juego está parado, etc (como en la práctica 1)
 void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
@@ -102,18 +109,7 @@ void RenderSystem::update() {
 	sdl.presentRenderer();
 }
 
-void RenderSystem::onRoundStart() {
-}
-
-void RenderSystem::onRoundOver() {
-}
-
-void RenderSystem::onGameStart() {
-}
-
-void RenderSystem::onGameOver() {
-}
-
+// metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
 void RenderSystem::inGameObjects() {
 	auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	for (auto i = 0; i < grpAst.size(); i++)
@@ -136,6 +132,7 @@ void RenderSystem::inGameObjects() {
 	}
 }
 
+// metodo que anima los asteroides
 void RenderSystem::animateAsteroids() {
 	if (sdlutils().currRealTime() >= frameTime) {
 		auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
@@ -156,6 +153,7 @@ void RenderSystem::animateAsteroids() {
 	}
 }
 
+// metodo que cambia el texto que se muestra en pantalla en cada estado
 void RenderSystem::changeText() {
 	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
 		if (e != nullptr) {

@@ -3,6 +3,7 @@
 #include "../components/Transform.h"
 #include "../checkML.h"
 
+// Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void GameCtrlSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 		case ecs::_m_STAR_SHOT: 
@@ -21,35 +22,33 @@ void GameCtrlSystem::recieve(const ecs::Message& m) {
 			state_ = PLAY;
 			break;
 
-		case ecs::_m_MAINMENU: //pasa al endState
+		case ecs::_m_MAINMENU: 
 			state_ = MENU;
 			break;
 
-		case ecs::_m_RESTART: //pasa al endState
+		case ecs::_m_RESTART: 
 			state_ = RESTART;
 			break;
 
-		case ecs::_m_PAUSE: //pasa al pauseState
+		case ecs::_m_PAUSE: 
 			state_ = PAUSE;
 			break;
 
-		case ecs::_m_GAME_OVER_LOSE: //pasa al playState
+		case ecs::_m_GAME_OVER_LOSE:
 			state_ = GAMEOVERLOSE;
 			break;
 
-		case ecs::_m_GAME_OVER_WIN: //pasa al playState
+		case ecs::_m_GAME_OVER_WIN: 
 			state_ = GAMEOVERWIN;
 			break;
 		default: break;
 	}
 }
 
-// Para gestionar el mensaje de que ha habido un choque entre el fighter y un>
-	// un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
-	// al fighter, y si no hay más vidas avisar que ha acabado el juego
+// Para gestionar el mensaje de que ha habido un choque entre el fighter y un un asteroide. Tiene que avisar que ha acabado la ronda, quitar una vida
+// al fighter, y si no hay más vidas avisar que ha acabado el juego
 void GameCtrlSystem::onCollision_FighterAsteroid() {
 	auto player = mngr_->getHandler(ecs::FIGHTER);
-	sdlutils().soundEffects().at("explosion").play();
 	mngr_->getComponent<Health>(player)->loseLife();
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
 	mngr_->send(m1, true);
@@ -63,8 +62,7 @@ void GameCtrlSystem::onCollision_FighterAsteroid() {
 		mngr_->send(m2, true);
 	}
 }
-// Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que
-// ha acabado la ronda y además que ha acabado el juego (y quien es el ganador)
+// Para gestionar el mensaje de que no hay más asteroides. Tiene que avisar que ha acabado la ronda y además que ha acabado el juego (y quien es el ganador)
 void GameCtrlSystem::onAsteroidsExtinction() {
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
 	mngr_->send(m1, true);
@@ -73,6 +71,8 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 
 }
 
+// Si el juego no está parado y el jugador pulsa SDLK_SPACE cambia el estado como en la práctica 1, etc. Tiene que enviar mensajes correspondientes cuando
+// empieza una ronda o cuando empieza una nueva partida.
 void GameCtrlSystem::update() {
 	if (input_->isKeyJustDown(SDLK_SPACE)) {
 		ecs::Message m1; ecs::Message m2;

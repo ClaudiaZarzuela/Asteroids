@@ -19,8 +19,11 @@ public:
 	virtual ~AsteroidsSystem() { }
 private:
 	float elapsedTime = sdlutils().currRealTime();
+	// Destruye todos los asteroides
 	void destroyAllAsteroids();
+	// Añade un asteroide cada 5 secs
 	void addAsteroidFrequently();
+	// añade el numero de asteroides especificado
 	void addStar(unsigned int n);
 	// Para gestionar el mensaje de que ha habido un choque de un asteroide con una
 	// bala. Desactivar el asteroide “a” y crear 2 asteroides como en la práctica 1,
