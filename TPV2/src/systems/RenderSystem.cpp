@@ -76,6 +76,7 @@ void RenderSystem::update() {
 	textures[NAVE]->render(dest, f->getRot());
 
 	if (state_ == PLAY) {
+		animateAsteroids();
 		inGameObjects();
 	}
 	else {
@@ -113,7 +114,6 @@ void RenderSystem::inGameObjects() {
 		Transform* tr_ = mngr_->getComponent<Transform>(grpAst[i]);
 		int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
 		int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
-		std::cout << row << " " << col << std::endl;
 		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
 		if (mngr_->hasComponent<Follow>(grpAst[i]))
 			textures[ASTEROID_GOLD]->renderFrame(dest, row, col, tr_->getRot());
@@ -130,30 +130,24 @@ void RenderSystem::inGameObjects() {
 }
 
 void RenderSystem::animateAsteroids() {
-	/*if (sdlutils().currRealTime() >= frameTime) {
+	if (sdlutils().currRealTime() >= frameTime) {
 		auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 		for (auto i = 0; i < grpAst.size(); i++)
 		{
 			int row = mngr_->getComponent<FramedImage>(grpAst[i])->getRow();
 			int col = mngr_->getComponent<FramedImage>(grpAst[i])->getCol();
-			int colTotal;
-			int rowTotal;
-			if (mngr_->hasComponent<Follow>(grpAst[i])) {
-				colTotal = textures[ASTEROID_GOLD]->getCol();
-				rowTotal = textures[ASTEROID_GOLD]->getRow();
-			}
-			else {
-				colTotal = textures[ASTEROID]->getCol();
-				rowTotal = textures[ASTEROID]->getRow();
-			}
+			int colTotal = textures[ASTEROID]->getCol();
+			int rowTotal = textures[ASTEROID]->getRow();
+			std::cout << rowTotal << " " << colTotal << std::endl;
 				
-			col = (col + 1) % colTotal;
-			if (col == colTotal) {
-				row = (row + 1) % rowTotal;
+			mngr_->getComponent<FramedImage>(grpAst[i])->setCol((col + 1) % colTotal);
+
+			if (mngr_->getComponent<FramedImage>(grpAst[i])->getCol() == colTotal -1) {
+				mngr_->getComponent<FramedImage>(grpAst[i])->setRow((row + 1) % rowTotal);
 			}
 			frameTime = sdlutils().currRealTime() + 50;
 		}
-	}*/
+	}
 }
 
 void RenderSystem::changeText() {

@@ -15,6 +15,8 @@ public:
 	void initComponent() override;
 	int getCol() { return col; }
 	int getRow() { return row; }
+	void setRow(int r) { row = r; }
+	void setCol(int c) { col = c; }
 	
 private:
 	int row = 0;
