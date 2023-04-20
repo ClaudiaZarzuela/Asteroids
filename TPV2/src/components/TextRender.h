@@ -18,6 +18,8 @@ public:
 	Texture* getTexture() { return text; }
 	void setTexture(Texture* t1) { text = t1; }
 	Vector2D getPos() { return Vector2D(x, y); }
+	void setPos(Vector2D pos) { x = pos.getX(); y = pos.getY(); }
+	int getW() { return text->width(); }
 
 private:
 	int x = 0;
