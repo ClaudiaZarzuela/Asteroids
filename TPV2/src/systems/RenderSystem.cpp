@@ -77,6 +77,7 @@ void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
 
+	
 	//RENDERIZAR LAS VIDAS
 	for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
 		Vector2D pos = Vector2D((textures[HEALTH]->width()/3) * i, 0);
@@ -92,6 +93,20 @@ void RenderSystem::update() {
 	if (state_ == PLAY) {
 		animateAsteroids();
 		inGameObjects();
+	}
+	else if (state_ == GAMEMODE || state_ == ONLINE) {
+		//RENDERIZA LOS BOTONES
+		auto& grpB = mngr_->getEntities(ecs::_grp_BUTTONS);
+		for (auto i = 0; i < grpB.size(); i++)
+		{
+			Transform* tr_ = mngr_->getComponent<Transform>(grpB[i]);
+			int row = mngr_->getComponent<FramedImage>(grpB[i])->getRow();
+			int col = mngr_->getComponent<FramedImage>(grpB[i])->getCol();
+			int text_ = mngr_->getComponent<Button>(grpB[i])->getTexture();
+			SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+			textures[text_]->renderFrame(dest, row, col, tr_->getRot());
+
+		}
 	}
 	else {
 		//RENDER TEXTOS

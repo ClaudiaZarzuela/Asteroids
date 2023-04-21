@@ -10,12 +10,13 @@
 class Button : public Component {
 private:
 	int ID;
-
+	int texture;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BUTTON;
 
-	Button(int id) : Component(), ID(id) {}
+	Button(int id, int t) : Component(), ID(id), texture(t) {}
 	void initComponent() override;
 	int getID() { return ID; }
+	int getTexture() { return texture; }
 };
 

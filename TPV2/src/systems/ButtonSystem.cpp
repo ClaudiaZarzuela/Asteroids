@@ -4,10 +4,11 @@ void ButtonSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_GAMEMODE:
-			createMainMenuButtons(); break;
+			createMainMenuButtons();
+			activateSystem(); break;
 		case ecs::_m_ONLINE:
 			createOnlineStateButtons(); break;
-	
+	    case ecs::
 		default: break;
 	}
 }
@@ -44,19 +45,27 @@ void ButtonSystem::update() {
 void ButtonSystem::createMainMenuButtons() {
 	Entity* multi = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(multi, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Button>(multi, MULTIPLAYER_);
+	mngr_->addComponent<Button>(multi, MULTIPLAYER_, MULTIPLAYER);
 
 	Entity* solo = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(solo, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Button>(solo, SINGLEPLAYER_);
+	mngr_->addComponent<Button>(solo, SINGLEPLAYER_, SINGLEPLAYER);
 }
 
 void ButtonSystem::createOnlineStateButtons() {
 	Entity* host = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(host, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Button>(host, HOST_);
+	mngr_->addComponent<Button>(host, HOST_, HOST);
 
 	Entity* client = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(client, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Button>(client, CLIENT_);
+	mngr_->addComponent<Button>(client, CLIENT_, CLIENT);
+}
+
+void ButtonSystem::activateSystem() {
+	active_ = true;
+}
+void ButtonSystem::deactivateSystem() {
+	active_ = false;
+
 }

@@ -22,4 +22,6 @@ private:
 	enum button_ID { MULTIPLAYER_ = 0, SINGLEPLAYER_ = 1, HOST_ = 2, CLIENT_ = 3 };
 	void createMainMenuButtons();
 	void createOnlineStateButtons();
+	void activateSystem();
+	void deactivateSystem();
 };
