@@ -21,12 +21,29 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 void OnlineSystem::initSystem() {
 
 }
+
+OnlineSystem::~OnlineSystem() {
+	SDLNet_FreeSocketSet(set);
+	SDLNet_TCP_Close(masterSocket);
+}
 // Si el juego no está parado y el jugador pulsa SDLK_SPACE cambia el estado
 // como en la práctica 1, etc. Tiene que enviar mensajes correspondientes cuando
 // empieza una ronda o cuando empieza una nueva partida.
 void OnlineSystem::update() {
 	if (active_) {
-		
+		if (currentType == HOST_) {
+			if (SDLNet_CheckSockets(set, SDL_MAX_UINT32) > 0) {
+				if (SDLNet_SocketReady(masterSocket) && client == nullptr) {
+					client = SDLNet_TCP_Accept(masterSocket);
+					result = SDLNet_TCP_Recv(client, buffer, 255);
+					if (result > 0) {
+						cout << "Client says: " << buffer << endl;
+						SDLNet_TCP_Send(client, "Received!", 10);
+					}
+					SDLNet_TCP_Close(client);
+				}
+			}
+		}
 	}
 }
 
@@ -38,21 +55,6 @@ void OnlineSystem::initHost() {
 	set = SDLNet_AllocSocketSet(1);
 	SDLNet_TCP_AddSocket(set, masterSocket);
 
-	while (true) {
-		if (SDLNet_CheckSockets(set, SDL_MAX_UINT32) > 0) {
-			if (SDLNet_SocketReady(masterSocket)) {
-				client = SDLNet_TCP_Accept(masterSocket);
-				result = SDLNet_TCP_Recv(client, buffer, 255);
-				if (result > 0) {
-					cout << "Client says: " << buffer << endl;
-					SDLNet_TCP_Send(client, "Received!", 10);
-				}
-				SDLNet_TCP_Close(client);
-			}
-		}
-	}
-	SDLNet_FreeSocketSet(set);
-	SDLNet_TCP_Close(masterSocket);
 }
 
 void OnlineSystem::initClient() {

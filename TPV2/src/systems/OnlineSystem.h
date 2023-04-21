@@ -15,6 +15,8 @@ public:
 	// empieza una ronda o cuando empieza una nueva partida.
 	void update() override;
 
+	OnlineSystem() {}
+	~OnlineSystem(){}
 private:
 	void activateSystem();
 	void deactivateSystem();
@@ -27,7 +29,7 @@ private:
 
 	SDLNet_SocketSet set;
 	TCPsocket masterSocket;
-	TCPsocket client;
+	TCPsocket client = nullptr;
 	TCPsocket hostSocket;
 	TCPsocket conn;
 
@@ -38,6 +40,8 @@ private:
 
 
 	int currentType;
+	int currentState = NONE;
 	enum typeMode{HOST_, CLIENT_};
+	enum state{NONE, WAITING, START};
 };
 
