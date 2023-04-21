@@ -27,7 +27,7 @@ struct Texts
 
 // enmunerados para los distintos estados, texturas y textos del juego
 static const enum TextureNames {
-	NAVE = 0, ASTEROID = 1, HEALTH = 2, BULLET = 3, ASTEROID_GOLD = 4
+	NAVE = 0, ASTEROID = 1, HEALTH = 2, BULLET = 3, ASTEROID_GOLD = 4, SINGLEPLAYER = 5, MULTIPLAYER = 6, CLIENT = 7, HOST = 8
 };
 static const enum TextNames {
 	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3
