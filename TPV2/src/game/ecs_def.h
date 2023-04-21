@@ -45,6 +45,7 @@ namespace ecs {
 		_sys_BULLETS,
 		_sys_COLLISIONS,
 		_sys_RENDER,	
+		_sys_BUTTON,
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
