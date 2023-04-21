@@ -28,6 +28,7 @@ namespace ecs {
 	enum grpId : grpId_type {
 		_grp_ASTEROIDS,
 		_grp_GENERAL,
+		_grp_PLAYERS,
 		_grp_BULLETS,
 		_grp_TEXT,
 		_grp_BUTTONS,

@@ -1,16 +1,17 @@
 #include "OnlineSystem.h"
+#include "../components/Health.h"
+#include "../components/Transform.h"
 
 void OnlineSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
-	case ecs::_m_ONLINE:
-		activateSystem();
-		break;
 	case ecs::_m_HOST:
 		currentType = HOST_;
+		activateSystem();
 		initHost();
 		break;
 	case ecs::_m_CLIENT:
 		currentType = CLIENT_;
+		activateSystem();
 		initClient();
 		break;
 	default: break;
@@ -19,12 +20,21 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 }
 // Inicializar el sistema, etc.
 void OnlineSystem::initSystem() {
+	set = SDLNet_AllocSocketSet(2);
 
+	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
+	mngr_->addComponent<Transform>(player1, Vector2D(sdlutils().width() / 2 - 25, 0 + 100), Vector2D(0, 0), 50, 50, 180);
+	mngr_->addComponent<Health>(player1, 3);
+
+	Entity* player2 = mngr_->addEntity(ecs::_grp_PLAYERS);
+	mngr_->addComponent<Transform>(player2, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() -100), Vector2D(0, 0), 50, 50, 0);
+	mngr_->addComponent<Health>(player2, 3);
 }
 
 OnlineSystem::~OnlineSystem() {
 	if (masterSocket != nullptr) {
 		SDLNet_FreeSocketSet(set);
+		//hay q hacer un delete o algo asi ha dicho miguel uwu
 		SDLNet_TCP_Close(masterSocket);
 		SDLNet_TCP_Close(conn);
 	}
@@ -73,9 +83,7 @@ void OnlineSystem::initHost() {
 	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) { error(); }
 	masterSocket = SDLNet_TCP_Open(&ip);
 	if (!masterSocket) { error(); }
-	set = SDLNet_AllocSocketSet(2);
 	SDLNet_TCP_AddSocket(set, masterSocket);
-
 }
 
 void OnlineSystem::initClient() {
@@ -87,14 +95,7 @@ void OnlineSystem::initClient() {
 	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
 	conn = SDLNet_TCP_Open(&ip); 
 	if (!conn) { error(); }
-
-	/*result = SDLNet_TCP_Recv(conn, buffer, 255);
-	if (result < 0) error();
-	else if (result == 0) cout << "server closed …";
-	else cout << buffer << endl;*/
-	
-	SDLNet_TCP_Close(conn);
-
+	SDLNet_TCP_AddSocket(set, conn);
 }
 
 void OnlineSystem::error() {
