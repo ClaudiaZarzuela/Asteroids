@@ -50,9 +50,6 @@ void OnlineSystem::update() {
 					}
 				}
 			}
-			if (conn != nullptr ) {
-				SDLNet_TCP_Send(conn, "holi!", 6);
-			}
 		}
 		else {
 			if(conn != nullptr && SDLNet_CheckSockets(set, 0) > 0) {
@@ -78,6 +75,8 @@ void OnlineSystem::initHost() {
 
 }
 
+//strngcmp()
+
 void OnlineSystem::initClient() {
 	std::cout << "Introduce IP: ";
 	std::cin >> host;
@@ -87,14 +86,12 @@ void OnlineSystem::initClient() {
 	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
 	conn = SDLNet_TCP_Open(&ip); 
 	if (!conn) { error(); }
-
+	set = SDLNet_AllocSocketSet(2);
+	SDLNet_TCP_AddSocket(set, conn);
 	/*result = SDLNet_TCP_Recv(conn, buffer, 255);
 	if (result < 0) error();
 	else if (result == 0) cout << "server closed …";
 	else cout << buffer << endl;*/
-	
-	SDLNet_TCP_Close(conn);
-
 }
 
 void OnlineSystem::error() {
