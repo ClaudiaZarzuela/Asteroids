@@ -4,14 +4,15 @@
 
 void OnlineSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
+	case ecs::_m_ONLINE:
+		activateSystem();
+		break;
 	case ecs::_m_HOST:
 		currentType = HOST_;
-		activateSystem();
 		initHost();
 		break;
 	case ecs::_m_CLIENT:
 		currentType = CLIENT_;
-		activateSystem();
 		initClient();
 		break;
 	default: break;
@@ -96,6 +97,9 @@ void OnlineSystem::initClient() {
 	conn = SDLNet_TCP_Open(&ip); 
 	if (!conn) { error(); }
 	SDLNet_TCP_AddSocket(set, conn);
+	ecs::Message m;
+	m.id = ecs::_m_START_ONLINE_ROUND;
+	mngr_->send(m, true);
 }
 
 void OnlineSystem::error() {

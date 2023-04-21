@@ -215,7 +215,7 @@ void RenderSystem::playersOnline() {
 		textures[NAVE]->render(dest, f->getRot());
 
 		for (int j = 0; j < mngr_->getComponent<Health>(grpPlayers[i])->getLives(); ++j) {
-			Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * j, i * 100);
+			Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * j, i * 50);
 			SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, (textures[HEALTH]->height() / 3));
 			textures[HEALTH]->render(dest, 0);
 		}

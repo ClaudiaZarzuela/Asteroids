@@ -31,8 +31,8 @@ void ButtonSystem::update() {
 				switch (b->getID()) {
 				case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
 					case SINGLEPLAYER_: m.id = ecs::_m_MAINMENU; break;
-					case HOST_: m.id = ecs::_m_HOST; m.id = ecs::_m_START_ONLINE_ROUND; mngr_->send(m1, true);  break;
-					case CLIENT_: m.id = ecs::_m_CLIENT; m.id = ecs::_m_START_ONLINE_ROUND; mngr_->send(m1, true); break;
+					case HOST_: m.id = ecs::_m_HOST; m1.id = ecs::_m_START_ONLINE_ROUND; mngr_->send(m1, true); break;
+					case CLIENT_: m.id = ecs::_m_CLIENT; break;
 				}
 				mngr_->send(m, true);
 				
