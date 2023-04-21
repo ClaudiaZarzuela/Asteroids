@@ -18,6 +18,7 @@ namespace ecs {
 		_GUN,
 		_ONEXIT,
 		_FOLLOW,
+		_BUTTON,
 		_GENERATIONS,
 		_RENDERTEXT,
 		_LAST_CMP_ID
@@ -45,6 +46,7 @@ namespace ecs {
 		_sys_BULLETS,
 		_sys_COLLISIONS,
 		_sys_RENDER,	
+		_sys_BUTTON,
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
