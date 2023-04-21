@@ -16,7 +16,6 @@ public:
 	// empieza una ronda o cuando empieza una nueva partida.
 	void update() override;
 
-	OnlineSystem() {}
 	~OnlineSystem();
 private:
 	void activateSystem();
