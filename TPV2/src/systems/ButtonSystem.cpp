@@ -4,6 +4,7 @@ void ButtonSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_ONLINE:
+			clicked = false;
 			createOnlineStateButtons(); break;
 		default: break;
 	}
@@ -22,14 +23,15 @@ void ButtonSystem::update() {
 			Vector2D position = buttonTransform->getPos();
 			SDL_GetMouseState(&mousePosition.x, &mousePosition.y); 
 			
-			if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT)) { 
+			if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT) && !clicked) {
+				clicked = true;
 				auto b = mngr_->getComponent<Button>(button[i]);
 				ecs::Message m; 
 				switch (b->getID()) {
-					case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
-					case SINGLEPLAYER_: m.id = ecs::_m_MAINMENU; break;
-					case HOST_: m.id = ecs::_m_HOST; break;
-					case CLIENT_: m.id = ecs::_m_CLIENT; break;
+				case MULTIPLAYER_: m.id = ecs::_m_ONLINE; std::cout << "a" << std::endl; break;
+					case SINGLEPLAYER_: m.id = ecs::_m_MAINMENU;  std::cout << "b" << std::endl; break;
+					case HOST_: m.id = ecs::_m_HOST; std::cout << "c" << std::endl; break;
+					case CLIENT_: m.id = ecs::_m_CLIENT;  std::cout << "d" << std::endl; break;
 				}
 				mngr_->send(m, true);
 			}
@@ -51,12 +53,13 @@ void ButtonSystem::createMainMenuButtons() {
 void ButtonSystem::createOnlineStateButtons() {
 	erasePreviousButtons();
 	Entity* host = mngr_->addEntity(ecs::_grp_BUTTONS);
-	mngr_->addComponent<Transform>(host, Vector2D(sdlutils().width() / 2 - 75, (sdlutils().height() / 2) - 100), Vector2D(0, 0), 150, 100, 0);
+	mngr_->addComponent<Transform>(host, Vector2D(sdlutils().width() / 2 - 200, (sdlutils().height() / 2)), Vector2D(0, 0), 150, 100, 0);
 	mngr_->addComponent<Button>(host, HOST_, HOST);
 
 	Entity* client = mngr_->addEntity(ecs::_grp_BUTTONS);
-	mngr_->addComponent<Transform>(client, Vector2D(sdlutils().width() / 2 - 75, (sdlutils().height() / 2) + 100), Vector2D(0, 0), 150, 100, 0);
+	mngr_->addComponent<Transform>(client, Vector2D(sdlutils().width() / 2 +50, (sdlutils().height() / 2)), Vector2D(0, 0), 150, 100, 0);
 	mngr_->addComponent<Button>(client, CLIENT_, CLIENT);
+
 }
 
 void ButtonSystem::activateSystem() {

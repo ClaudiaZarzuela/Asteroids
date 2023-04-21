@@ -8,19 +8,6 @@ C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(31,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(34,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\AsteroidsSystem.h(21,45): warning C4244: 'inicializando': conversión de 'Uint32' a 'float'; posible pérdida de datos
-  Follow.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  FramedImage.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-  Generations.cpp
-  Health.cpp
-  TextRender.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,41): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,38): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,42): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,58): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-  Transform.cpp
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
   Component.cpp
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(31,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(34,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
@@ -140,20 +127,20 @@ C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,38): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,42): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,58): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(43,103): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(43,72): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(47,103): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(47,71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(61,103): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(61,71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(65,105): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(65,73): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(45,103): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(45,72): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(49,103): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(49,71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(56,99): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(56,71): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(60,99): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(60,73): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\ecs\Manager.h(52,32): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
           with
           [
               _Ty=int
           ]
-C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(43): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Manager::addComponent<Transform,Vector2D,Vector2D,int,int,int>(Entity *,Vector2D &&,Vector2D &&,int &&,int &&,int &&)" que se está compilando
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\ButtonSystem.cpp(45): message : Vea la referencia a la creación de una instancia de la función plantilla "T *Manager::addComponent<Transform,Vector2D,Vector2D,int,int,int>(Entity *,Vector2D &&,Vector2D &&,int &&,int &&,int &&)" que se está compilando
           with
           [
               T=Transform
@@ -203,6 +190,16 @@ C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,38): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,42): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,58): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+  OnlineSystem.cpp
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(31,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextureNames' cuando no hay ninguna variable declarada
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.h(34,2): warning C4091: 'static ': se ha omitido a la izquierda de 'const TextNames' cuando no hay ninguna variable declarada
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\AsteroidsSystem.h(21,45): warning C4244: 'inicializando': conversión de 'Uint32' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,41): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(20,38): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,42): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\TextRender.h(21,58): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\OnlineSystem.cpp(72,31): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
   RenderSystem.cpp
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\components\Transform.h(25,81): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\AsteroidsSystem.h(21,45): warning C4244: 'inicializando': conversión de 'Uint32' a 'float'; posible pérdida de datos
@@ -225,4 +222,5 @@ C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.cpp(1
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\systems\RenderSystem.cpp(189,64): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
   Generando código...
 C:\Users\claud\OneDrive\Documentos\Asteroids\TPV2\src\sdlutils\InputHandler.h(102): warning C4715: 'InputHandler::isKeyJustDown': no todas las rutas de acceso de control devuelven un valor
+     Creando biblioteca C:\Users\claud\OneDrive\Documentos\Asteroids\bin\TPV2Debug.lib y objeto C:\Users\claud\OneDrive\Documentos\Asteroids\bin\TPV2Debug.exp
   TPV2.vcxproj -> C:\Users\claud\OneDrive\Documentos\Asteroids\bin\TPV2Debug.exe

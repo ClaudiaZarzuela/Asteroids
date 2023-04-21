@@ -16,7 +16,7 @@ public:
 	void update() override;
 
 	OnlineSystem() {}
-	~OnlineSystem(){}
+	~OnlineSystem();
 private:
 	void activateSystem();
 	void deactivateSystem();
@@ -28,10 +28,10 @@ private:
 	void initClient();
 
 	SDLNet_SocketSet set;
-	TCPsocket masterSocket;
+	TCPsocket masterSocket = nullptr;
 	TCPsocket client = nullptr;
-	TCPsocket hostSocket;
-	TCPsocket conn;
+	TCPsocket hostSocket = nullptr;
+	TCPsocket conn = nullptr;
 
 	int port = 4444;
 	char* host = 0;

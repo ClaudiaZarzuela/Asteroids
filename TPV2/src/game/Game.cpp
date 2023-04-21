@@ -11,10 +11,6 @@ void Game::init() {
 
 	SDLUtils::init("Asteroids!", 800, 600,
 		"resources/resources/config/sdlutilsdemo.resources.json");
-	/*auto& sdl = *SDLUtils::instance();
-	renderer = sdl.renderer();*/
-	
-	//manager_ = Manager::instance();
 	
 	Manager::instance()->addSystem<FighterSystem>();
 	Manager::instance()->addSystem<AsteroidsSystem>();
@@ -23,6 +19,8 @@ void Game::init() {
 	Manager::instance()->addSystem<GameCtrlSystem>();
 	Manager::instance()->addSystem<RenderSystem>();
 	Manager::instance()->addSystem<ButtonSystem>();
+	Manager::instance()->addSystem<OnlineSystem>();
+
 }
 
 //Destructora de la clase

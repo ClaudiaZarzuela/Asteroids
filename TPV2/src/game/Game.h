@@ -14,6 +14,7 @@
 #include "../systems/CollisionsSystem.h"
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/AsteroidsSystem.h"
+#include "../systems/OnlineSystem.h"
 #include "../systems/ButtonSystem.h"
 
 

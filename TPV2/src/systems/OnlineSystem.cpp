@@ -23,8 +23,10 @@ void OnlineSystem::initSystem() {
 }
 
 OnlineSystem::~OnlineSystem() {
-	SDLNet_FreeSocketSet(set);
-	SDLNet_TCP_Close(masterSocket);
+	if (masterSocket != nullptr) {
+		SDLNet_FreeSocketSet(set);
+		SDLNet_TCP_Close(masterSocket);
+	}
 }
 // Si el juego no está parado y el jugador pulsa SDLK_SPACE cambia el estado
 // como en la práctica 1, etc. Tiene que enviar mensajes correspondientes cuando
