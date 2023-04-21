@@ -68,6 +68,9 @@ namespace ecs {
 		_m_GAME_OVER_WIN,
 		_m_GAME_OVER_LOSE,
 		_m_MAINMENU,
+		_m_GAMEMODE,
+		_m_ONLINE,
+		_m_WAITING,
 		_m_CHANGE_STATE
 	};
 
