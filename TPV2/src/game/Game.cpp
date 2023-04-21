@@ -20,6 +20,7 @@ void Game::init() {
 	Manager::instance()->addSystem<RenderSystem>();
 	Manager::instance()->addSystem<ButtonSystem>();
 	Manager::instance()->addSystem<OnlineSystem>();
+	Manager::instance()->addSystem<OnlineGameSystem>();
 
 }
 

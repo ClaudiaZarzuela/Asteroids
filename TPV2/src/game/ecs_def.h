@@ -49,6 +49,7 @@ namespace ecs {
 		_sys_RENDER,	
 		_sys_BUTTON,
 		_sys_ONLINE,
+		_sys_ONLINECNTRL,
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
@@ -74,7 +75,8 @@ namespace ecs {
 		_m_WAITING,
 		_m_HOST,
 		_m_CLIENT,
-		_m_CHANGE_STATE
+		_m_CHANGE_STATE,
+		_m_START_ONLINE_ROUND,
 	};
 
 	struct Message {

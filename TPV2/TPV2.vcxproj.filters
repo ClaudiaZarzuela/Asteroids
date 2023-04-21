@@ -150,6 +150,9 @@
     <ClInclude Include="src\systems\OnlineSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\systems\OnlineGameSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\json\JSONValue.cpp">
@@ -240,6 +243,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\systems\OnlineSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\systems\OnlineGameSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

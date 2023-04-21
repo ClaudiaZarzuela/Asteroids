@@ -16,6 +16,7 @@
 #include "../systems/AsteroidsSystem.h"
 #include "../systems/OnlineSystem.h"
 #include "../systems/ButtonSystem.h"
+#include "../systems/OnlineGameSystem.h"
 
 
 using namespace std;

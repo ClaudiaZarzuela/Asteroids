@@ -41,7 +41,7 @@ private:
 
 	int currentType;
 	int currentState = NONE;
-	enum typeMode{HOST_, CLIENT_};
+	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};
 };
 

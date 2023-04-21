@@ -6,7 +6,7 @@
 
 class OnlineGameSystem : public System {
 public:
-	constexpr static ecs::sysId_type id = ecs::_sys_CNTRL;
+	constexpr static ecs::sysId_type id = ecs::_sys_ONLINECNTRL;
 	void recieve(const ecs::Message& m) override;
 	void initSystem() override { };
 	void update() override;

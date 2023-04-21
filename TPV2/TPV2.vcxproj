@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\systems\OnlineGameSystem.h" />
     <ClInclude Include="src\systems\OnlineSystem.h" />
     <ClInclude Include="src\components\Button.h" />
     <ClInclude Include="src\systems\ButtonSystem.h" />
@@ -60,6 +61,7 @@
     <ClInclude Include="src\ecs\System.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\systems\OnlineGameSystem.cpp" />
     <ClCompile Include="src\systems\OnlineSystem.cpp" />
     <ClCompile Include="src\components\Button.cpp" />
     <ClCompile Include="src\systems\ButtonSystem.cpp" />

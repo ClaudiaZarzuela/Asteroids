@@ -39,13 +39,13 @@ void OnlineSystem::update() {
 					client = SDLNet_TCP_Accept(masterSocket);
 					result = SDLNet_TCP_Recv(client, buffer, 255);
 					if (result > 0) {
-						cout << "Client says: " << buffer << endl;
 						SDLNet_TCP_Send(client, "Received!", 10);
 					}
 					SDLNet_TCP_Close(client);
 				}
 			}
 		}
+		
 	}
 }
 
@@ -68,11 +68,6 @@ void OnlineSystem::initClient() {
 	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
 	conn = SDLNet_TCP_Open(&ip);
 	if (!conn) { error(); }
-	std::cout << "Enter a message: ";
-	std::cin.getline(buffer, 255);
-	int size = strlen(buffer) + 1;
-	result = SDLNet_TCP_Send(conn, buffer, size);
-	if (result != size) { error(); }
 	result = SDLNet_TCP_Recv(conn, buffer, 255);
 	if (result < 0) error();
 	else if (result == 0) cout << "server closed …";
