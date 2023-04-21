@@ -9,7 +9,7 @@
 
 
 const int NUM_TEXTURES = 9;
-const int NUM_TEXTS = 4;
+const int NUM_TEXTS = 5;
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
 {
@@ -30,7 +30,7 @@ static const enum TextureNames {
 	NAVE = 0, ASTEROID = 1, HEALTH = 2, BULLET = 3, ASTEROID_GOLD = 4, SINGLEPLAYER = 5, MULTIPLAYER = 6, CLIENT = 7, HOST = 8
 };
 static const enum TextNames {
-	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3
+	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3, WAIT = 4
 };
 
 class RenderSystem : public System {
@@ -62,7 +62,8 @@ private:
 		{ "Press space to Start", 0x112233ff,0},
 		{ "Press space to Continue", 0x112233ff, 1 },
 		{ "Game Over: Loser!", 0x112233ff, 0 },
-		{ "Game Over: You Win!", 0x112233ff, 0 }
+		{ "Game Over: You Win!", 0x112233ff, 0 },
+		{ "Waiting for other Player...", 0x112233ff, 0 }
 	};
 
 	~RenderSystem();

@@ -27,7 +27,7 @@ private:
 	void initHost();
 	void initClient();
 
-	SDLNet_SocketSet set;
+	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
 	TCPsocket client = nullptr;
 	TCPsocket hostSocket = nullptr;
@@ -41,7 +41,7 @@ private:
 
 	int currentType;
 	int currentState = NONE;
-	enum typeMode{HOST_, CLIENT_};
+	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};
 };
 

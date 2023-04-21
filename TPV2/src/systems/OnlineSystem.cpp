@@ -39,6 +39,8 @@ void OnlineSystem::update() {
 					client = SDLNet_TCP_Accept(masterSocket);
 					result = SDLNet_TCP_Recv(client, buffer, 255);
 					if (result > 0) {
+						state_ = WAITING;
+						ecs::Message m; m.id = ecs::_m_WAITING;
 						cout << "Client says: " << buffer << endl;
 						SDLNet_TCP_Send(client, "Received!", 10);
 					}
