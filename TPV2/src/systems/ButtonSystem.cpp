@@ -27,13 +27,15 @@ void ButtonSystem::update() {
 				clicked = true;
 				auto b = mngr_->getComponent<Button>(button[i]);
 				ecs::Message m; 
+				ecs::Message m1; 
 				switch (b->getID()) {
-				case MULTIPLAYER_: m.id = ecs::_m_ONLINE; std::cout << "a" << std::endl; break;
-					case SINGLEPLAYER_: m.id = ecs::_m_MAINMENU;  std::cout << "b" << std::endl; break;
-					case HOST_: m.id = ecs::_m_HOST; std::cout << "c" << std::endl; break;
-					case CLIENT_: m.id = ecs::_m_CLIENT;  std::cout << "d" << std::endl; break;
+				case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
+					case SINGLEPLAYER_: m.id = ecs::_m_MAINMENU; break;
+					case HOST_: m.id = ecs::_m_HOST; m.id = ecs::_m_START_ONLINE_ROUND; mngr_->send(m1, true);  break;
+					case CLIENT_: m.id = ecs::_m_CLIENT; m.id = ecs::_m_START_ONLINE_ROUND; mngr_->send(m1, true); break;
 				}
 				mngr_->send(m, true);
+				
 			}
 		}
 	}

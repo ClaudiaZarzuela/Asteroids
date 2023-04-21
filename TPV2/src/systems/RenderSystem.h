@@ -78,6 +78,7 @@ private:
 	// metodo que cambia el texto que se muestra en pantalla en cada estado
 	void changeText();
 	void player();
+	void playersOnline();
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
 	Uint8 state_ = 0; // El estado actual de juego (como en GameCtrlSystem)

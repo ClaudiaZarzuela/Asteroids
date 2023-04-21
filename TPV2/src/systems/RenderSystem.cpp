@@ -49,6 +49,9 @@ void RenderSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_WAITING:
 		state_ = WAITING;
 		break;
+	case ecs::_m_START_ONLINE_ROUND:
+		state_ = ONLINE;
+		break;
 	}
 	changeText();
 }
@@ -86,7 +89,7 @@ void RenderSystem::update() {
 		animateAsteroids();
 		inGameObjects();
 	}
-	else if (state_ == GAMEMODE || state_ == ONLINE) {
+	else if (state_ == GAMEMODE) {
 		//RENDERIZA LOS BOTONES
 		auto& grpB = mngr_->getEntities(ecs::_grp_BUTTONS);
 		for (auto i = 0; i < grpB.size(); i++)
@@ -97,6 +100,9 @@ void RenderSystem::update() {
 			textures[text_]->render(dest, tr_->getRot());
 
 		}
+	}
+	else if (state_ == ONLINE) {
+		playersOnline();
 	}
 	else {
 		player();
@@ -198,4 +204,20 @@ void RenderSystem::player() {
 	Transform* f = mngr_->getComponent<Transform>(fighter);
 	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
 	textures[NAVE]->render(dest, f->getRot());
+}
+
+void RenderSystem::playersOnline() {
+	auto& grpPlayers = mngr_->getEntities(ecs::_grp_PLAYERS);
+	for (auto i = 0; i < grpPlayers.size(); i++)
+	{
+		Transform* f = mngr_->getComponent<Transform>(grpPlayers[i]);
+		SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
+		textures[NAVE]->render(dest, f->getRot());
+
+		for (int j = 0; j < mngr_->getComponent<Health>(grpPlayers[i])->getLives(); ++j) {
+			Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * j, i * 100);
+			SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, (textures[HEALTH]->height() / 3));
+			textures[HEALTH]->render(dest, 0);
+		}
+	}
 }
