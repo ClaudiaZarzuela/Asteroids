@@ -18,6 +18,7 @@ namespace ecs {
 		_GUN,
 		_ONEXIT,
 		_FOLLOW,
+		_BUTTON,
 		_GENERATIONS,
 		_RENDERTEXT,
 		_LAST_CMP_ID
