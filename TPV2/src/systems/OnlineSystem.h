@@ -29,8 +29,6 @@ private:
 
 	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
-	TCPsocket client = nullptr;
-	TCPsocket hostSocket = nullptr;
 	TCPsocket conn = nullptr;
 
 	int port = 4444;
