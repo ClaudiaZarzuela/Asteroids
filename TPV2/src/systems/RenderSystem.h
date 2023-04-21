@@ -8,7 +8,7 @@
 #include <list>
 
 
-const int NUM_TEXTURES = 5;
+const int NUM_TEXTURES = 9;
 const int NUM_TEXTS = 4;
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
@@ -52,7 +52,11 @@ private:
 		{ " ../../resources/resources/images/asteroid.png", 5, 6 },
 		{ " ../../resources/resources/images/heart.png", 1, 1 },
 		{ " ../../resources/resources/images/fire.png", 1, 1 },
-		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 }
+		{ " ../../resources/resources/images/asteroid_gold.png", 5, 6 },
+		{ " ../../resources/resources/images/singleplayer.png", 1, 1 },
+		{ " ../../resources/resources/images/multiplayer.png", 1, 1 },
+		{ " ../../resources/resources/images/client.png", 1, 1 },
+		{ " ../../resources/resources/images/host.png", 1, 1 }
 	};
 	Texts text[NUM_TEXTS] = {
 		{ "Press space to Start", 0x112233ff,0},
