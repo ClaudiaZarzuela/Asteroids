@@ -27,7 +27,7 @@ private:
 	void initHost();
 	void initClient();
 
-	SDLNet_SocketSet set;
+	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
 	TCPsocket client = nullptr;
 	TCPsocket hostSocket = nullptr;

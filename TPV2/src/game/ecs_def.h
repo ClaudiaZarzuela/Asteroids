@@ -73,6 +73,7 @@ namespace ecs {
 		_m_GAMEMODE,
 		_m_ONLINE,
 		_m_WAITING,
+		_m_ONLINEPLAY,
 		_m_HOST,
 		_m_CLIENT,
 		_m_CHANGE_STATE,

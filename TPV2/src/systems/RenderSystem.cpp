@@ -45,6 +45,10 @@ void RenderSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_GAME_OVER_LOSE: //pasa al playState
 		state_ = GAMEOVERLOSE;
 		break;
+
+	case ecs::_m_WAITING:
+		state_ = WAITING;
+		break;
 	}
 	changeText();
 }
