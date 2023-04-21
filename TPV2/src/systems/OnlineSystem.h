@@ -1,6 +1,7 @@
 #pragma once
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
+#include <string>
 #include <SDL_net.h>
 
 class OnlineSystem : public System {
@@ -34,7 +35,7 @@ private:
 	TCPsocket conn = nullptr;
 
 	int port = 4444;
-	char* host = 0;
+	std::string host;
 	char buffer[256];
 	int result = 0;
 

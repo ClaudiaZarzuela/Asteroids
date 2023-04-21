@@ -61,10 +61,11 @@ void OnlineSystem::initHost() {
 
 void OnlineSystem::initClient() {
 	std::cout << "Introduce IP: ";
-	std::cin.getline(host, 255);
+	std::cin >> host;
+	const char* c = host.c_str();
 
 	IPaddress ip;
-	if (SDLNet_ResolveHost(&ip, host, port) < 0) { error(); }
+	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
 	conn = SDLNet_TCP_Open(&ip);
 	if (!conn) { error(); }
 	std::cout << "Enter a message: ";
