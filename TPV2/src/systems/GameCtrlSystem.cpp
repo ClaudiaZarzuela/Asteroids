@@ -79,7 +79,7 @@ void GameCtrlSystem::update() {
 			ecs::Message m1; ecs::Message m2;
 			switch (state_)
 				{
-				case MAINMENU:
+				case MENU:
 					m1.id = ecs::_m_PLAY;
 					m2.id = ecs::_m_ROUND_START;
 					break;

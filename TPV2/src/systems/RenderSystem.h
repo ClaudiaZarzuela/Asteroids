@@ -76,8 +76,9 @@ private:
 	void animateAsteroids();
 	// metodo que cambia el texto que se muestra en pantalla en cada estado
 	void changeText();
+	void player();
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
-	Uint8 state_; // El estado actual de juego (como en GameCtrlSystem)
+	Uint8 state_ = 0; // El estado actual de juego (como en GameCtrlSystem)
 	int frameTime = 0;
 };

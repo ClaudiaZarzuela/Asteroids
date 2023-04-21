@@ -77,20 +77,8 @@ void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
 
-	
-	//RENDERIZAR LAS VIDAS
-	for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
-		Vector2D pos = Vector2D((textures[HEALTH]->width()/3) * i, 0);
-		SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width()/3, textures[HEALTH]->height()/3);
-		textures[HEALTH]->render(dest, 0);
-	}
-
-	//RENDERIZA LA NAVE 
-	Transform* f = mngr_->getComponent<Transform>(fighter);
-	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
-	textures[NAVE]->render(dest, f->getRot());
-
 	if (state_ == PLAY) {
+		player();
 		animateAsteroids();
 		inGameObjects();
 	}
@@ -100,15 +88,14 @@ void RenderSystem::update() {
 		for (auto i = 0; i < grpB.size(); i++)
 		{
 			Transform* tr_ = mngr_->getComponent<Transform>(grpB[i]);
-			int row = mngr_->getComponent<FramedImage>(grpB[i])->getRow();
-			int col = mngr_->getComponent<FramedImage>(grpB[i])->getCol();
 			int text_ = mngr_->getComponent<Button>(grpB[i])->getTexture();
 			SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
-			textures[text_]->renderFrame(dest, row, col, tr_->getRot());
+			textures[text_]->render(dest, tr_->getRot());
 
 		}
 	}
 	else {
+		player();
 		//RENDER TEXTOS
 		if (state_ == PAUSA) {
 			inGameObjects();
@@ -177,7 +164,7 @@ void RenderSystem::changeText() {
 				mngr_->setAlive(e, false);
 		}
 	}
-	if (state_ == MAINMENU) {
+	if (state_ == MENU) {
 		text1_ = mngr_->addEntity(ecs::_grp_TEXT);
 		mngr_->addComponent<TextRender>(text1_, texts[MAINMENU], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
 	}
@@ -193,4 +180,18 @@ void RenderSystem::changeText() {
 			mngr_->addComponent<TextRender>(text2_, texts[WIN], (sdlutils().width() - texts[WIN]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) - 100);
 		}
 	}
+}
+
+void RenderSystem::player() {
+	//RENDERIZAR LAS VIDAS
+	for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
+		Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * i, 0);
+		SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, textures[HEALTH]->height() / 3);
+		textures[HEALTH]->render(dest, 0);
+	}
+
+	//RENDERIZA LA NAVE 
+	Transform* f = mngr_->getComponent<Transform>(fighter);
+	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
+	textures[NAVE]->render(dest, f->getRot());
 }

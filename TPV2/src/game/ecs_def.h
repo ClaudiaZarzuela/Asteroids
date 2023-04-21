@@ -48,6 +48,7 @@ namespace ecs {
 		_sys_COLLISIONS,
 		_sys_RENDER,	
 		_sys_BUTTON,
+		_sys_ONLINE,
 		_LAST_SYS_ID
 	};
 	constexpr sysId_type maxSysId = _LAST_SYS_ID;
@@ -71,6 +72,8 @@ namespace ecs {
 		_m_GAMEMODE,
 		_m_ONLINE,
 		_m_WAITING,
+		_m_HOST,
+		_m_CLIENT,
 		_m_CHANGE_STATE
 	};
 
