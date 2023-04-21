@@ -29,4 +29,6 @@ private:
 	Uint8 state_; // El estado actual del juego (en lugar del componente State);
 
 	InputHandler* input_ = InputHandler::instance();
+	bool active_ = false;
+
 };

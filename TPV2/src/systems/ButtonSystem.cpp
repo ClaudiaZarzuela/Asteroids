@@ -8,13 +8,8 @@ void ButtonSystem::recieve(const ecs::Message& m) {
 			activateSystem(); break;
 		case ecs::_m_ONLINE:
 			createOnlineStateButtons(); break;
-	    case ecs::
 		default: break;
 	}
-}
-
-void ButtonSystem::initSystem() { 
-
 }
 
 void ButtonSystem::update() {

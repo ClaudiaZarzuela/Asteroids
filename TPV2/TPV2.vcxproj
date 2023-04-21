@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\Button.h" />
+    <ClInclude Include="src\systems\ButtonSystem.h" />
     <ClInclude Include="src\systems\RenderSystem.h" />
     <ClInclude Include="src\systems\CollisionsSystem.h" />
     <ClInclude Include="src\systems\FighterSystem.h" />
@@ -57,6 +59,8 @@
     <ClInclude Include="src\ecs\System.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\Button.cpp" />
+    <ClCompile Include="src\systems\ButtonSystem.cpp" />
     <ClCompile Include="src\systems\RenderSystem.cpp" />
     <ClCompile Include="src\systems\CollisionsSystem.cpp" />
     <ClCompile Include="src\systems\FighterSystem.cpp" />
