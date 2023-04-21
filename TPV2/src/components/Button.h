@@ -9,13 +9,13 @@
 
 class Button : public Component {
 private:
-	enum button_ID {MULTIPLAYER_ = 0, SINGLEPLAYER_ =1, HOST_ =2, CLIENT_ =3 }; 
-	button_ID ID;
+	int ID;
 
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BUTTON;
 
-	Button(int id) : Component(), ID((button_ID)id) {}
+	Button(int id) : Component(), ID(id) {}
 	void initComponent() override;
+	int getID() { return ID; }
 };
 

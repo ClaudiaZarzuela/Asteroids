@@ -2,6 +2,8 @@
 #include "../checkML.h"
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
+#include "../components/Transform.h"
+#include "../components/Button.h"
 
 class ButtonSystem : public System
 {
@@ -17,4 +19,7 @@ public:
 
 private:
 	bool active_ = false;
+	enum button_ID { MULTIPLAYER_ = 0, SINGLEPLAYER_ = 1, HOST_ = 2, CLIENT_ = 3 };
+	void createMainMenuButtons();
+	void createOnlineStateButtons();
 };

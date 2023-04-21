@@ -74,35 +74,37 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 // Si el juego no está parado y el jugador pulsa SDLK_SPACE cambia el estado como en la práctica 1, etc. Tiene que enviar mensajes correspondientes cuando
 // empieza una ronda o cuando empieza una nueva partida.
 void GameCtrlSystem::update() {
-	if (input_->isKeyJustDown(SDLK_SPACE)) {
-		ecs::Message m1; ecs::Message m2;
-		switch (state_)
-			{
-			case MAINMENU:
-				m1.id = ecs::_m_PLAY;
-				m2.id = ecs::_m_ROUND_START;
-				break;
-			case PLAY:
-				m1.id = ecs::_m_PAUSE;
-				break;
-			case PAUSE:
-				m1.id = ecs::_m_PLAY;
-				break;
-			case GAMEOVERLOSE:
-				m1.id = ecs::_m_MAINMENU;
-				break;
-			case GAMEOVERWIN:
-				m1.id = ecs::_m_MAINMENU;
-				break;
-			case RESTART:
-				m1.id = ecs::_m_PLAY;
-				m2.id = ecs::_m_ROUND_START;
-				break;
+	if (active_) {
+		if (input_->isKeyJustDown(SDLK_SPACE)) {
+			ecs::Message m1; ecs::Message m2;
+			switch (state_)
+				{
+				case MAINMENU:
+					m1.id = ecs::_m_PLAY;
+					m2.id = ecs::_m_ROUND_START;
+					break;
+				case PLAY:
+					m1.id = ecs::_m_PAUSE;
+					break;
+				case PAUSE:
+					m1.id = ecs::_m_PLAY;
+					break;
+				case GAMEOVERLOSE:
+					m1.id = ecs::_m_MAINMENU;
+					break;
+				case GAMEOVERWIN:
+					m1.id = ecs::_m_MAINMENU;
+					break;
+				case RESTART:
+					m1.id = ecs::_m_PLAY;
+					m2.id = ecs::_m_ROUND_START;
+					break;
 
-			default:
-				break;
+				default:
+					break;
+			}
+			mngr_->send(m1, true);
+			mngr_->send(m2, true);
 		}
-		mngr_->send(m1, true);
-		mngr_->send(m2, true);
 	}
 }

@@ -30,6 +30,7 @@ namespace ecs {
 		_grp_GENERAL,
 		_grp_BULLETS,
 		_grp_TEXT,
+		_grp_BUTTONS,
 		_LAST_GRP_ID
 	};
 	constexpr grpId_type maxGroupId = _LAST_GRP_ID;

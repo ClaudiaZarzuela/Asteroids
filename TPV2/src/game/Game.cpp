@@ -22,7 +22,7 @@ void Game::init() {
 	Manager::instance()->addSystem<CollisionsSystem>();
 	Manager::instance()->addSystem<GameCtrlSystem>();
 	Manager::instance()->addSystem<RenderSystem>();
-	//Manager::instance()->addSystem<BulletSystem>(ecs::_sys_BULLETS);
+	Manager::instance()->addSystem<ButtonSystem>();
 }
 
 //Destructora de la clase
