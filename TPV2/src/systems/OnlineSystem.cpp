@@ -18,10 +18,7 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		initClient();
 		break;
 	case ecs::_m_SHIP_MOVED:
-		float x = m.ship_movement_data.x;
-		float y = m.ship_movement_data.y;
-		float rot = m.ship_movement_data.rot;
-		informOfMovement(x, y, rot);
+		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot);
 	default: break;
 	}
 }
@@ -68,19 +65,27 @@ void OnlineSystem::descifraMsg(char* buffer) {
 	std::vector<std::string> mnsg = strSplit(aux, ' ');
 	ecs::Message m; 
 	if(strncmp(buffer, "Name", 4) == 0) {
-		if (currentType == HOST_) { nameClient = mnsg[1]; }
-		else{ nameHost = mnsg[1]; }
+		if (currentType == HOST_) { 
+			nameClient = mnsg[1]; 
+			trOponent = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+		}
+		else{ 
+			nameHost = mnsg[1];
+			trOponent = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+		}
 		m.id = ecs::_m_START_ONLINE_ROUND; 
 		m.player_name_data.hostName = nameHost;
 		m.player_name_data.clientName = nameClient;
 	}	
 	else if (strncmp(buffer, "Transform", 9) == 0) {
-		m.id = ecs::_m_ENEMY_MOVED;
-		m.ship_movement_data.x = stof(mnsg[1]);
-		m.ship_movement_data.y = stof(mnsg[2]);
-		m.ship_movement_data.rot = stof(mnsg[3]);
+		moveOponent(stof(mnsg[1]), stof(mnsg[2]), stof(mnsg[3]));
 	}
 	mngr_->send(m, true);
+}
+
+void OnlineSystem::moveOponent(float x, float y, float r) {
+	trOponent->setPos(Vector2D(x, y));
+	trOponent->setRot(r);
 }
 std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 

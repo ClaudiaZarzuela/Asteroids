@@ -27,6 +27,7 @@ private:
 	void initClient();
 	void descifraMsg( char* buffer);
 	void informOfMovement(float x, float y, float rot);
+	void moveOponent(float x, float y, float r);
 
 	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;
@@ -43,6 +44,7 @@ private:
 	std::string nameHost;
 	std::string nameClient;
 	std::string name = "Name ";
+	Transform* trOponent = nullptr;
 	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};
 	//std::vector<std::string> aux;
