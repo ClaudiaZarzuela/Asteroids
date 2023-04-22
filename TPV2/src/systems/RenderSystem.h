@@ -66,7 +66,7 @@ private:
 		{ "Press space to Continue", 0x112233ff, 1 },
 		{ "Game Over: Loser!", 0x112233ff, 0 },
 		{ "Game Over: You Win!", 0x112233ff, 0 },
-		{ "Waiting for other player...", 0x112233ff, 0 },
+		{ "Waiting for other player...", 0x112233ff, 0 }
 	};
 
 	~RenderSystem();

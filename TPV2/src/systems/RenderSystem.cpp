@@ -155,11 +155,6 @@ void RenderSystem::waitingtext() {
 	mngr_->addComponent<TextRender>(text1_, texts[WAIT], (sdlutils().width() - texts[WAIT]->width()) / 2, ((sdlutils().height() - texts[WAIT]->height()) / 2));
 	TextRender* t = mngr_->getComponent<TextRender>(text1_);
 	t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
-	
-	//RENDERIZA LA NAVE 
-	Transform* f = mngr_->getComponent<Transform>(fighter);
-	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
-	textures[NAVE]->render(dest, f->getRot());
 }
 
 void RenderSystem::menuTexts() {
