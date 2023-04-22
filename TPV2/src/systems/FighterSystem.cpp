@@ -36,9 +36,11 @@ void FighterSystem::initializePlayers(int player) {
 	mngr_->addComponent<Health>(player2, 3);
 	if (player == 1) {
 		tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+		enemyTr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
 	}
 	else {
 		tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+		enemyTr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 	}
 }
 
@@ -46,6 +48,9 @@ void FighterSystem::initializePlayers(int player) {
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+	case ecs::_m_ENEMY_MOVED:
+		updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot); break;
+
 		case ecs::_m_SINGLEPLAYER:
 			createPlayer(); break;
 
@@ -123,8 +128,12 @@ void FighterSystem::update() {
 			hasMoved = false;
 			mngr_->send(m, false);
 		}
-
 	}
+}
+
+void FighterSystem::updateEnemy(int x, int y, int rot) {
+	enemyTr_->setPos(Vector2D(x, y));
+	enemyTr_->setRot(rot);
 }
 
 // Para reaccionar al mensaje de que ha habido un choque entre el fighter y un un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No
