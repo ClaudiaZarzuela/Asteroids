@@ -16,8 +16,6 @@ public:
 	void update() override;
 	OnlineSystem();
 	~OnlineSystem();
-	std::string getHostName() { return nameHost; };
-	std::string getClientName() { return nameClient; };
 private:
 	void activateSystem();
 	void deactivateSystem();
@@ -28,7 +26,8 @@ private:
 	void initHost();
 	void initClient();
 	void descifraMsg( char* buffer);
-	void getBothNames();
+	void informOfMovement(float x, float y, float rot);
+
 	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
@@ -38,8 +37,6 @@ private:
 	std::string host;
 	char buffer[256];
 	int result = 0;
-	bool presentacion = true;
-
 
 	int currentType;
 	int currentState = NONE;

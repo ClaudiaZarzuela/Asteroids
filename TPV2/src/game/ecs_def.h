@@ -81,7 +81,8 @@ namespace ecs {
 		_m_CLIENT,
 		_m_CHANGE_STATE,
 		_m_START_ONLINE_ROUND,
-		_m_NAMES_PLAYERS
+		_m_SHIP_MOVED,
+		_m_ENEMY_MOVED
 	};
 
 	struct Message {
@@ -110,7 +111,13 @@ namespace ecs {
 		} bullet_data;
 
 		struct{
-			std::string name;
+			std::string hostName;
+			std::string clientName;
 		}player_name_data;
+		struct {
+			float x;
+			float y;
+			float rot;
+		}ship_movement_data;
 	};
 }

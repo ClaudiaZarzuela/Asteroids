@@ -64,14 +64,14 @@ void FighterSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_ROUND_OVER:
 			onRoundOver(); break;
 
-		case ecs::_m_PLAY:
+		case ecs::_m_PLAY :
+		case ecs::_m_START_ONLINE_ROUND:
 			onRoundStart(); break;
+
 		case ecs::_m_ROUND_START:
 			onRoundStart();
 			resetLives(); break;
-		case ecs::_m_NAMES_PLAYERS:
-			onRoundStart();
-			break;
+		
 
 		default: break;
 	}

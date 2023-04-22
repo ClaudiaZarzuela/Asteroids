@@ -48,7 +48,6 @@ public:
 	// - Dibujar los mensajes correspondientes: si el juego está parado, etc (como en
 	// la práctica 1)
 	void update() override;
-	void createNames();
 
 private:
 	Textures texture[NUM_TEXTURES] = {
@@ -84,6 +83,7 @@ private:
 	void changeText();
 	void player();
 	void playersOnline();
+	void createNames(std::string p1, std::string p2);
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
 	Entity* ID1_ = nullptr;
