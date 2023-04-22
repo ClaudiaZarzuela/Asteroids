@@ -1,8 +1,7 @@
 #pragma once
+#include <SDL_net.h>
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
-#include <string>
-#include <SDL_net.h>
 
 class OnlineSystem : public System {
 public:
@@ -15,8 +14,10 @@ public:
 	// como en la práctica 1, etc. Tiene que enviar mensajes correspondientes cuando
 	// empieza una ronda o cuando empieza una nueva partida.
 	void update() override;
-
+	OnlineSystem();
 	~OnlineSystem();
+	std::string getHostName() { return nameHost; };
+	std::string getClientName() { return nameClient; };
 private:
 	void activateSystem();
 	void deactivateSystem();
@@ -26,9 +27,9 @@ private:
 
 	void initHost();
 	void initClient();
-
-	void descifraMsg(std::vector<std::string>& aux, char* buffer);
-
+	void descifraMsg( char* buffer);
+	void getBothNames();
+	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
 	TCPsocket conn = nullptr;
@@ -37,11 +38,17 @@ private:
 	std::string host;
 	char buffer[256];
 	int result = 0;
+	bool presentacion = true;
 
 
 	int currentType;
 	int currentState = NONE;
+	std::string nameHost;
+	std::string nameClient;
+	std::string name = "Name ";
 	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};
+	//std::vector<std::string> aux;
+
 };
 

@@ -81,6 +81,7 @@ namespace ecs {
 		_m_CLIENT,
 		_m_CHANGE_STATE,
 		_m_START_ONLINE_ROUND,
+		_m_NAMES_PLAYERS
 	};
 
 	struct Message {
@@ -107,5 +108,9 @@ namespace ecs {
 			int width;
 			int height;
 		} bullet_data;
+
+		struct{
+			std::string name;
+		}player_name_data;
 	};
 }

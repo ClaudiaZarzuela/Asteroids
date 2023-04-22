@@ -6,6 +6,7 @@
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
 #include "../checkML.h"
+#include "OnlineSystem.h"
 
 // Destructora de la clase
 RenderSystem:: ~RenderSystem() {
@@ -52,6 +53,10 @@ void RenderSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_START_ONLINE_ROUND:
 		state_ = ONLINE;
 		break;
+	case ecs::_m_NAMES_PLAYERS:
+		createNames();
+		break;
+
 	}
 	changeText();
 }
@@ -219,5 +224,17 @@ void RenderSystem::playersOnline() {
 			SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, (textures[HEALTH]->height() / 3));
 			textures[HEALTH]->render(dest, 0);
 		}
+
+		if (ids[i] != nullptr) {
+			SDL_Rect r;
+			r.w = ids[i]->width(); r.h = ids[i]->height();
+			r.x = f->getPos().getX() + f->getW()/2 - r.w /2; r.y = f->getPos().getY() + f->getH();
+			ids[i]->render(r);
+		}
 	}
+}
+void RenderSystem::createNames() {
+	OnlineSystem* os = mngr_->getSystem<OnlineSystem>();
+	ids[0] = new Texture(sdlutils().renderer(), os->getHostName(), sdlutils().fonts().at("ARIAL24"), SDL_Color());
+	ids[1] = new Texture(sdlutils().renderer(), os->getClientName(), sdlutils().fonts().at("ARIAL24"), SDL_Color());
 }
