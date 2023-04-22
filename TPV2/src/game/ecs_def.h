@@ -119,6 +119,7 @@ namespace ecs {
 			float x;
 			float y;
 			float rot;
+			bool bullet;
 		}ship_movement_data;
 	};
 }

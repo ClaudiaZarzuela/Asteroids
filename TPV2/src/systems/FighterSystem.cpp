@@ -93,10 +93,9 @@ void FighterSystem::update() {
 			Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;
 			if (newVel.magnitude() >= speedLimit) { newVel = newVel.normalize() * speedLimit; }
 			tr_->setVel(newVel);
-			hasMoved = true;
 		}
-		if (input_->isKeyDown(SDLK_RIGHT)) { tr_->setRot(tr_->getRot() + 5.0f); hasMoved = true;}
-		if (input_->isKeyDown(SDLK_LEFT)) { tr_->setRot(tr_->getRot() - 5.0f); hasMoved = true;}
+		if (input_->isKeyDown(SDLK_RIGHT)) { tr_->setRot(tr_->getRot() + 5.0f); }
+		if (input_->isKeyDown(SDLK_LEFT)) { tr_->setRot(tr_->getRot() - 5.0f); }
 		if (input_->isKeyDown(SDLK_s) && shoot) {
 			Vector2D bPos = tr_->getPos() + Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
 				- Vector2D(0.0f, tr_->getH() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
@@ -124,14 +123,25 @@ void FighterSystem::update() {
 		m.ship_movement_data.x = tr_->getPos().getX();
 		m.ship_movement_data.y = tr_->getPos().getY();
 		m.ship_movement_data.rot = tr_->getRot();
-		hasMoved = false;
+		if (hasShot) m.ship_movement_data.bullet = true;
+		else m.ship_movement_data.bullet = false;
 		mngr_->send(m, false);
+		hasShot = false;
 	}
 }
 
-void FighterSystem::updateEnemy(int x, int y, int rot) {
+void FighterSystem::updateEnemy(int x, int y, int rot, bool bullet) {
 	enemyTr_->setPos(Vector2D(x, y));
 	enemyTr_->setRot(rot);
+	if (bullet) {
+		Vector2D bPos = enemyTr_->getPos() + Vector2D(enemyTr_->getW() / 2.0f, enemyTr_->getH() / 2.0f)
+			- Vector2D(0.0f, enemyTr_->getH() / 2.0f + 5.0f + 12.0f).rotate(enemyTr_->getRot()) - Vector2D(2.0f, 10.0f);
+		Vector2D bVel = Vector2D(0.0f, -1.0f).rotate(enemyTr_->getRot()) * (enemyTr_->getVel().magnitude() + 5.0f);
+		double bRot = enemyTr_->getRot(); int bWidth = 5; int bHeight = 20;
+		ecs::Message m; m.id = ecs::_m_SHOOT; m.bullet_data.pos = bPos; m.bullet_data.vel = bVel;
+		m.bullet_data.rot = bRot; m.bullet_data.width = bWidth; m.bullet_data.height = bHeight;
+		mngr_->send(m, true);
+	}
 }
 
 // Para reaccionar al mensaje de que ha habido un choque entre el fighter y un un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No
