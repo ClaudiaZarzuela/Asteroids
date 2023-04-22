@@ -20,6 +20,10 @@ public:
 	// sólo una bala cada 0.25sec.
 	void update() override;
 private:
+	bool online = false;
+	void createPlayer();
+	void initializePlayer();
+
 	InputHandler* input_ = InputHandler::instance();
 	bool shoot = true;
 	float elapsedTime = 0;

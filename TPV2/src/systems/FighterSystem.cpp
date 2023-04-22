@@ -6,18 +6,37 @@
 // Crear la entidad del caza, añadir sus componentes, asociarla con un handler
 // correspondiente, etc.
 void FighterSystem::initSystem() {
-	Entity* fighter = mngr_->addEntity(ecs::_grp_GENERAL);
+	/*Entity* fighter = mngr_->addEntity(ecs::_grp_GENERAL);
 	mngr_->setHandler(ecs::FIGHTER, fighter);
 	mngr_->addComponent<Transform>(fighter, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
 	mngr_->addComponent<Health>(fighter, 3);
 	
+	tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));*/
+}
+
+void FighterSystem::createPlayer() {
+	Entity* fighter = mngr_->addEntity(ecs::_grp_GENERAL);
+	mngr_->setHandler(ecs::FIGHTER, fighter);
+	mngr_->addComponent<Transform>(fighter, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
+	mngr_->addComponent<Health>(fighter, 3);
+
 	tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
+}
+
+void FighterSystem::initializePlayer() {
+	tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::));
 }
 
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+		case ecs::_m_SINGLEPLAYER:
+			createPlayer(); break;
+
+		case ecs::_m_ONLINE:
+			initializePlayer(); online = true; break;
+
 		case ecs::_m_FIGHTER_CRASHED:
 		case ecs::_m_GAME_OVER_LOSE:
 		case ecs::_m_GAME_OVER_WIN:
