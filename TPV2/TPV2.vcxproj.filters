@@ -245,9 +245,6 @@
     <ClCompile Include="src\systems\OnlineSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\systems\OnlineGameSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\resources\images\asteroid.png">

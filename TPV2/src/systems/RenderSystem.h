@@ -6,10 +6,11 @@
 #include <SDL_image.h>
 #include <string>
 #include <list>
-
+#include "OnlineSystem.h"
 
 const int NUM_TEXTURES = 9;
 const int NUM_TEXTS = 5;
+const int NUM_PLAYERS = 2;
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
 {
@@ -32,7 +33,9 @@ static const enum TextureNames {
 static const enum TextNames {
 	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3, WAIT = 4
 };
-
+static const enum IDPlayers{
+	P1 = 0, P2 = 1
+};
 class RenderSystem : public System {
 public:
 	constexpr static ecs::sysId_type id = ecs::_sys_RENDER;
@@ -45,6 +48,7 @@ public:
 	// - Dibujar los mensajes correspondientes: si el juego está parado, etc (como en
 	// la práctica 1)
 	void update() override;
+	void createNames();
 
 private:
 	Textures texture[NUM_TEXTURES] = {
@@ -69,6 +73,7 @@ private:
 	~RenderSystem();
 	Texture* textures[NUM_TEXTURES];
 	Texture* texts[NUM_TEXTS];
+	Texture* ids[NUM_PLAYERS];
 	SDL_Renderer* renderer = nullptr;
 	Entity* fighter = nullptr;
 	// metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
@@ -81,6 +86,8 @@ private:
 	void playersOnline();
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
+	Entity* ID1_ = nullptr;
+	Entity* ID2_ = nullptr;
 	Uint8 state_ = 0; // El estado actual de juego (como en GameCtrlSystem)
 	int frameTime = 0;
 };
