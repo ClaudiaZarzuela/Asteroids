@@ -88,10 +88,10 @@ void FighterSystem::update() {
 			Vector2D newVel = tr_->getVel() + Vector2D(0, -1).rotate(tr_->getRot()) * 0.2f;
 			if (newVel.magnitude() >= speedLimit) { newVel = newVel.normalize() * speedLimit; }
 			tr_->setVel(newVel);
+			hasMoved = true;
 		}
-
-		if (input_->isKeyDown(SDLK_RIGHT)) { tr_->setRot(tr_->getRot() + 5.0f); }
-		if (input_->isKeyDown(SDLK_LEFT)) { tr_->setRot(tr_->getRot() - 5.0f); }
+		if (input_->isKeyDown(SDLK_RIGHT)) { tr_->setRot(tr_->getRot() + 5.0f); hasMoved = true;}
+		if (input_->isKeyDown(SDLK_LEFT)) { tr_->setRot(tr_->getRot() - 5.0f); hasMoved = true;}
 		if (input_->isKeyDown(SDLK_s) && shoot) {
 			Vector2D bPos = tr_->getPos() + Vector2D(tr_->getW() / 2.0f, tr_->getH() / 2.0f)
 				- Vector2D(0.0f, tr_->getH() / 2.0f + 5.0f + 12.0f).rotate(tr_->getRot()) - Vector2D(2.0f, 10.0f);
@@ -103,6 +103,7 @@ void FighterSystem::update() {
 			mngr_->send(m, true);
 			shoot = false;
 			elapsedTime = sdlutils().currRealTime();
+			hasShot = true;
 		}
 		if (sdlutils().currRealTime() - elapsedTime > 250) { shoot = true; }
 		if (tr_->getVel().magnitude() < 0.05f) { tr_->setVel(Vector2D(0, 0)); }
@@ -113,6 +114,16 @@ void FighterSystem::update() {
 		else if (tr_->getPos().getX() < 0 - tr_->getW()) { tr_->setPos(Vector2D(sdlutils().width(), tr_->getPos().getY())); }
 		if (tr_->getPos().getY() > sdlutils().height()) { tr_->setPos(Vector2D(tr_->getPos().getX(), 0 - tr_->getH())); }
 		else if (tr_->getPos().getY() < 0 - tr_->getH()) { tr_->setPos(Vector2D(tr_->getPos().getX(), sdlutils().height())); }
+
+		if (hasMoved) {
+			ecs::Message m; m.id = ecs::_m_SHIP_MOVED;
+			m.ship_movement_data.x = tr_->getPos().getX();
+			m.ship_movement_data.y = tr_->getPos().getY();
+			m.ship_movement_data.rot = tr_->getRot();
+			hasMoved = false;
+			mngr_->send(m, false);
+		}
+
 	}
 }
 

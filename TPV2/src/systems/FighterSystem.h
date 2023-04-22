@@ -23,6 +23,8 @@ private:
 	bool online = false;
 	void createPlayer();
 	void initializePlayers(int player);
+	bool hasMoved = false;
+	bool hasShot = false;
 
 	InputHandler* input_ = InputHandler::instance();
 	bool shoot = true;

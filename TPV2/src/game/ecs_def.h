@@ -81,7 +81,8 @@ namespace ecs {
 		_m_CLIENT,
 		_m_CHANGE_STATE,
 		_m_START_ONLINE_ROUND,
-		_m_NAMES_PLAYERS
+		_m_NAMES_PLAYERS,
+		_m_SHIP_MOVED
 	};
 
 	struct Message {
@@ -112,5 +113,12 @@ namespace ecs {
 		struct{
 			std::string name;
 		}player_name_data;
+
+		struct {
+			float x;
+			float y;
+			float rot;
+		}ship_movement_data;
+
 	};
 }
