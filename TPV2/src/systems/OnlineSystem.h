@@ -27,6 +27,8 @@ private:
 	void initHost();
 	void initClient();
 
+	void descifraMsg(std::vector<std::string>& aux, char* buffer);
+
 	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
 	TCPsocket conn = nullptr;

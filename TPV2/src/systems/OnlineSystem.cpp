@@ -24,10 +24,12 @@ void OnlineSystem::initSystem() {
 	set = SDLNet_AllocSocketSet(2);
 
 	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
+	mngr_->setHandler(ecs::PLAYER1, player1);
 	mngr_->addComponent<Transform>(player1, Vector2D(sdlutils().width() / 2 - 25, 0 + 100), Vector2D(0, 0), 50, 50, 180);
 	mngr_->addComponent<Health>(player1, 3);
 
 	Entity* player2 = mngr_->addEntity(ecs::_grp_PLAYERS);
+	mngr_->setHandler(ecs::PLAYER2, player2);
 	mngr_->addComponent<Transform>(player2, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() -100), Vector2D(0, 0), 50, 50, 0);
 	mngr_->addComponent<Health>(player2, 3);
 }
@@ -36,6 +38,7 @@ OnlineSystem::~OnlineSystem() {
 	if (masterSocket != nullptr) {
 		SDLNet_FreeSocketSet(set);
 		//hay q hacer un delete o algo asi ha dicho miguel uwu
+		// lo q ha dicho es que diferenciemos entre host y client a la hora de borrar, por ejemplo en caso del host borrar ambos sockets y en caso del client solo uno
 		SDLNet_TCP_Close(masterSocket);
 		SDLNet_TCP_Close(conn);
 	}
@@ -52,30 +55,59 @@ void OnlineSystem::update() {
 					SDLNet_TCP_AddSocket(set, conn);
 					SDLNet_TCP_Send(conn, "Received!", 10);
 				}
-
+				// aqui recibirias la info sobre la pos y etc del otro
 				if (conn != nullptr && SDLNet_SocketReady(conn)) {
 					char buffer[256];
 					int result = SDLNet_TCP_Recv(conn, buffer, 255);
 					if (result > 0) {
-						cout << "Client says: " << buffer << std::endl;
+						////cout << "Client says: " << buffer << std::endl;
+						std::vector<std::string> aux;
+						descifraMsg(aux, buffer);
+						// otraNave.setPos(aux[0], aux[1]); otraNave.setRot(aux[3]); if(aux[4]) ha disparado else no;
 					}
 				}
+				// aqui mandas tu info de pos, rot y si has disparado
+				if (conn != nullptr) {
+					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+					string msg = std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
+					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+				}
+
 			}
-			if (conn != nullptr ) {
+			/*if (conn != nullptr ) {
 				SDLNet_TCP_Send(conn, "holi!", 6);
-			}
+			}*/
 		}
 		else {
 			if(conn != nullptr && SDLNet_CheckSockets(set, 0) > 0) {
+				// aqui recibirias la info sobre la pos y etc del otro
 				if (SDLNet_SocketReady(conn)) {
 					char buffer[256];
 					int result = SDLNet_TCP_Recv(conn, buffer, 255);
 					if (result > 0) {
-						cout << "Host says: " << buffer << std::endl;
+						//cout << "Host says: " << buffer << std::endl;
+						std::vector<std::string> aux;
+						descifraMsg(aux, buffer);
+						// otraNave.setPos(aux[0], aux[1]); otraNave.setRot(aux[3]); if(aux[4]) ha disparado else no;
 					}
+				}
+				// aqui mandas tu info de pos, rot y si has disparado
+				if (conn != nullptr) {
+					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+					string msg = std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
+					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 				}
 			}
 		}
+	}
+}
+
+void OnlineSystem::descifraMsg(std::vector<std::string> &aux, char* buffer) {
+	char* word;
+	word = strtok(buffer, " ");
+	while (word != NULL) { // a lo mejor hay que cambiarlo a nullptr si esto explota
+		aux.push_back(word);
+		word = strtok(buffer, " ");
 	}
 }
 

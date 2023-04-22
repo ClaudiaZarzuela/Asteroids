@@ -38,6 +38,8 @@ namespace ecs {
 	using hdlrId_type = uint8_t;
 	enum hdlrId : hdlrId_type { 
 		FIGHTER,
+		PLAYER1,
+		PLAYER2,
 		_LAST_HDLR_ID };
 	constexpr hdlrId_type maxHdlrId = _LAST_HDLR_ID;
 	using sysId_type = uint8_t;
