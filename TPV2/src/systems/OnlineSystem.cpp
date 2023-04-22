@@ -17,6 +17,11 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		currentType = CLIENT_;
 		initClient();
 		break;
+	case ecs::_m_SHIP_MOVED:
+		float x = m.ship_movement_data.x;
+		float y = m.ship_movement_data.y;
+		float rot = m.ship_movement_data.rot;
+		informOfMovement(x, y, rot);
 	default: break;
 	}
 }
@@ -54,21 +59,6 @@ void OnlineSystem::update() {
 					descifraMsg(buffer);
 				}
 			}
-
-			if (conn != nullptr) {
-				if (currentType == HOST_) {
-					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
-					string msg = "Transform ";
-					msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
-					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
-				}
-				else {
-					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
-					string msg = "Transform ";
-					msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
-					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
-				}
-			}
 		}
 	}
 }
@@ -76,23 +66,21 @@ void OnlineSystem::update() {
 void OnlineSystem::descifraMsg(char* buffer) {
 	std::string aux(buffer);
 	std::vector<std::string> mnsg = strSplit(aux, ' ');
+	ecs::Message m; 
 	if(strncmp(buffer, "Name", 4) == 0) {
 		if (currentType == HOST_) { nameClient = mnsg[1]; }
 		else{ nameHost = mnsg[1]; }
-		ecs::Message m;  m.id = ecs::_m_NAMES_PLAYERS; mngr_->send(m, true);
+		m.id = ecs::_m_START_ONLINE_ROUND; 
+		m.player_name_data.hostName = nameHost;
+		m.player_name_data.clientName = nameClient;
 	}	
 	else if (strncmp(buffer, "Transform", 9) == 0) {
-		if (currentType == HOST_) { 
-			auto tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
-			tr_->setPos(Vector2D(stof(mnsg[1]), stof(mnsg[2])));
-			tr_->setRot(stof(mnsg[3]));
-		}
-		else {
-			auto tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
-			tr_->setPos(Vector2D(stof(mnsg[1]), stof(mnsg[2])));
-			tr_->setRot(stof(mnsg[3]));
-		}
+		m.id = ecs::_m_ENEMY_MOVED;
+		m.ship_movement_data.x = stof(mnsg[1]);
+		m.ship_movement_data.y = stof(mnsg[2]);
+		m.ship_movement_data.rot = stof(mnsg[3]);
 	}
+	mngr_->send(m, true);
 }
 std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 
@@ -113,13 +101,12 @@ std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 	return split;
 }
 
-void OnlineSystem::getBothNames() {
-	if (presentacion) {
-		//presentacion = false;
-		const char* c = name.c_str();
-		SDLNet_TCP_Send(conn, c, name.size()+1);
-	}
+void OnlineSystem::informOfMovement(float x, float y, float rot) {
+	string msg = "Transform ";
+	msg += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rot);
+	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 }
+
 void OnlineSystem::initHost() {
 	IPaddress ip;
 	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) { error(); }
@@ -141,9 +128,6 @@ void OnlineSystem::initClient() {
 	conn = SDLNet_TCP_Open(&ip); 
 	if (!conn) { error(); }
 	SDLNet_TCP_AddSocket(set, conn);
-	ecs::Message m;
-	m.id = ecs::_m_START_ONLINE_ROUND;
-	mngr_->send(m, true);
 	std::cout << "Introduce tu nombre: ";
 	std::cin >> nameClient;
 	name += nameClient;

@@ -47,15 +47,18 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		state_ = GAMEOVERLOSE;
 		break;
 
-	case ecs::_m_WAITING:
+	case ecs::_m_HOST:
 		state_ = WAITING;
+		text1_ = mngr_->addEntity(ecs::_grp_TEXT);
+		mngr_->addComponent<TextRender>(text1_, texts[WAIT], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2));
 		break;
 	case ecs::_m_START_ONLINE_ROUND:
+		std::string player1 = m.player_name_data.hostName;
+		std::string player2 = m.player_name_data.clientName;
+		createNames(player1, player2);
 		state_ = ONLINE;
 		break;
-	case ecs::_m_NAMES_PLAYERS:
-		createNames();
-		break;
+	
 
 	}
 	changeText();
@@ -107,6 +110,11 @@ void RenderSystem::update() {
 		}
 	}
 	else if (state_ == ONLINE) {
+		playersOnline();
+	}
+	else if (state_ == WAITING) {
+		TextRender* t = mngr_->getComponent<TextRender>(text1_);
+		t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
 		playersOnline();
 	}
 	else {
@@ -233,8 +241,8 @@ void RenderSystem::playersOnline() {
 		}
 	}
 }
-void RenderSystem::createNames() {
+void RenderSystem::createNames(std::string p1, std::string p2) {
 	OnlineSystem* os = mngr_->getSystem<OnlineSystem>();
-	ids[0] = new Texture(sdlutils().renderer(), os->getHostName(), sdlutils().fonts().at("ARIAL24"), SDL_Color());
-	ids[1] = new Texture(sdlutils().renderer(), os->getClientName(), sdlutils().fonts().at("ARIAL24"), SDL_Color());
+	ids[0] = new Texture(sdlutils().renderer(), p1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
+	ids[1] = new Texture(sdlutils().renderer(), p2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 }
