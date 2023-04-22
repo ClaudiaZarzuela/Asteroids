@@ -49,7 +49,7 @@ void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_ENEMY_MOVED:
-			updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot); break;
+			updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.bullet); break;
 
 		case ecs::_m_SINGLEPLAYER:
 			createPlayer(); break;
@@ -140,7 +140,7 @@ void FighterSystem::updateEnemy(int x, int y, int rot, bool bullet) {
 		double bRot = enemyTr_->getRot(); int bWidth = 5; int bHeight = 20;
 		ecs::Message m; m.id = ecs::_m_SHOOT; m.bullet_data.pos = bPos; m.bullet_data.vel = bVel;
 		m.bullet_data.rot = bRot; m.bullet_data.width = bWidth; m.bullet_data.height = bHeight;
-		mngr_->send(m, true);
+		mngr_->send(m, false);
 	}
 }
 
