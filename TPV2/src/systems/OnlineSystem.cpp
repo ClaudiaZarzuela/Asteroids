@@ -23,16 +23,6 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 // Inicializar el sistema, etc.
 void OnlineSystem::initSystem() {
 	set = SDLNet_AllocSocketSet(2);
-
-	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
-	mngr_->setHandler(ecs::PLAYER1, player1);
-	mngr_->addComponent<Transform>(player1, Vector2D(sdlutils().width() / 2 - 25, 0 + 100), Vector2D(0, 0), 50, 50, 180);
-	mngr_->addComponent<Health>(player1, 3);
-
-	Entity* player2 = mngr_->addEntity(ecs::_grp_PLAYERS);
-	mngr_->setHandler(ecs::PLAYER2, player2);
-	mngr_->addComponent<Transform>(player2, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() -100), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Health>(player2, 3);
 }
 
 OnlineSystem::~OnlineSystem() {
@@ -62,14 +52,14 @@ void OnlineSystem::update() {
 				if (result > 0) {
 					cout << buffer << std::endl;
 					descifraMsg(buffer);
-					// otraNave.setPos(aux[0], aux[1]); otraNave.setRot(aux[3]); if(aux[4]) ha disparado else no;
 				}
 			}
 
 			if (conn != nullptr) {
-				//auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
-				//string msg = std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
-				//SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+				auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+				string msg = "Transform ";
+				msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
+				SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 			}
 		}
 	}
@@ -83,6 +73,18 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		else{ nameHost = mnsg[1]; }
 		ecs::Message m;  m.id = ecs::_m_NAMES_PLAYERS; mngr_->send(m, true);
 	}	
+	else if (strncmp(buffer, "Transform", 9) == 0) {
+		if (currentType == HOST_) { 
+			auto tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+			tr_->setPos(Vector2D(stof(mnsg[1]), stof(mnsg[2])));
+			tr_->setRot(stof(mnsg[3]));
+		}
+		else {
+			auto tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+			tr_->setPos(Vector2D(stof(mnsg[1]), stof(mnsg[2])));
+			tr_->setRot(stof(mnsg[3]));
+		}
+	}
 }
 std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 

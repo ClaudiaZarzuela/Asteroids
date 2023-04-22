@@ -22,7 +22,7 @@ public:
 private:
 	bool online = false;
 	void createPlayer();
-	void initializePlayer();
+	void initializePlayers(int player);
 
 	InputHandler* input_ = InputHandler::instance();
 	bool shoot = true;
