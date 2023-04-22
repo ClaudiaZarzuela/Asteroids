@@ -16,6 +16,11 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_PLAY:
 		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
+
+		case ecs::_m_ONLINE:
+			online = true;
+			onRoundStart();
+			break;
 		default: break;
 	}
 }
@@ -24,30 +29,35 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 // en la práctica 1 y enviar mensajes correspondientes.
 void CollisionsSystem::update() {
 	if (active_) {
-		vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
-		vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
+		if (!online) {
+			vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
+			vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
 
-		auto playerTransform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
-		auto player = mngr_->getHandler(ecs::FIGHTER);
+			auto playerTransform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
+			auto player = mngr_->getHandler(ecs::FIGHTER);
 
-		for (int i = 0; i < ast.size(); ++i) {
-			auto asteroide = mngr_->getComponent<Transform>(ast[i]);
-			if (Collisions::collidesWithRotation(playerTransform->getPos(), playerTransform->getW(), playerTransform->getH(), playerTransform->getRot(),
-				asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+			for (int i = 0; i < ast.size(); ++i) {
+				auto asteroide = mngr_->getComponent<Transform>(ast[i]);
+				if (Collisions::collidesWithRotation(playerTransform->getPos(), playerTransform->getW(), playerTransform->getH(), playerTransform->getRot(),
+					asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
 
-				ecs::Message m; m.id = ecs::_m_FIGHTER_CRASHED; m.star_crashed_data.a = ast[i];
-				mngr_->send(m, true);
-				break;
-			}
-			for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
-				auto bala = mngr_->getComponent<Transform>((*ot));
-				if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(),asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
-					
-					ecs::Message m; m.id = ecs::_m_STAR_SHOT; m.star_shot_data.asteroid = ast[i];  m.star_shot_data.bullet = (*ot);
+					ecs::Message m; m.id = ecs::_m_FIGHTER_CRASHED; m.star_crashed_data.a = ast[i];
 					mngr_->send(m, true);
 					break;
 				}
+				for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
+					auto bala = mngr_->getComponent<Transform>((*ot));
+					if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(),asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+					
+						ecs::Message m; m.id = ecs::_m_STAR_SHOT; m.star_shot_data.asteroid = ast[i];  m.star_shot_data.bullet = (*ot);
+						mngr_->send(m, true);
+						break;
+					}
+				}
 			}
+		}
+		else {
+
 		}
 	}
 }

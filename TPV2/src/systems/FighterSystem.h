@@ -31,7 +31,7 @@ private:
 	Vector2D newVel = { 0, 0 };
 	Transform* tr_ = nullptr;
 	Transform* enemyTr_ = nullptr;
-	void updateEnemy(int x_, int y_, int rot_, bool bullet_);
+	void updateEnemy(int x_, int y_, int rot_, Vector2D vel_, bool bullet_);
 
 	// Para reaccionar al mensaje de que ha habido un choque entre el fighter y un
 	// un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No

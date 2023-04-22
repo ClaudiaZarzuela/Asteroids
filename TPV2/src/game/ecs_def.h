@@ -121,6 +121,7 @@ namespace ecs {
 			float x;
 			float y;
 			float rot;
+			Vector2D vel;
 			bool bullet;
 		}ship_movement_data;
 	};

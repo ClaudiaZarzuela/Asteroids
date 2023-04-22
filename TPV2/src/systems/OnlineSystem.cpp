@@ -18,10 +18,8 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		initClient();
 		break;
 	case ecs::_m_SHIP_MOVED:
-		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.bullet); break;
-	case ecs::_m_SHOOT:
-		shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
-
+		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.vel, m.ship_movement_data.bullet); break;
+	
 	default: break;
 	}
 }
@@ -85,7 +83,8 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		m.ship_movement_data.x = stof(mnsg[1]);
 		m.ship_movement_data.y = stof(mnsg[2]);
 		m.ship_movement_data.rot = stof(mnsg[3]);
-		if (mnsg[4] == "0") m.ship_movement_data.bullet = false;
+		m.ship_movement_data.vel = Vector2D(stof(mnsg[5]), stof(mnsg[5]));
+		if (mnsg[6] == "0") m.ship_movement_data.bullet = false;
 		else m.ship_movement_data.bullet = true;
 	}
 	/*else if (strncmp(buffer, "Bullet", 6) == 0) {
@@ -123,9 +122,9 @@ std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 	return split;
 }
 
-void OnlineSystem::informOfMovement(float x, float y, float rot, bool bullet) {
+void OnlineSystem::informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet) {
 	string msg = "Transform ";
-	msg += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rot) + std::to_string(bullet);
+	msg += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rot) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(bullet);
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 }
 

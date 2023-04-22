@@ -76,7 +76,7 @@ void RenderSystem::initSystem() {
 		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
 
-	fighter = mngr_->getHandler(ecs::FIGHTER);
+	//fighter = mngr_->getHandler(ecs::FIGHTER);
 	changeText();
 }
 
@@ -202,7 +202,7 @@ void RenderSystem::changeText() {
 	}
 	else {
 		text1_ = mngr_->addEntity(ecs::_grp_TEXT); 
-		mngr_->addComponent<TextRender>(text1_, texts[PAUSE], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
+		mngr_->addComponent<TextRender>(text1_, texts[PAUSA], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) + 100);
 		if (state_ == GAMEOVERLOSE) {
 			text2_ = mngr_->addEntity(ecs::_grp_TEXT);
 			mngr_->addComponent<TextRender>(text2_, texts[LOSE], (sdlutils().width()- texts[LOSE]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2) -100);
@@ -215,17 +215,19 @@ void RenderSystem::changeText() {
 }
 
 void RenderSystem::player() {
-	//RENDERIZAR LAS VIDAS
-	for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
-		Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * i, 0);
-		SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, textures[HEALTH]->height() / 3);
-		textures[HEALTH]->render(dest, 0);
+	fighter = mngr_->getHandler(ecs::FIGHTER);
+	if (fighter != nullptr) {
+		//RENDERIZAR LAS VIDAS
+		for (int i = 0; i < mngr_->getComponent<Health>(fighter)->getLives(); ++i) {
+			Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * i, 0);
+			SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, textures[HEALTH]->height() / 3);
+			textures[HEALTH]->render(dest, 0);
+		}
+		//RENDERIZA LA NAVE 
+		Transform* f = mngr_->getComponent<Transform>(fighter);
+		SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
+		textures[NAVE]->render(dest, f->getRot());
 	}
-
-	//RENDERIZA LA NAVE 
-	Transform* f = mngr_->getComponent<Transform>(fighter);
-	SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
-	textures[NAVE]->render(dest, f->getRot());
 }
 
 void RenderSystem::playersOnline() {
