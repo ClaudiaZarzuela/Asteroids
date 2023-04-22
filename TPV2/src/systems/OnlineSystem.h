@@ -2,6 +2,7 @@
 #include <SDL_net.h>
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
+#include "../components/Transform.h"
 
 class OnlineSystem : public System {
 public:

@@ -48,8 +48,8 @@ void FighterSystem::initializePlayers(int player) {
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
-	case ecs::_m_ENEMY_MOVED:
-		updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot); break;
+		case ecs::_m_ENEMY_MOVED:
+			updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot); break;
 
 		case ecs::_m_SINGLEPLAYER:
 			createPlayer(); break;
@@ -120,14 +120,12 @@ void FighterSystem::update() {
 		if (tr_->getPos().getY() > sdlutils().height()) { tr_->setPos(Vector2D(tr_->getPos().getX(), 0 - tr_->getH())); }
 		else if (tr_->getPos().getY() < 0 - tr_->getH()) { tr_->setPos(Vector2D(tr_->getPos().getX(), sdlutils().height())); }
 
-		if (hasMoved) {
-			ecs::Message m; m.id = ecs::_m_SHIP_MOVED;
-			m.ship_movement_data.x = tr_->getPos().getX();
-			m.ship_movement_data.y = tr_->getPos().getY();
-			m.ship_movement_data.rot = tr_->getRot();
-			hasMoved = false;
-			mngr_->send(m, false);
-		}
+		ecs::Message m; m.id = ecs::_m_SHIP_MOVED;
+		m.ship_movement_data.x = tr_->getPos().getX();
+		m.ship_movement_data.y = tr_->getPos().getY();
+		m.ship_movement_data.rot = tr_->getRot();
+		hasMoved = false;
+		mngr_->send(m, false);
 	}
 }
 

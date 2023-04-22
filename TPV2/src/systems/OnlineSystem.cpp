@@ -1,6 +1,6 @@
 #include "OnlineSystem.h"
 #include "../components/Health.h"
-#include "../components/Transform.h"
+
 OnlineSystem::OnlineSystem() {
 	
 }
@@ -78,15 +78,19 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		m.player_name_data.clientName = nameClient;
 	}	
 	else if (strncmp(buffer, "Transform", 9) == 0) {
-		moveOponent(stof(mnsg[1]), stof(mnsg[2]), stof(mnsg[3]));
+		m.id = ecs::_m_ENEMY_MOVED;
+		m.ship_movement_data.x = stof(mnsg[1]);
+		m.ship_movement_data.y = stof(mnsg[2]);
+		m.ship_movement_data.rot = stof(mnsg[3]);
 	}
-	mngr_->send(m, true);
+	mngr_->send(m, false);
 }
 
 void OnlineSystem::moveOponent(float x, float y, float r) {
 	trOponent->setPos(Vector2D(x, y));
 	trOponent->setRot(r);
 }
+
 std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 
 	std::vector<std::string> split;
