@@ -28,8 +28,8 @@ void ButtonSystem::update() {
 				auto b = mngr_->getComponent<Button>(button[i]);
 				ecs::Message m; 
 				switch (b->getID()) {
-				case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
-				case SINGLEPLAYER_: m.id = ecs::_m_SINGLEPLAYER;  break;
+					case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
+					case SINGLEPLAYER_: m.id = ecs::_m_SINGLEPLAYER;  break;
 					case HOST_: m.id = ecs::_m_HOST; break;
 					case CLIENT_: m.id = ecs::_m_CLIENT; break;
 				}

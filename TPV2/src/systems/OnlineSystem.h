@@ -29,6 +29,7 @@ private:
 	void descifraMsg( char* buffer);
 	void informOfMovement(float x, float y, float rot);
 	void moveOponent(float x, float y, float r);
+	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
 
 	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;

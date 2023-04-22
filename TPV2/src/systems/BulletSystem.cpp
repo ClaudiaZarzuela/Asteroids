@@ -7,6 +7,7 @@ void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_SHOOT:
+		case ecs::_m_ENEMY_BULLET:
 			shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
 		
 		case ecs::_m_STAR_SHOT:
@@ -22,8 +23,11 @@ void BulletSystem::recieve(const ecs::Message& m) {
 			}
 			break;
 
-		case ecs::_m_PLAY:
+		case ecs::_m_START_ONLINE_ROUND:
+			onRoundStart(); online = true; break;
 		case ecs::_m_ROUND_START:
+		//case ecs::_m_PLAY:
+		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
 		default: break;
@@ -38,10 +42,19 @@ void BulletSystem::update() {
 		for (auto e : mngr_->getEntities(ecs::_grp_BULLETS)) {
 			auto tr = mngr_->getComponent<Transform>(e);
 			tr->setPos(tr->getPos() + tr->getVel());
-			//tr->setRot(tr->getRot() + 5.0f);
 			if (tr->getPos().getX() > sdlutils().width() || tr->getPos().getX() < 0 - tr->getW() ||
 				tr->getPos().getY() > sdlutils().height() || tr->getPos().getY() < 0 - tr->getH()) {
 				mngr_->setAlive(e, false);
+			}
+		}
+		if (online) {
+			for (auto e : mngr_->getEntities(ecs::_grp_ENEMY_BULLETS)) {
+				auto tr = mngr_->getComponent<Transform>(e);
+				tr->setPos(tr->getPos() + tr->getVel());
+				if (tr->getPos().getX() > sdlutils().width() || tr->getPos().getX() < 0 - tr->getW() ||
+					tr->getPos().getY() > sdlutils().height() || tr->getPos().getY() < 0 - tr->getH()) {
+					mngr_->setAlive(e, false);
+				}
 			}
 		}
 	}
@@ -54,7 +67,13 @@ void BulletSystem::shoot(Vector2D pos, Vector2D vel, double width, double height
 	sdlutils().soundEffects().at("fire").play();
 	Entity* bullet = mngr_->addEntity(ecs::_grp_BULLETS);
 	mngr_->addComponent<Transform>(bullet, pos, vel, width, height, rot);
-	//mngr_->addComponent<Image>(bullet, tex_);
+}
+
+
+void BulletSystem::shootEnemy(Vector2D pos, Vector2D vel, double width, double height, double rot) {
+	sdlutils().soundEffects().at("fire").play();
+	Entity* bullet = mngr_->addEntity(ecs::_grp_ENEMY_BULLETS);
+	mngr_->addComponent<Transform>(bullet, pos, vel, width, height, rot);
 }
 
 // Para gestionar el mensaje de que ha habido un choque entre una bala y un

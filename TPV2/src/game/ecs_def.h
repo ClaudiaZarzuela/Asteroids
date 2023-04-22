@@ -30,6 +30,7 @@ namespace ecs {
 		_grp_GENERAL,
 		_grp_PLAYERS,
 		_grp_BULLETS,
+		_grp_ENEMY_BULLETS,
 		_grp_TEXT,
 		_grp_BUTTONS,
 		_LAST_GRP_ID
@@ -82,7 +83,8 @@ namespace ecs {
 		_m_CHANGE_STATE,
 		_m_START_ONLINE_ROUND,
 		_m_SHIP_MOVED,
-		_m_ENEMY_MOVED
+		_m_ENEMY_MOVED,
+		_m_ENEMY_BULLET
 	};
 
 	struct Message {
@@ -119,6 +121,7 @@ namespace ecs {
 			float x;
 			float y;
 			float rot;
+			bool moving;
 		}ship_movement_data;
 	};
 }
