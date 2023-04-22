@@ -69,6 +69,9 @@ void FighterSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_ROUND_START:
 			onRoundStart();
 			resetLives(); break;
+		case ecs::_m_NAMES_PLAYERS:
+			onRoundStart();
+			break;
 
 		default: break;
 	}

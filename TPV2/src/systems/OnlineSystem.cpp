@@ -56,10 +56,18 @@ void OnlineSystem::update() {
 			}
 
 			if (conn != nullptr) {
-				auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
-				string msg = "Transform ";
-				msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
-				SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+				if (currentType == HOST_) {
+					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+					string msg = "Transform ";
+					msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
+					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+				}
+				else {
+					auto transform = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+					string msg = "Transform ";
+					msg += std::to_string(transform->getPos().getX()) + " " + std::to_string(transform->getPos().getY()) + " " + std::to_string(transform->getRot()) + " 0"; //ahora he puesto un cero pero esto deberia depender de si has disparado (1) o no (0)
+					SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+				}
 			}
 		}
 	}
