@@ -18,7 +18,10 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		initClient();
 		break;
 	case ecs::_m_SHIP_MOVED:
-		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot);
+		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot); break;
+	case ecs::_m_SHOOT:
+		shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
+
 	default: break;
 	}
 }
@@ -62,8 +65,8 @@ void OnlineSystem::update() {
 
 void OnlineSystem::descifraMsg(char* buffer) {
 	std::string aux(buffer);
-	std::vector<std::string> mnsg = strSplit(aux, ' ');
-	ecs::Message m; 
+	std::vector<std::string> mnsg = strSplit(aux, ' '); 
+	ecs::Message m;
 	if(strncmp(buffer, "Name", 4) == 0) {
 		if (currentType == HOST_) { 
 			nameClient = mnsg[1]; 
@@ -82,6 +85,14 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		m.ship_movement_data.x = stof(mnsg[1]);
 		m.ship_movement_data.y = stof(mnsg[2]);
 		m.ship_movement_data.rot = stof(mnsg[3]);
+	}
+	else if (strncmp(buffer, "Bullet", 6) == 0) {
+		m.id = ecs::_m_ENEMY_BULLET;
+		m.bullet_data.pos = Vector2D(stof(mnsg[1]), stof(mnsg[2]));
+		m.bullet_data.vel = Vector2D(stof(mnsg[3]), stof(mnsg[4]));
+		m.bullet_data.width = stof(mnsg[5]);
+		m.bullet_data.height = stof(mnsg[6]); 
+		m.bullet_data.rot = stof(mnsg[7]);
 	}
 	mngr_->send(m, false);
 }
@@ -159,4 +170,10 @@ void OnlineSystem::activateSystem() {
 void OnlineSystem::deactivateSystem() {
 	active_ = false;
 	SDLNet_Quit();
+}
+void OnlineSystem::shoot(Vector2D pos, Vector2D vel, double width, double height, double rot) {
+	string msg = "Bullet ";
+	msg += std::to_string(pos.getX()) + " " + std::to_string(pos.getY()) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(width) + " " + std::to_string(height) + " " + std::to_string(rot);
+	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+
 }

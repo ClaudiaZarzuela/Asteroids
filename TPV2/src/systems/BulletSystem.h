@@ -20,6 +20,7 @@ private:
 	// juego, como en la práctica 1. Recuerda que la rotación de la bala sería
 	// vel.angle(Vector2D(0.0f,-1.0f))
 	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
+	void shootEnemy(Vector2D pos, Vector2D vel, double width, double height, double rot);
 	// Para gestionar el mensaje de que ha habido un choque entre una bala y un
 	// asteroide. Desactivar la bala “b”.
 	void onCollision_BulletAsteroid(Entity* b);
@@ -31,4 +32,5 @@ private:
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_ = false;
+	bool online = false;
 };

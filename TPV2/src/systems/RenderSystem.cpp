@@ -6,7 +6,6 @@
 #include "../components/FramedImage.h"
 #include "../components/Follow.h"
 #include "../checkML.h"
-#include "OnlineSystem.h"
 
 // Destructora de la clase
 RenderSystem:: ~RenderSystem() {
@@ -24,7 +23,8 @@ RenderSystem:: ~RenderSystem() {
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void RenderSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
-	case ecs::_m_PLAY: 
+	case ecs::_m_ROUND_START:
+	case ecs::_m_SINGLEPLAYER:
 		state_ = PLAY;
 		break;
 
@@ -49,17 +49,12 @@ void RenderSystem::recieve(const ecs::Message& m) {
 
 	case ecs::_m_HOST:
 		state_ = WAITING;
-		text1_ = mngr_->addEntity(ecs::_grp_TEXT);
-		mngr_->addComponent<TextRender>(text1_, texts[WAIT], (sdlutils().width() - texts[PAUSA]->width()) / 2, ((sdlutils().height() - texts[PAUSA]->height()) / 2));
 		break;
+
 	case ecs::_m_START_ONLINE_ROUND:
-		std::string player1 = m.player_name_data.hostName;
-		std::string player2 = m.player_name_data.clientName;
-		createNames(player1, player2);
+		createNames(m.player_name_data.hostName, m.player_name_data.clientName);
 		state_ = ONLINE;
 		break;
-	
-
 	}
 	changeText();
 }
@@ -91,51 +86,23 @@ void RenderSystem::initSystem() {
 void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
-
-	if (state_ == PLAY) {
-		player();
-		animateAsteroids();
-		inGameObjects();
-	}
-	else if (state_ == GAMEMODE) {
-		//RENDERIZA LOS BOTONES
-		auto& grpB = mngr_->getEntities(ecs::_grp_BUTTONS);
-		for (auto i = 0; i < grpB.size(); i++)
-		{
-			Transform* tr_ = mngr_->getComponent<Transform>(grpB[i]);
-			int text_ = mngr_->getComponent<Button>(grpB[i])->getTexture();
-			SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
-			textures[text_]->render(dest, tr_->getRot());
-
-		}
-	}
-	else if (state_ == ONLINE) {
-		playersOnline();
-	}
-	else if (state_ == WAITING) {
-		TextRender* t = mngr_->getComponent<TextRender>(text1_);
-		t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
-		playersOnline();
-	}
-	else {
-		player();
-		//RENDER TEXTOS
-		if (state_ == PAUSA) {
-			inGameObjects();
-		}
-		for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
-			if (e != nullptr) {
-				TextRender* t = mngr_->getComponent<TextRender>(e);
-				if (t != nullptr)
-					t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
-			}
-		}
+	switch(state_) {
+		case GAMEMODE: menuButtons(); break;
+		case WAITING: waitingtext(); break;
+		case ONLINE: playersOnline(); bulletsOnline(); bullets(); break;
+		case PLAY: player(); animateAsteroids(); asteroids(); bullets();  break;
+		case PAUSE: menuTexts(); asteroids(); bullets(); player(); break;
+		case MENU:
+		case RESTART:
+		case GAMEOVERWIN:
+		case GAMEOVERLOSE:
+			 menuTexts(); player(); break;
 	}
 	sdl.presentRenderer();
 }
 
 // metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
-void RenderSystem::inGameObjects() {
+void RenderSystem::asteroids() {
 	auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 	for (auto i = 0; i < grpAst.size(); i++)
 	{
@@ -148,6 +115,9 @@ void RenderSystem::inGameObjects() {
 		else
 			textures[ASTEROID]->renderFrame(dest, row, col, tr_->getRot());
 	}
+}
+
+void RenderSystem::bullets() {
 	auto& grpBullets = mngr_->getEntities(ecs::_grp_BULLETS);
 	for (auto i = 0; i < grpBullets.size(); i++)
 	{
@@ -157,6 +127,45 @@ void RenderSystem::inGameObjects() {
 	}
 }
 
+void RenderSystem::bulletsOnline() {
+	auto& grpBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
+	for (auto i = 0; i < grpBullets.size(); i++)
+	{
+		Transform* tr_ = mngr_->getComponent<Transform>(grpBullets[i]);
+		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+		textures[BULLET]->render(dest, tr_->getRot());
+	}
+}
+
+void RenderSystem::menuButtons() {
+	//RENDERIZA LOS BOTONES CORRESPONDIENTES DEPENDIENDO DEL MENU ACTUAL
+	auto& grpB = mngr_->getEntities(ecs::_grp_BUTTONS);
+	for (auto i = 0; i < grpB.size(); i++)
+	{
+		Transform* tr_ = mngr_->getComponent<Transform>(grpB[i]);
+		int text_ = mngr_->getComponent<Button>(grpB[i])->getTexture();
+		SDL_Rect dest = build_sdlrect(tr_->getPos(), tr_->getW(), tr_->getH());
+		textures[text_]->render(dest, tr_->getRot());
+	}
+}
+
+void RenderSystem::waitingtext() {
+	//RENDERIZA EL TEXTO DE ESPERA
+	text1_ = mngr_->addEntity(ecs::_grp_TEXT);
+	mngr_->addComponent<TextRender>(text1_, texts[WAIT], (sdlutils().width() - texts[WAIT]->width()) / 2, ((sdlutils().height() - texts[WAIT]->height()) / 2));
+	TextRender* t = mngr_->getComponent<TextRender>(text1_);
+	t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
+}
+
+void RenderSystem::menuTexts() {
+	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
+		if (e != nullptr) {
+			TextRender* t = mngr_->getComponent<TextRender>(e);
+			if (t != nullptr)
+				t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
+		}
+	}
+}
 // metodo que anima los asteroides
 void RenderSystem::animateAsteroids() {
 	if (sdlutils().currRealTime() >= frameTime) {
@@ -242,7 +251,6 @@ void RenderSystem::playersOnline() {
 	}
 }
 void RenderSystem::createNames(std::string p1, std::string p2) {
-	OnlineSystem* os = mngr_->getSystem<OnlineSystem>();
 	ids[0] = new Texture(sdlutils().renderer(), p1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 	ids[1] = new Texture(sdlutils().renderer(), p2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 }

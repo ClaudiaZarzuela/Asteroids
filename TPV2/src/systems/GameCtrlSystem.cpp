@@ -18,8 +18,11 @@ void GameCtrlSystem::recieve(const ecs::Message& m) {
 			onAsteroidsExtinction(); 
 			break;
 
+		case ecs::_m_ROUND_START:
 		case ecs::_m_PLAY:
+		case ecs::_m_SINGLEPLAYER:
 			state_ = PLAY;
+			active_ = true;
 			break;
 
 		case ecs::_m_MAINMENU: 
@@ -76,12 +79,11 @@ void GameCtrlSystem::onAsteroidsExtinction() {
 void GameCtrlSystem::update() {
 	if (active_) {
 		if (input_->isKeyJustDown(SDLK_SPACE)) {
-			ecs::Message m1; ecs::Message m2;
+			ecs::Message m1;
 			switch (state_)
 				{
 				case MENU:
-					m1.id = ecs::_m_PLAY;
-					m2.id = ecs::_m_ROUND_START;
+					m1.id = ecs::_m_ROUND_START;
 					break;
 				case PLAY:
 					m1.id = ecs::_m_PAUSE;
@@ -96,15 +98,13 @@ void GameCtrlSystem::update() {
 					m1.id = ecs::_m_MAINMENU;
 					break;
 				case RESTART:
-					m1.id = ecs::_m_PLAY;
-					m2.id = ecs::_m_ROUND_START;
+					m1.id = ecs::_m_ROUND_START;
 					break;
 
 				default:
 					break;
 			}
 			mngr_->send(m1, true);
-			mngr_->send(m2, true);
 		}
 	}
 }

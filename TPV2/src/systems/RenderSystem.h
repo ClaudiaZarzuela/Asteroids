@@ -66,7 +66,7 @@ private:
 		{ "Press space to Continue", 0x112233ff, 1 },
 		{ "Game Over: Loser!", 0x112233ff, 0 },
 		{ "Game Over: You Win!", 0x112233ff, 0 },
-		{ "Waiting for other Player...", 0x112233ff, 0 }
+		{ "Waiting for other player...", 0x112233ff, 0 }
 	};
 
 	~RenderSystem();
@@ -76,13 +76,18 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	Entity* fighter = nullptr;
 	// metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
-	void inGameObjects();
+	void asteroids();
+	void bullets();
 	// metodo que anima los asteroides
 	void animateAsteroids();
 	// metodo que cambia el texto que se muestra en pantalla en cada estado
 	void changeText();
 	void player();
 	void playersOnline();
+	void menuButtons();
+	void waitingtext();
+	void menuTexts();
+	void bulletsOnline();
 	void createNames(std::string p1, std::string p2);
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
