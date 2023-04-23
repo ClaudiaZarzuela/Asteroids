@@ -93,25 +93,29 @@ void OnlineSystem::update() {
 }
 
 void OnlineSystem::resetConnection() {
-	SDLNet_TCP_Close(conn);
 	SDLNet_TCP_DelSocket(set, conn);
+	SDLNet_TCP_Close(conn);
 	conn = nullptr;
 	nameClient = "";
+	name = "Name ";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	ecs::Message m2; m2.id = ecs::_m_WAITING; mngr_->send(m2, false);
+	deleteInGameObjects();
 }
 
 void OnlineSystem::resetOnline() {
-	SDLNet_TCP_Close(conn);
 	SDLNet_TCP_DelSocket(set, conn);
+	SDLNet_TCP_Close(conn);
 	conn = nullptr;
-	SDLNet_TCP_Close(masterSocket);
 	SDLNet_TCP_DelSocket(set, masterSocket);
+	SDLNet_TCP_Close(masterSocket);
 	masterSocket = nullptr;
 	nameClient = "";
 	nameHost = "";
+	name = "Name ";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	active_ = false;
+	deleteInGameObjects();
 }
 
 void OnlineSystem::descifraMsg(char* buffer) {
@@ -228,4 +232,13 @@ void OnlineSystem::shoot(Vector2D pos, Vector2D vel, double width, double height
 	msg += std::to_string(pos.getX()) + " " + std::to_string(pos.getY()) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(width) + " " + std::to_string(height) + " " + std::to_string(rot);
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 
+}
+
+void OnlineSystem::deleteInGameObjects() {
+	for (auto e : mngr_->getEntities(ecs::_grp_ENEMY_BULLETS)) {
+		mngr_->setAlive(e, false);
+	}
+	for (auto e : mngr_->getEntities(ecs::_grp_PLAYERS)) {
+		mngr_->setAlive(e, false);
+	}
 }

@@ -34,6 +34,7 @@ private:
 	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
 	void resetConnection();
 	void resetOnline();
+	void deleteInGameObjects();
 
 	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;
