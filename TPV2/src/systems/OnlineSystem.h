@@ -21,7 +21,6 @@ public:
 private:
 	void activateSystem();
 	void deactivateSystem();
-	void error();
 	Uint8 state_ = 0; // El estado actual del juego (en lugar del componente State);
 	bool active_ = false;
 	bool gameEnded = false;
