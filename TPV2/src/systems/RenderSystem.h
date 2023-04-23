@@ -89,6 +89,7 @@ private:
 	void menuTexts();
 	void bulletsOnline();
 	void showWinner();
+	void deleteInGameObjects();
 	void createNames(std::string p1, std::string p2);
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;

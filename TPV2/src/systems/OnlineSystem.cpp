@@ -52,8 +52,8 @@ void OnlineSystem::update() {
 				if (SDLNet_SocketReady(masterSocket) && conn == nullptr) {
 					conn = SDLNet_TCP_Accept(masterSocket);
 					SDLNet_TCP_AddSocket(set, conn);
-					const char* c = name.c_str();
-					SDLNet_TCP_Send(conn, c, name.size() + 1);
+					const char* c = nameHost.c_str();
+					SDLNet_TCP_Send(conn, c, nameHost.size() + 1);
 				}
 			}
 			try{
@@ -96,11 +96,9 @@ void OnlineSystem::resetConnection() {
 	SDLNet_TCP_DelSocket(set, conn);
 	SDLNet_TCP_Close(conn);
 	conn = nullptr;
-	nameClient = "";
-	name = "Name ";
+	nameClient = "Name ";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	ecs::Message m2; m2.id = ecs::_m_WAITING; mngr_->send(m2, false);
-	deleteInGameObjects();
 }
 
 void OnlineSystem::resetOnline() {
@@ -111,29 +109,34 @@ void OnlineSystem::resetOnline() {
 	SDLNet_TCP_Close(masterSocket);
 	masterSocket = nullptr;
 	nameClient = "";
-	nameHost = "";
-	name = "Name ";
+	nameHost = "Name ";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	active_ = false;
-	deleteInGameObjects();
 }
 
 void OnlineSystem::descifraMsg(char* buffer) {
 	std::string aux(buffer);
 	std::vector<std::string> mnsg = strSplit(aux, ' '); 
+	std::vector<std::string> host = strSplit(nameHost, ' ');
+	std::vector<std::string> client = strSplit(nameClient, ' ');
+	string nHost, nClient = "";
+	if(host.size() >0)
+		nHost = host[1];
+	if (client.size() > 0)
+		nClient = client[1];
 	ecs::Message m;
 	if(strncmp(buffer, "Name", 4) == 0) {
 		if (currentType == HOST_) { 
-			nameClient = mnsg[1]; 
+			nClient = mnsg[1];
 			trOponent = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
 		}
 		else{ 
-			nameHost = mnsg[1];
+			nHost = mnsg[1];
 			trOponent = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 		}
 		m.id = ecs::_m_START_ONLINE_ROUND; 
-		m.player_name_data.hostName = nameHost;
-		m.player_name_data.clientName = nameClient;
+		m.player_name_data.hostName = nHost;
+		m.player_name_data.clientName = nClient;
 	}	
 	else if (strncmp(buffer, "Transform", 9) == 0) {
 		m.id = ecs::_m_ENEMY_MOVED;
@@ -190,8 +193,9 @@ void OnlineSystem::initHost() {
 	if (!masterSocket) { error(); }
 	SDLNet_TCP_AddSocket(set, masterSocket);
 	std::cout << "Introduce tu nombre: ";
-	std::cin >> nameHost;
-	name += nameHost;
+	string name;
+	std::cin >> name;
+	nameHost+= name;
 }
 
 void OnlineSystem::initClient() {
@@ -205,10 +209,11 @@ void OnlineSystem::initClient() {
 	if (!conn) { error(); }
 	SDLNet_TCP_AddSocket(set, conn);
 	std::cout << "Introduce tu nombre: ";
-	std::cin >> nameClient;
-	name += nameClient;
-	const char* c1 = name.c_str();
-	SDLNet_TCP_Send(conn, c1, name.size() + 1);
+	string name;
+	std::cin >> name;
+	nameClient += name;
+	const char* c1 = nameClient.c_str();
+	SDLNet_TCP_Send(conn, c1, nameClient.size() + 1);
 }
 
 void OnlineSystem::error() {
@@ -232,13 +237,4 @@ void OnlineSystem::shoot(Vector2D pos, Vector2D vel, double width, double height
 	msg += std::to_string(pos.getX()) + " " + std::to_string(pos.getY()) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(width) + " " + std::to_string(height) + " " + std::to_string(rot);
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 
-}
-
-void OnlineSystem::deleteInGameObjects() {
-	for (auto e : mngr_->getEntities(ecs::_grp_ENEMY_BULLETS)) {
-		mngr_->setAlive(e, false);
-	}
-	for (auto e : mngr_->getEntities(ecs::_grp_PLAYERS)) {
-		mngr_->setAlive(e, false);
-	}
 }

@@ -31,6 +31,11 @@ private:
 	Vector2D newVel = { 0, 0 };
 	Transform* tr_ = nullptr;
 	Transform* enemyTr_ = nullptr;
+	Vector2D posIniP1 = Vector2D(sdlutils().width() / 2 - 25, 0 + 100);
+	float rotIniP1 = 180;
+	Vector2D posIniP2 = Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() - 100);
+	float rotIniP2 = 0;
+	int playerType;
 	void updateEnemy(int x_, int y_, int rot_, Vector2D vel_, bool bullet_);
 
 	// Para reaccionar al mensaje de que ha habido un choque entre el fighter y un
@@ -46,6 +51,7 @@ private:
 	bool active_ = false;
 	// Resetea el numero de vidas del caza
 	void resetLives();
+	void  resetOnlinePlayersPos();
 
 	void playerShot(Entity* e);
 };
