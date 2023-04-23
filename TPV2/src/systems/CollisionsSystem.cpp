@@ -58,38 +58,42 @@ void CollisionsSystem::update() {
 				}
 			}
 		}
-		else if(online) {
-			vector<Entity*> eBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
-			auto player = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
+		else {
+			if (host) {
+				vector<Entity*> eBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
+				auto player = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 
-			for (int i = 0; i < eBullets.size(); ++i) {
-				auto eBull = mngr_->getComponent<Transform>(eBullets[i]);
-				if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
-					eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
-
-					std::cout << "HOST: ME HAN DADO" << std::endl;
-					ecs::Message m2; m2.id = ecs::_m_ROUND_OVER;
-					mngr_->send(m2, false);
-					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.playerDead = 1;
-					mngr_->send(m, false);*/
+				for (int i = 0; i < eBullets.size(); ++i) {
+					auto eBull = mngr_->getComponent<Transform>(eBullets[i]);
+					if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
+						eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
+						std::cout << "ME HAN DADO" << std::endl;
+					}
 				}
 			}
 
-			vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
+			else {
+				vector<Entity*> eBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
+				auto player = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+
+				for (int i = 0; i < eBullets.size(); ++i) {
+					auto eBull = mngr_->getComponent<Transform>(eBullets[i]);
+					if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
+						eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
+						std::cout << "ME HAN DADO" << std::endl;
+					}
+				}
+			}
+			/*vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
 			auto enemy = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
 
 			for (int j = 0; j < bullets.size(); ++j) {
 				auto bull = mngr_->getComponent<Transform>(bullets[j]);
 				if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
 					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
-
-					std::cout << "CLIENT: TE HAN DADO" << std::endl;
-					ecs::Message m2; m2.id = ecs::_m_ROUND_OVER;
-					mngr_->send(m2, false);
-					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.playerDead =  2;
-					mngr_->send(m, false);*/
+					std::cout << "LE HE DADO" << std::endl;
 				}
-			}
+			}*/
 		}
 	}
 }
