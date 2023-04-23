@@ -75,20 +75,29 @@ private:
 	Texture* ids[NUM_PLAYERS];
 	SDL_Renderer* renderer = nullptr;
 	Entity* fighter = nullptr;
-	// metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
+	//renderiza los asteriodes que esten en pantalla
 	void asteroids();
+	//renderiza las balas que esten en pantalla
 	void bullets();
-	// metodo que anima los asteroides
+	//anima los asteroides
 	void animateAsteroids();
-	// metodo que cambia el texto que se muestra en pantalla en cada estado
+	//cambia el texto que se muestra en pantalla en cada estado
 	void changeText();
+	//renderiza todo lo relacionado con el player cuando estas en modo singleplayer (nave y balas)
 	void player();
+	//renderiza todo lo relacionado con los players cuando estas en modo multiplayer (nave, balas y nombre)
 	void playersOnline();
+	//renderiza los botones dependiendo del menu en el que estes (multiplayer, singleplayer, host y client)
 	void menuButtons();
+	//renderiza el texto de espera cuando eres el host hasta que entre un cliente
 	void waitingtext();
+	//renderiza los textos apropiados para cada estado para ambos modos de juego (singleplayer y multiplayer)
 	void menuTexts();
+	//renderiza las balas que se muestran estando en el modo multiplayer
 	void bulletsOnline();
+	//muestra el nombre del ganador cuando acaba una partida multijugador
 	void showWinner();
+	//
 	void deleteInGameObjects();
 	void createNames(std::string p1, std::string p2);
 	Entity* text1_ = nullptr;
