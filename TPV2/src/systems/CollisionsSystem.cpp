@@ -8,6 +8,9 @@
 void CollisionsSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+		case ecs::_m_ONLINE:
+			host = false; break;
+
 		case ecs::_m_PAUSE:
 		case ecs::_m_ROUND_OVER:
 			onRoundOver(); break;

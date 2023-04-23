@@ -17,6 +17,10 @@ RenderSystem:: ~RenderSystem() {
 		delete texts[i];
 		texts[i] = nullptr;
 	}
+	for (int i = 0; i < NUM_PLAYERS; ++i) {
+		delete ids[i];
+		ids[i] = nullptr;
+	}
 	SDL_DestroyRenderer(renderer);
 }
 
