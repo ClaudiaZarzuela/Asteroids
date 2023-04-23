@@ -24,37 +24,36 @@ private:
 	void deactivateSystem();
 	Uint8 state_ = 0; // El estado actual del juego (en lugar del componente State);
 	bool active_ = false;
-	bool gameEnded = false;
-	void initHost();
-	void initClient();
-	void descifraMsg( char* buffer);
-	void informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet);
-	void informOfCollision(int playerWinner);
-	void moveOponent(float x, float y, float r);
-	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
-	void resetConnection();
-	void resetOnline();
+	bool gameEnded = false; //booleano que permite usar el input despues de que haya finalizado la partida para pasar de estado
+	void initHost(); //inicializacion tcp del host
+	void initClient(); //inicializacion tcp del client
+	void descifraMsg( char* buffer); //metodo al que se llama para descifrar el mensaje online que se ha recibido desde el otro ordenador
+	void informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet); //informa sobre la posicion de tu nave al otro jugador online mediante mensaje
+	void informOfCollision(int playerWinner); //informa sobre si ha colisionado tu nave al otro jugador online mediante mensaje
+	void moveOponent(float x, float y, float r); //recive el mensaje que actualiza la posicion de la nave enemiga en tu ordenador
+	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);  //informa sobre si has disparado al otro jugador online mediante mensaje
+	void resetConnection(); // cuando se va el cliente resetea todo lo necesario de tcp para poder crear una nueva conexion sin problemas con otro cliente nuevo
+	void resetOnline();//cuando se va el host resetea todo lo necesario de tcp para poder empezar una partida online desde cero
 
-	std::vector<std::string> strSplit(std::string s, char c);
+	std::vector<std::string> strSplit(std::string s, char c); //separa un mensaje de tipo string a un vector de palabras
 	SDLNet_SocketSet set = nullptr;
 	TCPsocket masterSocket = nullptr;
 	TCPsocket conn = nullptr;
 
 	InputHandler* input_ = InputHandler::instance();
 	int port = 4444;
-	std::string host;
+	std::string host; //ip del host
 	char buffer[256];
 	int result = 0;
 
-	int currentType;
-	int currentState = NONE;
+	int currentType; //si eres host o client
 	std::string nameHost = "Name ";
 	std::string nameClient = "Name ";
 	Transform* trOponent = nullptr;
-	enum typeMode{NONE_, HOST_, CLIENT_};
-	enum state{NONE, WAITING, START};
+	enum typeMode{NONE_, HOST_, CLIENT_}; 
 };
 
+//EXCEPCIONES PERSONALIZADAS
 class client_lost : public std::exception {
 public:
 	std::string what() {
