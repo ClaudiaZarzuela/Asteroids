@@ -53,6 +53,7 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		break;
 
 	case ecs::_m_HOST:
+	case ecs::_m_WAITING:
 		state_ = WAITING;
 		break;
 

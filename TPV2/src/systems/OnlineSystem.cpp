@@ -61,7 +61,7 @@ void OnlineSystem::update() {
 					char buffer[256];
 					int result = SDLNet_TCP_Recv(conn, buffer, 255);
 					if (result > 0) {
-						//cout << buffer << std::endl;
+						cout << buffer << std::endl;
 						descifraMsg(buffer);
 					}
 					else if(currentType == HOST_ && result < 0) {
@@ -74,16 +74,11 @@ void OnlineSystem::update() {
 			}
 			catch (client_lost){
 				std::cout << "client se desconecto" << std::endl;
+				resetConnection();
 			}
 			catch (host_lost) {
 				std::cout << "host se desconecto" << std::endl;
-				SDLNet_TCP_DelSocket(set, conn);
-				SDLNet_TCP_Close(conn);
-				conn = nullptr;
-				nameClient = "";
-				ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
-				ecs::Message m2; m2.id = ecs::_m_GAMEMODE; mngr_->send(m2, false);
-				active_ = false;
+				resetOnline();
 			}
 		}
 		if (gameEnded && input_->isKeyJustDown(SDLK_SPACE)) {
@@ -92,6 +87,30 @@ void OnlineSystem::update() {
 			gameEnded = false;
 		}
 	}
+}
+
+void OnlineSystem::resetConnection() {
+	SDLNet_TCP_Close(conn);
+	SDLNet_TCP_DelSocket(set, conn);
+	conn = nullptr;
+	nameClient = "";
+	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
+	ecs::Message m2; m2.id = ecs::_m_WAITING; mngr_->send(m2, false);
+	active_ = false;
+}
+
+void OnlineSystem::resetOnline() {
+	SDLNet_TCP_Close(conn);
+	SDLNet_TCP_DelSocket(set, conn);
+	conn = nullptr;
+	SDLNet_TCP_Close(masterSocket);
+	SDLNet_TCP_DelSocket(set, masterSocket);
+	masterSocket = nullptr;
+	nameClient = "";
+	nameHost = "";
+	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
+	ecs::Message m2; m2.id = ecs::_m_GAMEMODE; mngr_->send(m2, false);
+	active_ = false;
 }
 
 void OnlineSystem::descifraMsg(char* buffer) {
