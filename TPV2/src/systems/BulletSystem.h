@@ -23,7 +23,7 @@ private:
 	void shootEnemy(Vector2D pos, Vector2D vel, double width, double height, double rot);
 	// Para gestionar el mensaje de que ha habido un choque entre una bala y un
 	// asteroide. Desactivar la bala “b”.
-	void onCollision_BulletAsteroid(Entity* b);
+	void onCollision_Bullet(Entity* b);
 	// Para gestionar el mensaje de que ha acabado la ronda. Desactivar todas las
 	// balas, y desactivar el sistema.
 	void onRoundOver();

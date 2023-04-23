@@ -6,12 +6,17 @@
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+		case ecs::_m_PLAYER_SHOT:
+			onCollision_Bullet(m.player_shot_data.bullet); break;
+
 		case ecs::_m_SHOOT:
-		case ecs::_m_ENEMY_BULLET:
 			shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
+
+		case ecs::_m_ENEMY_BULLET:
+			shootEnemy(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
 		
 		case ecs::_m_STAR_SHOT:
-			onCollision_BulletAsteroid(m.star_shot_data.bullet); break;
+			onCollision_Bullet(m.star_shot_data.bullet); break;
 
 		case ecs::_m_PAUSE:
 			onRoundOver(); break;
@@ -78,7 +83,7 @@ void BulletSystem::shootEnemy(Vector2D pos, Vector2D vel, double width, double h
 
 // Para gestionar el mensaje de que ha habido un choque entre una bala y un
 // asteroide. Desactivar la bala “b”.
-void BulletSystem::onCollision_BulletAsteroid(Entity* b) {
+void BulletSystem::onCollision_Bullet(Entity* b) {
 	mngr_->setAlive(b, false);
 }
 

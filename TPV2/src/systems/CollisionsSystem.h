@@ -23,5 +23,6 @@ private:
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_ = false;
 	bool online = false;
+	bool host = false;
 
 };

@@ -84,7 +84,8 @@ namespace ecs {
 		_m_START_ONLINE_ROUND,
 		_m_SHIP_MOVED,
 		_m_ENEMY_MOVED,
-		_m_ENEMY_BULLET
+		_m_ENEMY_BULLET,
+		_m_PLAYER_SHOT
 	};
 
 	struct Message {
@@ -116,6 +117,11 @@ namespace ecs {
 			std::string hostName;
 			std::string clientName;
 		}player_name_data;
+
+		struct {
+			Entity* bullet;
+			Entity* player;
+		}player_shot_data;
 
 		struct {
 			float x;

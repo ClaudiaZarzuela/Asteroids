@@ -17,10 +17,12 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
-		case ecs::_m_ONLINE:
+		case ecs::_m_START_ONLINE_ROUND:
 			online = true;
-			onRoundStart();
-			break;
+			onRoundStart(); break;
+
+		case ecs::_m_HOST:
+			host = true;
 		default: break;
 	}
 }
@@ -56,8 +58,34 @@ void CollisionsSystem::update() {
 				}
 			}
 		}
-		else {
+		else if(online && host) {
+			vector<Entity*> eBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
+			auto player = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 
+			for (int i = 0; i < eBullets.size(); ++i) {
+				auto eBull = mngr_->getComponent<Transform>(eBullets[i]);
+				if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
+					eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
+
+					std::cout << "HOST: ME HAN DADO" << std::endl;
+					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.bullet = eBullets[i]; m.player_shot_data.player = mngr_->getHandler(ecs::PLAYER1);
+					mngr_->send(m, false);*/
+				}
+			}
+
+			vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
+			auto enemy = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+
+			for (int j = 0; j < bullets.size(); ++j) {
+				auto bull = mngr_->getComponent<Transform>(bullets[j]);
+				if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
+					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
+
+					std::cout << "CLIENT: TE HAN DADO" << std::endl;
+					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.bullet = bullets[j]; m.player_shot_data.player = mngr_->getHandler(ecs::PLAYER2);
+					mngr_->send(m, false);*/
+				}
+			}
 		}
 	}
 }

@@ -28,12 +28,12 @@ void FighterSystem::initializePlayers(int player) {
 	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
 	mngr_->setHandler(ecs::PLAYER1, player1);
 	mngr_->addComponent<Transform>(player1, Vector2D(sdlutils().width() / 2 - 25, 0 + 100), Vector2D(0, 0), 50, 50, 180);
-	mngr_->addComponent<Health>(player1, 3);
+	mngr_->addComponent<Health>(player1, 1);
 	
 	Entity* player2 = mngr_->addEntity(ecs::_grp_PLAYERS);
 	mngr_->setHandler(ecs::PLAYER2, player2);
 	mngr_->addComponent<Transform>(player2, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() - 100), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Health>(player2, 3);
+	mngr_->addComponent<Health>(player2, 1);
 	if (player == 1) {
 		tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 		enemyTr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
@@ -76,8 +76,10 @@ void FighterSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_ROUND_START:
 			onRoundStart();
 			resetLives(); break;
-		
 
+		case ecs::_m_PLAYER_SHOT:
+			playerShot(m.player_shot_data.player); break;
+		
 		default: break;
 	}
 }
@@ -153,6 +155,10 @@ void FighterSystem::updateEnemy(int x, int y, int rot, Vector2D vel, bool bullet
 void FighterSystem::onCollision_FighterAsteroid() {
 	sdlutils().soundEffects().at("explosion").play();
 	tr_->reset();
+}
+
+void FighterSystem::playerShot(Entity* p) {
+	mngr_->setAlive(p, false);
 }
 
 // Para gestionar el mensaje de que ha acabado una ronda. Desactivar el sistema.

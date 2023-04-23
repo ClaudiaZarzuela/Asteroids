@@ -46,5 +46,7 @@ private:
 	bool active_ = false;
 	// Resetea el numero de vidas del caza
 	void resetLives();
+
+	void playerShot(Entity* e);
 };
 
