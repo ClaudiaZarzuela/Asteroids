@@ -191,13 +191,14 @@ void OnlineSystem::informOfCollision(int playerWinner) {
 
 void OnlineSystem::initHost() {
 	IPaddress ip;
-	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) { error(); }
+	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) { throw("no se pudo resolver el host"); }
 	masterSocket = SDLNet_TCP_Open(&ip);
-	if (!masterSocket) { error(); }
+	if (!masterSocket) { throw("no se pudo abrir el masterSocket"); }
 	SDLNet_TCP_AddSocket(set, masterSocket);
-	std::cout << "Introduce tu nombre: ";
-	string name;
-	std::cin >> name;
+	string name;{
+		std::cout << "Introduce tu nombre (menos de 10 caracteres): ";
+		std::cin >> name;
+	}while (name.size() > 10);
 	nameHost+= name;
 }
 
@@ -205,15 +206,15 @@ void OnlineSystem::initClient() {
 	std::cout << "Introduce IP: ";
 	std::cin >> host;
 	const char* c = host.c_str();
-
 	IPaddress ip;
 	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
 	conn = SDLNet_TCP_Open(&ip); 
 	if (!conn) { error(); }
 	SDLNet_TCP_AddSocket(set, conn);
-	std::cout << "Introduce tu nombre: ";
-	string name;
-	std::cin >> name;
+	string name;{
+		std::cout << "Introduce tu nombre (menos de 10 caracteres): ";
+		std::cin >> name;
+	}while (name.size() > 10);
 	nameClient += name;
 	const char* c1 = nameClient.c_str();
 	SDLNet_TCP_Send(conn, c1, nameClient.size() + 1);
