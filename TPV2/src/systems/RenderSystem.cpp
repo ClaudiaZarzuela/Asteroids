@@ -22,9 +22,11 @@ RenderSystem:: ~RenderSystem() {
 
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void RenderSystem::recieve(const ecs::Message& m) {
+	//Se cambia de estado dependiendo del mensaje recibido
 	switch (m.id) {
-	case ecs::_m_GAMEMODE:
+	case ecs::_m_GAMEMODE: //estado que muestra los botones correspondientes del main menu
 		state_ = GAMEMODE;
+		//borra las entidades creadas por el modo multiplayer cada vez que se empieza una nueva partida
 		deleteInGameObjects();
 		break;
 
@@ -33,23 +35,23 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		state_ = MENU;
 		break;
 
-	case ecs::_m_ROUND_START:
+	case ecs::_m_ROUND_START:  //empieza la partida de sigleplayer
 	case ecs::_m_PLAY:
 		state_ = PLAY;
 		break;
 
-	case ecs::_m_RESTART: //pasa al endState
+	case ecs::_m_RESTART: 
 		state_ = RESTART;
 		break;
 
-	case ecs::_m_PAUSE: //pasa al pauseState
+	case ecs::_m_PAUSE: 
 		state_ = PAUSE;
 		break;
 
-	case ecs::_m_GAME_OVER_WIN: //pasa al playState
+	case ecs::_m_GAME_OVER_WIN: 
 		state_ = GAMEOVERWIN;
 		break;
-	case ecs::_m_GAME_OVER_LOSE: //pasa al playState
+	case ecs::_m_GAME_OVER_LOSE: 
 		state_ = GAMEOVERLOSE;
 		break;
 
@@ -58,12 +60,12 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		state_ = WAITING;
 		break;
 
-	case ecs::_m_START_ONLINE_ROUND:
-		createNames(m.player_name_data.hostName, m.player_name_data.clientName);
+	case ecs::_m_START_ONLINE_ROUND: //empieza la partida de multiplayer
+		createNames(m.player_name_data.hostName, m.player_name_data.clientName); //crea los textos de las naves en el modo multiplayer
 		state_ = ONLINE;
 		break;
 
-	case ecs::_m_ONLINE_OVER:
+	case ecs::_m_ONLINE_OVER: //avisa de que ha acabado de partida multiplayer y muestra el ganador 
 		winner = m.player_shot_data.playerWinner;
 		state_ = ONLINEOVER;
 		break;
@@ -97,21 +99,18 @@ void RenderSystem::update() {
 	auto& sdl = *SDLUtils::instance();
 	sdl.clearRenderer();
 	switch(state_) {
-		case GAMEMODE: menuButtons(); break;
-		case WAITING: waitingtext(); break;
-		case ONLINE: playersOnline(); bulletsOnline(); bullets(); break;
-		case PLAY: player(); animateAsteroids(); asteroids(); bullets();  break;
-		case PAUSE: menuTexts(); asteroids(); bullets(); player(); break;
-		case ONLINEOVER: menuTexts(); showWinner(); break;
-		case MENU:
-		case RESTART:
-		case GAMEOVERWIN:
-		case GAMEOVERLOSE:
-			 menuTexts(); player(); break;
+		case GAMEMODE: menuButtons(); break; //estado que renderiza los botones correspondientes cuando se esta en el main menu
+		case WAITING: waitingtext(); break; //renderiza el texto de espera cuando eres host hasta que llegue un cliente
+		case ONLINE: playersOnline(); bulletsOnline(); bullets(); break; //renderiza los jugadores y las balas en modo multiplayer
+		case PLAY: player(); animateAsteroids(); asteroids(); bullets();  break; // renderiza el jugador, los asteroides (animados) y las balas en modo singleplayer
+		case PAUSE: menuTexts(); asteroids(); bullets(); player(); break; //renderiza lo mismo que en el estado de play pero todo pausado
+		case ONLINEOVER: menuTexts(); showWinner(); break; // muestra el nombre del ganador del modo multiplayer y un "press to continue"
+		case MENU: case RESTART: case GAMEOVERWIN: case GAMEOVERLOSE: menuTexts(); player(); break; //renderiza los textos correspondientes del estado en el que estes y el player
 	}
 	sdl.presentRenderer();
 }
 
+//Crea el rectangulo destino del texto que muestra quien ha ganado tras una partida multiplayer y lo muestra
 void RenderSystem::showWinner() {
 	SDL_Rect r;
 	r.w = ids[winner]->width(); r.h = ids[winner]->height();
@@ -119,6 +118,8 @@ void RenderSystem::showWinner() {
 	r.y = ((sdlutils().height() - ids[winner]->height()) / 2);
 	ids[winner]->render(r);
 }
+
+
 // metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
 void RenderSystem::asteroids() {
 	auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
@@ -135,6 +136,7 @@ void RenderSystem::asteroids() {
 	}
 }
 
+//renderiza las balas de tu jugador
 void RenderSystem::bullets() {
 	auto& grpBullets = mngr_->getEntities(ecs::_grp_BULLETS);
 	for (auto i = 0; i < grpBullets.size(); i++)
@@ -145,6 +147,7 @@ void RenderSystem::bullets() {
 	}
 }
 
+//renderiza las balas del jugador enemigo en una partida multiplayer
 void RenderSystem::bulletsOnline() {
 	auto& grpBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
 	for (auto i = 0; i < grpBullets.size(); i++)
@@ -155,8 +158,8 @@ void RenderSystem::bulletsOnline() {
 	}
 }
 
+//renderiza los botones correspondientes dependiendo del menu actual
 void RenderSystem::menuButtons() {
-	//RENDERIZA LOS BOTONES CORRESPONDIENTES DEPENDIENDO DEL MENU ACTUAL
 	auto& grpB = mngr_->getEntities(ecs::_grp_BUTTONS);
 	for (auto i = 0; i < grpB.size(); i++)
 	{
@@ -167,13 +170,14 @@ void RenderSystem::menuButtons() {
 	}
 }
 
+//renderiza el texto de espera cuando eres host hasta que llegue un cliente
 void RenderSystem::waitingtext() {
-	//RENDERIZA EL TEXTO DE ESPERA
 	text1_ = mngr_->addEntity(ecs::_grp_TEXT);
 	mngr_->addComponent<TextRender>(text1_, texts[WAIT], (sdlutils().width() - texts[WAIT]->width()) / 2, ((sdlutils().height() - texts[WAIT]->height()) / 2));
 	TextRender* t = mngr_->getComponent<TextRender>(text1_);
 	t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
 }
+
 
 void RenderSystem::menuTexts() {
 	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {

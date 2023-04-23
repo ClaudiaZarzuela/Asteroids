@@ -97,14 +97,19 @@ private:
 	void bulletsOnline();
 	//muestra el nombre del ganador cuando acaba una partida multijugador
 	void showWinner();
-	//
+	//borra las entidades creadas por el modo multiplayer cada vez que se empieza una nueva partida
 	void deleteInGameObjects();
+	//crea los textos de las naves en el modo multiplayer
 	void createNames(std::string p1, std::string p2);
+
+	//Textos e ids de los personajes
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
 	Entity* ID1_ = nullptr;
 	Entity* ID2_ = nullptr;
+
 	Uint8 state_ = GAMEMODE; // El estado actual de juego (como en GameCtrlSystem)
 	int frameTime = 0;
-	int winner;
+	int winner; //sabe quien ha ganado en la partida multijugador para luego poder crear el texto 
+				//de victoria correcto
 };
