@@ -78,9 +78,9 @@ void OnlineSystem::update() {
 			}
 			catch (host_lost) {
 				std::cout << "host se desconecto" << std::endl;
-				mngr_->send(m, false);
 				resetOnline();
 				ecs::Message m; m.id = ecs::_m_GAMEMODE;
+				mngr_->send(m, false);
 			}
 		}
 		if (gameEnded && input_->isKeyJustDown(SDLK_SPACE)) {
