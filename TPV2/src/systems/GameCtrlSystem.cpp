@@ -17,12 +17,14 @@ void GameCtrlSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_STAR_EXTINCTION:
 			onAsteroidsExtinction(); 
 			break;
+		
+		case ecs::_m_SINGLEPLAYER:
+			active_ = true;
+			break;
 
 		case ecs::_m_ROUND_START:
 		case ecs::_m_PLAY:
-		case ecs::_m_SINGLEPLAYER:
 			state_ = PLAY;
-			active_ = true;
 			break;
 
 		case ecs::_m_MAINMENU: 

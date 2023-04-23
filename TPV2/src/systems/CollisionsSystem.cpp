@@ -14,7 +14,6 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 
 		case ecs::_m_ROUND_START:
 		case ecs::_m_PLAY:
-		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
 		case ecs::_m_START_ONLINE_ROUND:

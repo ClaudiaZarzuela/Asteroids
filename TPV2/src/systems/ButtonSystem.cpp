@@ -6,6 +6,11 @@ void ButtonSystem::recieve(const ecs::Message& m) {
 		case ecs::_m_ONLINE:
 			clicked = false;
 			createOnlineStateButtons(); break;
+
+		case ecs::_m_START_ONLINE_ROUND:
+		case ecs::_m_SINGLEPLAYER:
+			active_ = false;
+			break;
 		default: break;
 	}
 }

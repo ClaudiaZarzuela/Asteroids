@@ -24,7 +24,6 @@ void AsteroidsSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); break;
 
 		case ecs::_m_ROUND_START:
-		case ecs::_m_SINGLEPLAYER:
 			onRoundStart();
 			addStar(10); break;
 	
