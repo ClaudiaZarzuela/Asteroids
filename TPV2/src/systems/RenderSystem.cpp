@@ -23,14 +23,20 @@ RenderSystem:: ~RenderSystem() {
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void RenderSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
+	case ecs::_m_GAMEMODE:
+		state_ = GAMEMODE;
+		break;
+
 	case ecs::_m_SINGLEPLAYER:
 	case ecs::_m_MAINMENU:
 		state_ = MENU;
 		break;
+
 	case ecs::_m_ROUND_START:
 	case ecs::_m_PLAY:
 		state_ = PLAY;
 		break;
+
 	case ecs::_m_RESTART: //pasa al endState
 		state_ = RESTART;
 		break;

@@ -70,6 +70,16 @@ void CollisionsSystem::update() {
 						std::cout << "ME HAN DADO" << std::endl;
 					}
 				}
+				vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
+				auto enemy = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+
+				for (int j = 0; j < bullets.size(); ++j) {
+					auto bull = mngr_->getComponent<Transform>(bullets[j]);
+					if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
+						bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
+						std::cout << "LE HE DADO" << std::endl;
+					}
+				}
 			}
 
 			else {
@@ -83,17 +93,17 @@ void CollisionsSystem::update() {
 						std::cout << "ME HAN DADO" << std::endl;
 					}
 				}
-			}
-			/*vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
-			auto enemy = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER2));
+				vector<Entity*> bullets = mngr_->getEntities(ecs::_grp_BULLETS);
+				auto enemy = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 
-			for (int j = 0; j < bullets.size(); ++j) {
-				auto bull = mngr_->getComponent<Transform>(bullets[j]);
-				if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
-					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
-					std::cout << "LE HE DADO" << std::endl;
+				for (int j = 0; j < bullets.size(); ++j) {
+					auto bull = mngr_->getComponent<Transform>(bullets[j]);
+					if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
+						bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
+						std::cout << "LE HE DADO" << std::endl;
+					}
 				}
-			}*/
+			}
 		}
 	}
 }

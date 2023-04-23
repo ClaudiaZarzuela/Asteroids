@@ -3,13 +3,17 @@
 void ButtonSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+		case ecs::_m_GAMEMODE:
+			createMainMenuButtons(); break;
+			activateSystem();
+
 		case ecs::_m_ONLINE:
 			clicked = false;
 			createOnlineStateButtons(); break;
 
 		case ecs::_m_START_ONLINE_ROUND:
 		case ecs::_m_SINGLEPLAYER:
-			active_ = false;
+			deactivateSystem();
 			break;
 		default: break;
 	}
@@ -46,6 +50,7 @@ void ButtonSystem::update() {
 }
 
 void ButtonSystem::createMainMenuButtons() {
+	erasePreviousButtons();
 	Entity* multi = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(multi, Vector2D(sdlutils().width() / 2 -75,( sdlutils().height() / 2) -100), Vector2D(0, 0), 150, 100, 0);
 	mngr_->addComponent<Button>(multi, MULTIPLAYER_, MULTIPLAYER);
@@ -69,6 +74,7 @@ void ButtonSystem::createOnlineStateButtons() {
 
 void ButtonSystem::activateSystem() {
 	active_ = true;
+	clicked = false;
 }
 void ButtonSystem::deactivateSystem() {
 	active_ = false;
