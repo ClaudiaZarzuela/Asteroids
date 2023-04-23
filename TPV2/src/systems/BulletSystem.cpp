@@ -29,6 +29,7 @@ void BulletSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); online = true; break;
 		case ecs::_m_ROUND_START:
 
+		case ecs::_m_PLAY:
 		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
