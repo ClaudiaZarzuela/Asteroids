@@ -50,8 +50,6 @@ private:
 	Transform* trOponent = nullptr;
 	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};
-	//std::vector<std::string> aux;
-
 };
 
 class client_lost : public std::exception {

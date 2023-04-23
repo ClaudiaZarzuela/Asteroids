@@ -73,6 +73,9 @@ void OnlineSystem::update() {
 				std::cout << "host se desconecto" << std::endl;
 				ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
 				mngr_->send(m1, false);
+				ecs::Message m2; m2.id = ecs::_m_GAMEMODE;
+				mngr_->send(m2, false);
+				active_ = false;
 			}
 		}
 	}
