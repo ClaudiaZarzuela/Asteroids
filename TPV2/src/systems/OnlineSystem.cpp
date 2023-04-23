@@ -210,7 +210,7 @@ void OnlineSystem::initClient() {
 	IPaddress ip;
 	if (SDLNet_ResolveHost(&ip, c, port) < 0) { throw("ip invalida"); }
 	conn = SDLNet_TCP_Open(&ip); 
-	if (!conn) { throw("no se pudo establecer la conexion"); }
+	if (conn == NULL) { throw("no se pudo establecer la conexion, comprueba que las ip coincidan"); }
 	SDLNet_TCP_AddSocket(set, conn);
 	string name;
 	do{
