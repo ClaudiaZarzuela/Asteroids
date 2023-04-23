@@ -119,8 +119,7 @@ namespace ecs {
 		}player_name_data;
 
 		struct {
-			Entity* bullet;
-			Entity* player;
+			int playerDead;
 		}player_shot_data;
 
 		struct {

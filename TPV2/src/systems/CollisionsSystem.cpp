@@ -14,6 +14,7 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 
 		case ecs::_m_ROUND_START:
 		case ecs::_m_PLAY:
+		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
 		case ecs::_m_START_ONLINE_ROUND:
@@ -57,7 +58,7 @@ void CollisionsSystem::update() {
 				}
 			}
 		}
-		else if(online && host) {
+		else if(online) {
 			vector<Entity*> eBullets = mngr_->getEntities(ecs::_grp_ENEMY_BULLETS);
 			auto player = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::PLAYER1));
 
@@ -67,7 +68,9 @@ void CollisionsSystem::update() {
 					eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
 
 					std::cout << "HOST: ME HAN DADO" << std::endl;
-					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.bullet = eBullets[i]; m.player_shot_data.player = mngr_->getHandler(ecs::PLAYER1);
+					ecs::Message m2; m2.id = ecs::_m_ROUND_OVER;
+					mngr_->send(m2, false);
+					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.playerDead = 1;
 					mngr_->send(m, false);*/
 				}
 			}
@@ -81,7 +84,9 @@ void CollisionsSystem::update() {
 					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
 
 					std::cout << "CLIENT: TE HAN DADO" << std::endl;
-					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.bullet = bullets[j]; m.player_shot_data.player = mngr_->getHandler(ecs::PLAYER2);
+					ecs::Message m2; m2.id = ecs::_m_ROUND_OVER;
+					mngr_->send(m2, false);
+					/*ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; m.player_shot_data.playerDead =  2;
 					mngr_->send(m, false);*/
 				}
 			}

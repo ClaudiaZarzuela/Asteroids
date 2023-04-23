@@ -19,7 +19,8 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		break;
 	case ecs::_m_SHIP_MOVED:
 		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.vel, m.ship_movement_data.bullet); break;
-	
+	case ecs::_m_PLAYER_SHOT:
+		informOfCollision(m.player_shot_data.playerDead); break;
 	default: break;
 	}
 }
@@ -49,13 +50,29 @@ void OnlineSystem::update() {
 					SDLNet_TCP_Send(conn, c, name.size() + 1);
 				}
 			}
-			if (conn != nullptr && SDLNet_SocketReady(conn)) {
-				char buffer[256];
-				int result = SDLNet_TCP_Recv(conn, buffer, 255);
-				if (result > 0) {
-					cout << buffer << std::endl;
-					descifraMsg(buffer);
+			try{
+				if (conn != nullptr && SDLNet_SocketReady(conn)) {
+					char buffer[256];
+					int result = SDLNet_TCP_Recv(conn, buffer, 255);
+					if (result > 0) {
+						cout << buffer << std::endl;
+						descifraMsg(buffer);
+					}
+					else if(currentType == HOST_ && result < 0) {
+						throw(client_lost());
+					}
+					else if (currentType == CLIENT_ && result < 0) {
+						throw(host_lost());
+					}
 				}
+			}
+			catch (client_lost){
+				std::cout << "client se desconecto" << std::endl;
+			}
+			catch (host_lost) {
+				std::cout << "host se desconecto" << std::endl;
+				ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
+				mngr_->send(m1, false);
 			}
 		}
 	}
@@ -87,14 +104,13 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		if (mnsg[6] == "0") m.ship_movement_data.bullet = false;
 		else m.ship_movement_data.bullet = true;
 	}
-	/*else if (strncmp(buffer, "Bullet", 6) == 0) {
-		m.id = ecs::_m_ENEMY_BULLET;
-		m.bullet_data.pos = Vector2D(stof(mnsg[1]), stof(mnsg[2]));
-		m.bullet_data.vel = Vector2D(stof(mnsg[3]), stof(mnsg[4]));
-		m.bullet_data.width = stof(mnsg[5]);
-		m.bullet_data.height = stof(mnsg[6]); 
-		m.bullet_data.rot = stof(mnsg[7]);
-	}*/
+	//else if (strncmp(buffer, "Collision", 9) == 0) {
+	//	/*ecs::Message m1;
+	//	m1.id = ecs::_m_PLAYER_SHOT;
+	//	m1.player_shot_data.playerDead = stoi(mnsg[1]);
+	//	mngr_->send(m1, false);*/
+	//	m.id = ecs::_m_ROUND_OVER;
+	//}
 	mngr_->send(m, false);
 }
 
@@ -125,6 +141,12 @@ std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 void OnlineSystem::informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet) {
 	string msg = "Transform ";
 	msg += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rot) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(bullet);
+	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+}
+
+void OnlineSystem::informOfCollision(int player) {
+	string msg = "Collision ";
+	msg += std::to_string(player);
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 }
 

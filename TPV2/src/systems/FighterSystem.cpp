@@ -79,9 +79,6 @@ void FighterSystem::recieve(const ecs::Message& m) {
 			onRoundStart();
 			resetLives(); break;
 
-		case ecs::_m_PLAYER_SHOT:
-			playerShot(m.player_shot_data.player); break;
-		
 		default: break;
 	}
 }

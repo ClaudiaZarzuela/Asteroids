@@ -6,9 +6,6 @@
 void BulletSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
-		case ecs::_m_PLAYER_SHOT:
-			onCollision_Bullet(m.player_shot_data.bullet); break;
-
 		case ecs::_m_SHOOT:
 			shoot(m.bullet_data.pos, m.bullet_data.vel, m.bullet_data.width, m.bullet_data.height, m.bullet_data.rot); break;
 
@@ -30,9 +27,9 @@ void BulletSystem::recieve(const ecs::Message& m) {
 
 		case ecs::_m_START_ONLINE_ROUND:
 			onRoundStart(); online = true; break;
-
 		case ecs::_m_ROUND_START:
-		case ecs::_m_PLAY:
+
+		case ecs::_m_SINGLEPLAYER:
 			onRoundStart(); break;
 
 		default: break;
