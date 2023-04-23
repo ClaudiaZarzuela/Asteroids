@@ -3,6 +3,7 @@
 #include "../ecs/System.h"
 #include "../ecs/Manager.h"
 #include "../components/Transform.h"
+#include "../sdlutils/InputHandler.h"
 
 class OnlineSystem : public System {
 public:
@@ -23,7 +24,7 @@ private:
 	void error();
 	Uint8 state_ = 0; // El estado actual del juego (en lugar del componente State);
 	bool active_ = false;
-
+	bool gameEnded = false;
 	void initHost();
 	void initClient();
 	void descifraMsg( char* buffer);
@@ -37,6 +38,7 @@ private:
 	TCPsocket masterSocket = nullptr;
 	TCPsocket conn = nullptr;
 
+	InputHandler* input_ = InputHandler::instance();
 	int port = 4444;
 	std::string host;
 	char buffer[256];

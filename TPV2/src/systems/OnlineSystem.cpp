@@ -20,7 +20,9 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_SHIP_MOVED:
 		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.vel, m.ship_movement_data.bullet); break;
 	case ecs::_m_PLAYER_SHOT:
-		informOfCollision(m.player_shot_data.playerWinner); break;
+		informOfCollision(m.player_shot_data.playerWinner); 
+		gameEnded = true;
+		break;
 	default: break;
 	}
 }
@@ -83,6 +85,11 @@ void OnlineSystem::update() {
 				ecs::Message m2; m2.id = ecs::_m_GAMEMODE; mngr_->send(m2, false);
 				active_ = false;
 			}
+		}
+		if (gameEnded && input_->isKeyJustDown(SDLK_SPACE)) {
+			ecs::Message m; m.id = ecs::_m_GAMEMODE;
+			mngr_->send(m, false);
+			gameEnded = false;
 		}
 	}
 }
