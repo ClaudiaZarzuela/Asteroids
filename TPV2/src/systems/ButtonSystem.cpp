@@ -4,8 +4,9 @@ void ButtonSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
 		case ecs::_m_GAMEMODE:
-			createMainMenuButtons(); break;
+			createMainMenuButtons(); 
 			activateSystem();
+			break;
 
 		case ecs::_m_ONLINE:
 			clicked = false;

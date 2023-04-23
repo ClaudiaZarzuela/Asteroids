@@ -30,13 +30,17 @@ void OnlineSystem::initSystem() {
 }
 
 OnlineSystem::~OnlineSystem() {
-	if (masterSocket != nullptr) {
-		SDLNet_FreeSocketSet(set);
-		//hay q hacer un delete o algo asi ha dicho miguel uwu
-		// lo q ha dicho es que diferenciemos entre host y client a la hora de borrar, por ejemplo en caso del host borrar ambos sockets y en caso del client solo uno
+	if (currentType == HOST_ && masterSocket != nullptr) {
+		SDLNet_TCP_DelSocket(set, masterSocket);
 		SDLNet_TCP_Close(masterSocket);
-		SDLNet_TCP_Close(conn);
+		masterSocket = nullptr;
 	}
+	if (conn != nullptr) {
+		SDLNet_TCP_DelSocket(set, conn);
+		SDLNet_TCP_Close(conn);
+		conn = nullptr;
+	}
+	SDLNet_Quit();
 }
 
 void OnlineSystem::update() {
@@ -71,10 +75,12 @@ void OnlineSystem::update() {
 			}
 			catch (host_lost) {
 				std::cout << "host se desconecto" << std::endl;
-				ecs::Message m1; m1.id = ecs::_m_ROUND_OVER;
-				mngr_->send(m1, false);
-				ecs::Message m2; m2.id = ecs::_m_GAMEMODE;
-				mngr_->send(m2, false);
+				SDLNet_TCP_DelSocket(set, conn);
+				SDLNet_TCP_Close(conn);
+				conn = nullptr;
+				nameClient = "";
+				ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
+				ecs::Message m2; m2.id = ecs::_m_GAMEMODE; mngr_->send(m2, false);
 				active_ = false;
 			}
 		}
