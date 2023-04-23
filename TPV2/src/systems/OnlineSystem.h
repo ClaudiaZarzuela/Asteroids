@@ -28,7 +28,7 @@ private:
 	void initClient();
 	void descifraMsg( char* buffer);
 	void informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet);
-	void informOfCollision(int player);
+	void informOfCollision(int playerWinner);
 	void moveOponent(float x, float y, float r);
 	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
 

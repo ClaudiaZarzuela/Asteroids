@@ -85,7 +85,8 @@ namespace ecs {
 		_m_SHIP_MOVED,
 		_m_ENEMY_MOVED,
 		_m_ENEMY_BULLET,
-		_m_PLAYER_SHOT
+		_m_PLAYER_SHOT,
+		_m_ONLINE_OVER
 	};
 
 	struct Message {
@@ -119,7 +120,7 @@ namespace ecs {
 		}player_name_data;
 
 		struct {
-			int playerDead;
+			int playerWinner;
 		}player_shot_data;
 
 		struct {

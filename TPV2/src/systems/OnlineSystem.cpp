@@ -20,7 +20,7 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_SHIP_MOVED:
 		informOfMovement(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.vel, m.ship_movement_data.bullet); break;
 	case ecs::_m_PLAYER_SHOT:
-		informOfCollision(m.player_shot_data.playerDead); break;
+		informOfCollision(m.player_shot_data.playerWinner); break;
 	default: break;
 	}
 }
@@ -104,13 +104,7 @@ void OnlineSystem::descifraMsg(char* buffer) {
 		if (mnsg[6] == "0") m.ship_movement_data.bullet = false;
 		else m.ship_movement_data.bullet = true;
 	}
-	//else if (strncmp(buffer, "Collision", 9) == 0) {
-	//	/*ecs::Message m1;
-	//	m1.id = ecs::_m_PLAYER_SHOT;
-	//	m1.player_shot_data.playerDead = stoi(mnsg[1]);
-	//	mngr_->send(m1, false);*/
-	//	m.id = ecs::_m_ROUND_OVER;
-	//}
+	
 	mngr_->send(m, false);
 }
 
@@ -144,10 +138,9 @@ void OnlineSystem::informOfMovement(float x, float y, float rot, Vector2D vel, b
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 }
 
-void OnlineSystem::informOfCollision(int player) {
-	string msg = "Collision ";
-	msg += std::to_string(player);
-	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
+void OnlineSystem::informOfCollision(int playerWinner) {
+	ecs::Message m; m.id = ecs::_m_ROUND_OVER; mngr_->send(m, true); 
+	ecs::Message m1; m1.id = ecs::_m_ONLINE_OVER; m1.player_shot_data.playerWinner = playerWinner; mngr_->send(m1, true);
 }
 
 void OnlineSystem::initHost() {

@@ -54,6 +54,11 @@ void RenderSystem::recieve(const ecs::Message& m) {
 		createNames(m.player_name_data.hostName, m.player_name_data.clientName);
 		state_ = ONLINE;
 		break;
+
+	case ecs::_m_ONLINE_OVER:
+		winner = m.player_shot_data.playerWinner;
+		state_ = ONLINEOVER;
+		break;
 	}
 	changeText();
 }
@@ -89,6 +94,7 @@ void RenderSystem::update() {
 		case ONLINE: playersOnline(); bulletsOnline(); bullets(); break;
 		case PLAY: player(); animateAsteroids(); asteroids(); bullets();  break;
 		case PAUSE: menuTexts(); asteroids(); bullets(); player(); break;
+		case ONLINEOVER: menuTexts(); showWinner(); break;
 		case MENU:
 		case RESTART:
 		case GAMEOVERWIN:
@@ -98,6 +104,13 @@ void RenderSystem::update() {
 	sdl.presentRenderer();
 }
 
+void RenderSystem::showWinner() {
+	SDL_Rect r;
+	r.w = ids[winner]->width(); r.h = ids[winner]->height();
+	r.x = (sdlutils().width() - ids[winner]->width()) / 2;
+	r.y = ((sdlutils().height() - ids[winner]->height()) / 2);
+	ids[winner]->render(r);
+}
 // metodo que renderiza los grupos exclusivos del playstate (asteroides y balas)
 void RenderSystem::asteroids() {
 	auto& grpAst = mngr_->getEntities(ecs::_grp_ASTEROIDS);
@@ -252,4 +265,10 @@ void RenderSystem::playersOnline() {
 void RenderSystem::createNames(std::string p1, std::string p2) {
 	ids[0] = new Texture(sdlutils().renderer(), p1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 	ids[1] = new Texture(sdlutils().renderer(), p2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
+
+	std::string won1 = p1 + " WON!";
+	std::string won2 = p2 + " WON!";
+	ids[2] = new Texture(sdlutils().renderer(), won1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
+	ids[3] = new Texture(sdlutils().renderer(), won2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
+
 }

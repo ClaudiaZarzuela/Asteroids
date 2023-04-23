@@ -10,7 +10,7 @@
 
 const int NUM_TEXTURES = 9;
 const int NUM_TEXTS = 5;
-const int NUM_PLAYERS = 2;
+const int NUM_PLAYERS = 4;
 // Estructura que contiene variables para el nombre de las imagenes de la textura y su numero de filas y columnas
 struct Textures
 {
@@ -34,7 +34,7 @@ static const enum TextNames {
 	MAINMENU = 0, PAUSA = 1, LOSE = 2, WIN = 3, WAIT = 4
 };
 static const enum IDPlayers{
-	P1 = 0, P2 = 1
+	P1 = 0, P2 = 1, P1_WON = 2, P2_WON = 3
 };
 class RenderSystem : public System {
 public:
@@ -88,6 +88,7 @@ private:
 	void waitingtext();
 	void menuTexts();
 	void bulletsOnline();
+	void showWinner();
 	void createNames(std::string p1, std::string p2);
 	Entity* text1_ = nullptr;
 	Entity* text2_ = nullptr;
@@ -95,4 +96,5 @@ private:
 	Entity* ID2_ = nullptr;
 	Uint8 state_ = GAMEMODE; // El estado actual de juego (como en GameCtrlSystem)
 	int frameTime = 0;
+	int winner;
 };
