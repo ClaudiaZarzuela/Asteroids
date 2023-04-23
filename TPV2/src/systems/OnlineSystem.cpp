@@ -22,10 +22,7 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 	case ecs::_m_PLAYER_SHOT:
 		informOfCollision(m.player_shot_data.playerWinner); 
 		gameEnded = true;
-		break;
-	case ecs::_m_GAMEMODE:
-		resetOnline();
-		break;
+		break;	
 	default: break;
 	}
 }
@@ -81,16 +78,16 @@ void OnlineSystem::update() {
 			}
 			catch (host_lost) {
 				std::cout << "host se desconecto" << std::endl;
-				ecs::Message m; m.id = ecs::_m_GAMEMODE;
 				mngr_->send(m, false);
 				resetOnline();
+				ecs::Message m; m.id = ecs::_m_GAMEMODE;
 			}
 		}
 		if (gameEnded && input_->isKeyJustDown(SDLK_SPACE)) {
-			ecs::Message m; m.id = ecs::_m_GAMEMODE;
-			mngr_->send(m, false);
 			gameEnded = false;
 			resetOnline();
+			ecs::Message m; m.id = ecs::_m_GAMEMODE;
+			mngr_->send(m, false);
 		}
 	}
 }
