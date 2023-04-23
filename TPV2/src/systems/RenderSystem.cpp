@@ -25,6 +25,7 @@ void RenderSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_GAMEMODE:
 		state_ = GAMEMODE;
+		deleteInGameObjects();
 		break;
 
 	case ecs::_m_SINGLEPLAYER:
@@ -278,4 +279,13 @@ void RenderSystem::createNames(std::string p1, std::string p2) {
 	ids[2] = new Texture(sdlutils().renderer(), won1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 	ids[3] = new Texture(sdlutils().renderer(), won2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 
+}
+
+void RenderSystem::deleteInGameObjects() {
+	for (auto e : mngr_->getEntities(ecs::_grp_ENEMY_BULLETS)) {
+		mngr_->setAlive(e, false);
+	}
+	for (auto e : mngr_->getEntities(ecs::_grp_PLAYERS)) {
+		mngr_->setAlive(e, false);
+	}
 }

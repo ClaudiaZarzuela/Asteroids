@@ -34,7 +34,6 @@ private:
 	void shoot(Vector2D pos, Vector2D vel, double width, double height, double rot);
 	void resetConnection();
 	void resetOnline();
-	void deleteInGameObjects();
 
 	std::vector<std::string> strSplit(std::string s, char c);
 	SDLNet_SocketSet set = nullptr;
@@ -49,9 +48,8 @@ private:
 
 	int currentType;
 	int currentState = NONE;
-	std::string nameHost;
-	std::string nameClient;
-	std::string name = "Name ";
+	std::string nameHost = "Name ";
+	std::string nameClient = "Name ";
 	Transform* trOponent = nullptr;
 	enum typeMode{NONE_, HOST_, CLIENT_};
 	enum state{NONE, WAITING, START};

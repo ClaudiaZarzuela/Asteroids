@@ -24,7 +24,7 @@ void FighterSystem::createPlayer() {
 }
 
 void FighterSystem::initializePlayers(int player) {
-	
+	playerType = player;
 	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
 	mngr_->setHandler(ecs::PLAYER1, player1);
 	mngr_->addComponent<Transform>(player1, Vector2D(sdlutils().width() / 2 - 25, 0 + 100), Vector2D(0, 0), 50, 50, 180);
@@ -44,6 +44,16 @@ void FighterSystem::initializePlayers(int player) {
 	}
 }
 
+void FighterSystem::resetOnlinePlayersPos() {
+	if (playerType == 1) {
+		tr_->setPos(posIniP1); tr_->setRot(rotIniP1);
+		enemyTr_->setPos(posIniP2); enemyTr_->setRot(rotIniP2);
+	}
+	else {
+		tr_->setPos(posIniP2); tr_->setRot(rotIniP2);
+		enemyTr_->setPos(posIniP1); enemyTr_->setRot(rotIniP1);
+	}
+}
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
@@ -73,6 +83,7 @@ void FighterSystem::recieve(const ecs::Message& m) {
 			onRoundStart(); break;
 		case ecs::_m_START_ONLINE_ROUND:
 			online = true;
+			resetOnlinePlayersPos();
 			onRoundStart(); break;
 
 		case ecs::_m_ROUND_START:
