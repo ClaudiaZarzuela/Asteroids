@@ -78,6 +78,7 @@ void CollisionsSystem::update() {
 				auto eBull = mngr_->getComponent<Transform>(eBullets[i]);
 				if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
 					eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
+					sdlutils().soundEffects().at("explosion").play();
 					std::cout << "ME HAN DADO" << std::endl;
 					ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; 
 					if (host) m.player_shot_data.playerWinner = 3;
@@ -91,6 +92,7 @@ void CollisionsSystem::update() {
 				auto bull = mngr_->getComponent<Transform>(bullets[j]);
 				if (Collisions::collidesWithRotation(enemy->getPos(), enemy->getW(), enemy->getH(), enemy->getRot(),
 					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
+					sdlutils().soundEffects().at("explosion").play();
 					std::cout << "LE HE DADO" << std::endl;
 					ecs::Message m; m.id = ecs::_m_PLAYER_SHOT;
 					if (host) m.player_shot_data.playerWinner = 2;
