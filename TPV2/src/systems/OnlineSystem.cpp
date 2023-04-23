@@ -23,6 +23,9 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		informOfCollision(m.player_shot_data.playerWinner); 
 		gameEnded = true;
 		break;
+	case ecs::_m_GAMEMODE:
+		resetOnline();
+		break;
 	default: break;
 	}
 }
@@ -78,6 +81,8 @@ void OnlineSystem::update() {
 			}
 			catch (host_lost) {
 				std::cout << "host se desconecto" << std::endl;
+				ecs::Message m; m.id = ecs::_m_GAMEMODE;
+				mngr_->send(m, false);
 				resetOnline();
 			}
 		}
@@ -85,6 +90,7 @@ void OnlineSystem::update() {
 			ecs::Message m; m.id = ecs::_m_GAMEMODE;
 			mngr_->send(m, false);
 			gameEnded = false;
+			resetOnline();
 		}
 	}
 }
@@ -96,7 +102,6 @@ void OnlineSystem::resetConnection() {
 	nameClient = "";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	ecs::Message m2; m2.id = ecs::_m_WAITING; mngr_->send(m2, false);
-	active_ = false;
 }
 
 void OnlineSystem::resetOnline() {
@@ -109,7 +114,6 @@ void OnlineSystem::resetOnline() {
 	nameClient = "";
 	nameHost = "";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
-	ecs::Message m2; m2.id = ecs::_m_GAMEMODE; mngr_->send(m2, false);
 	active_ = false;
 }
 
