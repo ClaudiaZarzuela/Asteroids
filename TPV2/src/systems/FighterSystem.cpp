@@ -62,6 +62,7 @@ void FighterSystem::recieve(const ecs::Message& m) {
 			updateEnemy(m.ship_movement_data.x, m.ship_movement_data.y, m.ship_movement_data.rot, m.ship_movement_data.vel, m.ship_movement_data.bullet); break;
 
 		case ecs::_m_SINGLEPLAYER:
+			online = false;
 			createPlayer(); break;
 
 		case ecs::_m_HOST:
