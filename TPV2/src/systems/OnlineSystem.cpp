@@ -2,9 +2,8 @@
 #include "../components/Health.h"
 #include "../checkML.h"
 
-OnlineSystem::OnlineSystem() {
-	
-}
+OnlineSystem::OnlineSystem() {}
+
 void OnlineSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_ONLINE:
@@ -30,6 +29,7 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 	default: break;
 	}
 }
+
 // Inicializar el sistema, etc.
 void OnlineSystem::initSystem() {
 	set = SDLNet_AllocSocketSet(2);
@@ -65,7 +65,6 @@ void OnlineSystem::update() {
 					char buffer[256];
 					int result = SDLNet_TCP_Recv(conn, buffer, 255);
 					if (result > 0) {
-						cout << buffer << std::endl;
 						descifraMsg(buffer);
 					}
 					else if(currentType == HOST_ && result < 0) {
@@ -77,11 +76,11 @@ void OnlineSystem::update() {
 				}
 			}
 			catch (client_lost){
-				std::cout << "client se desconecto" << std::endl;
+				std::cout << "SE DESCONECTO EL CLIENTE" << std::endl;
 				resetConnection();
 			}
 			catch (host_lost) {
-				std::cout << "host se desconecto" << std::endl;
+				std::cout << "SE DESCONECTO EL HOST" << std::endl;
 				resetOnline();
 				ecs::Message m; m.id = ecs::_m_GAMEMODE;
 				mngr_->send(m, false);
