@@ -32,5 +32,6 @@ private:
 	// Indica si el sistema está activo o no (modificar el valor en onRoundOver y
 	// onRoundStart, y en update no hacer nada si no está activo)
 	bool active_ = false;
+	//boleano para diferenciar si ha sido activado en el modo multiplayer o singleplayer
 	bool online = false;
 };

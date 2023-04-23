@@ -178,7 +178,7 @@ void RenderSystem::waitingtext() {
 	t->getTexture()->render(t->getPos().getX(), t->getPos().getY());
 }
 
-
+//renderiza los textos de cada estado
 void RenderSystem::menuTexts() {
 	for (auto e : mngr_->getEntities(ecs::_grp_TEXT)) {
 		if (e != nullptr) {
@@ -188,6 +188,7 @@ void RenderSystem::menuTexts() {
 		}
 	}
 }
+
 // metodo que anima los asteroides
 void RenderSystem::animateAsteroids() {
 	if (sdlutils().currRealTime() >= frameTime) {
@@ -236,6 +237,7 @@ void RenderSystem::changeText() {
 	}
 }
 
+//renderiza todo lo relacionado con el player cuando estas en modo singleplayer (nave y balas)
 void RenderSystem::player() {
 	fighter = mngr_->getHandler(ecs::FIGHTER);
 	if (fighter != nullptr) {
@@ -252,20 +254,24 @@ void RenderSystem::player() {
 	}
 }
 
+//renderiza todo lo relacionado con los players cuando estas en modo multiplayer (nave, balas y nombre)
 void RenderSystem::playersOnline() {
 	auto& grpPlayers = mngr_->getEntities(ecs::_grp_PLAYERS);
 	for (auto i = 0; i < grpPlayers.size(); i++)
 	{
+		//RENDERIZA LAS NAVES
 		Transform* f = mngr_->getComponent<Transform>(grpPlayers[i]);
 		SDL_Rect dest = build_sdlrect(f->getPos(), f->getW(), f->getH());
 		textures[NAVE]->render(dest, f->getRot());
 
+		//RENDERIZA SUS VIDAS
 		for (int j = 0; j < mngr_->getComponent<Health>(grpPlayers[i])->getLives(); ++j) {
 			Vector2D pos = Vector2D((textures[HEALTH]->width() / 3) * j, i * 50);
 			SDL_Rect dest = build_sdlrect(pos, textures[HEALTH]->width() / 3, (textures[HEALTH]->height() / 3));
 			textures[HEALTH]->render(dest, 0);
 		}
 
+		//RENDERIZA SUS NOMBRES
 		if (ids[i] != nullptr) {
 			SDL_Rect r;
 			r.w = ids[i]->width(); r.h = ids[i]->height();
@@ -274,10 +280,14 @@ void RenderSystem::playersOnline() {
 		}
 	}
 }
+
+//crea los textos de las naves en el modo multiplayer
 void RenderSystem::createNames(std::string p1, std::string p2) {
+	//TEXTOS CON NOMBRES
 	ids[0] = new Texture(sdlutils().renderer(), p1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 	ids[1] = new Texture(sdlutils().renderer(), p2, sdlutils().fonts().at("ARIAL24"), SDL_Color());
 
+	//TEXTOS POSTERIORES DE LOS POSIBLES GANADORES
 	std::string won1 = p1 + " WON!";
 	std::string won2 = p2 + " WON!";
 	ids[2] = new Texture(sdlutils().renderer(), won1, sdlutils().fonts().at("ARIAL24"), SDL_Color());
@@ -285,6 +295,7 @@ void RenderSystem::createNames(std::string p1, std::string p2) {
 
 }
 
+//borra las entidades creadas por el modo multiplayer cada vez que se empieza una nueva partida
 void RenderSystem::deleteInGameObjects() {
 	for (auto e : mngr_->getEntities(ecs::_grp_ENEMY_BULLETS)) {
 		mngr_->setAlive(e, false);
