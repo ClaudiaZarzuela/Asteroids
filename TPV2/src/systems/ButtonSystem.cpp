@@ -3,25 +3,34 @@
 void ButtonSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
 	{
+		//llamado para crear los botones de singleplayer y multiplayer
+		//tambien activa el sistema
 		case ecs::_m_GAMEMODE:
 			createMainMenuButtons(); 
 			activateSystem();
 			break;
 
+		//llamado para crear los botones de host y client
 		case ecs::_m_ONLINE:
 			clicked = false;
 			createOnlineStateButtons(); break;
 
+		//desactiva el sistema cuando empieza una partida, ya sea multiplayer o singleplayer
 		case ecs::_m_START_ONLINE_ROUND:
 		case ecs::_m_SINGLEPLAYER:
 			deactivateSystem();
 			break;
+
 		default: break;
 	}
 }
+
 void ButtonSystem::initSystem() {
+	//crea los botones de singleplayer y multiplayer
 	createMainMenuButtons();
 }
+
+//checkea si se ha pulsado algun boton y si lo ha hecho llamada al metodo correspondiente mediante mensajes
 void ButtonSystem::update() {
 	if (active_) {
 		vector<Entity*> button = mngr_->getEntities(ecs::_grp_BUTTONS);
@@ -50,6 +59,7 @@ void ButtonSystem::update() {
 
 }
 
+//crea los botones de singleplayer y multiplayer
 void ButtonSystem::createMainMenuButtons() {
 	erasePreviousButtons();
 	Entity* multi = mngr_->addEntity(ecs::_grp_BUTTONS);
@@ -61,6 +71,7 @@ void ButtonSystem::createMainMenuButtons() {
 	mngr_->addComponent<Button>(solo, SINGLEPLAYER_, SINGLEPLAYER);
 }
 
+//crea los botones de host y client
 void ButtonSystem::createOnlineStateButtons() {
 	erasePreviousButtons();
 	Entity* host = mngr_->addEntity(ecs::_grp_BUTTONS);
@@ -73,17 +84,20 @@ void ButtonSystem::createOnlineStateButtons() {
 
 }
 
+//activa el sistema
 void ButtonSystem::activateSystem() {
 	active_ = true;
 	clicked = false;
 }
+
+//desactiva el sistema
 void ButtonSystem::deactivateSystem() {
 	active_ = false;
 
 }
 
+//Borra los anteriores botones para crear nuevos
 void ButtonSystem::erasePreviousButtons() {
-	//Borra los anteriores botones
 	for (auto e : mngr_->getEntities(ecs::_grp_BUTTONS)) {
 		if (e != nullptr) {
 			Button* t = mngr_->getComponent<Button>(e);
