@@ -195,7 +195,8 @@ void OnlineSystem::initHost() {
 	masterSocket = SDLNet_TCP_Open(&ip);
 	if (!masterSocket) { throw("no se pudo abrir el masterSocket"); }
 	SDLNet_TCP_AddSocket(set, masterSocket);
-	string name;{
+	string name;
+	do{
 		std::cout << "Introduce tu nombre (menos de 10 caracteres): ";
 		std::cin >> name;
 	}while (name.size() > 10);
@@ -207,11 +208,12 @@ void OnlineSystem::initClient() {
 	std::cin >> host;
 	const char* c = host.c_str();
 	IPaddress ip;
-	if (SDLNet_ResolveHost(&ip, c, port) < 0) { error(); }
+	if (SDLNet_ResolveHost(&ip, c, port) < 0) { throw("ip invalida"); }
 	conn = SDLNet_TCP_Open(&ip); 
-	if (!conn) { error(); }
+	if (!conn) { throw("no se pudo establecer la conexion"); }
 	SDLNet_TCP_AddSocket(set, conn);
-	string name;{
+	string name;
+	do{
 		std::cout << "Introduce tu nombre (menos de 10 caracteres): ";
 		std::cin >> name;
 	}while (name.size() > 10);
@@ -220,15 +222,10 @@ void OnlineSystem::initClient() {
 	SDLNet_TCP_Send(conn, c1, nameClient.size() + 1);
 }
 
-void OnlineSystem::error() {
-	std::cout << "error" << std::endl;
-}
-
-
 void OnlineSystem::activateSystem() {
 	active_ = true;
 	if (SDLNet_Init() < 0) {
-		error();
+		throw("no se inicio SDLNet correctamente");
 	}
 }
 
