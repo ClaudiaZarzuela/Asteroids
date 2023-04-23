@@ -55,10 +55,10 @@ void FighterSystem::recieve(const ecs::Message& m) {
 			createPlayer(); break;
 
 		case ecs::_m_HOST:
-			initializePlayers(1); online = true;
+			initializePlayers(1); 
 			break;
 		case ecs::_m_CLIENT:
-			initializePlayers(2); online = true;
+			initializePlayers(2);
 			break;
 		case ecs::_m_FIGHTER_CRASHED:
 		case ecs::_m_GAME_OVER_LOSE:
@@ -70,7 +70,9 @@ void FighterSystem::recieve(const ecs::Message& m) {
 			onRoundOver(); break;
 
 		case ecs::_m_PLAY :
+			onRoundStart(); break;
 		case ecs::_m_START_ONLINE_ROUND:
+			online = true;
 			onRoundStart(); break;
 
 		case ecs::_m_ROUND_START:

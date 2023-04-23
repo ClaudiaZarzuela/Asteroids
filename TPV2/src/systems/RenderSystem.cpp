@@ -23,15 +23,14 @@ RenderSystem:: ~RenderSystem() {
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void RenderSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
-	case ecs::_m_ROUND_START:
 	case ecs::_m_SINGLEPLAYER:
-		state_ = PLAY;
-		break;
-
-	case ecs::_m_MAINMENU: //pasa al endState
+	case ecs::_m_MAINMENU:
 		state_ = MENU;
 		break;
-
+	case ecs::_m_ROUND_START:
+	case ecs::_m_PLAY:
+		state_ = PLAY;
+		break;
 	case ecs::_m_RESTART: //pasa al endState
 		state_ = RESTART;
 		break;
@@ -75,8 +74,6 @@ void RenderSystem::initSystem() {
 		}
 		else texts[i] = new Texture(renderer, text[i].content, sdl.fonts().at("ARIAL24"), build_sdlcolor(text[i].textColor), build_sdlcolor(0xffffffff));
 	}
-
-	//fighter = mngr_->getHandler(ecs::FIGHTER);
 	changeText();
 }
 

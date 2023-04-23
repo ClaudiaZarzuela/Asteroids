@@ -93,6 +93,6 @@ private:
 	Entity* text2_ = nullptr;
 	Entity* ID1_ = nullptr;
 	Entity* ID2_ = nullptr;
-	Uint8 state_ = 0; // El estado actual de juego (como en GameCtrlSystem)
+	Uint8 state_ = GAMEMODE; // El estado actual de juego (como en GameCtrlSystem)
 	int frameTime = 0;
 };
