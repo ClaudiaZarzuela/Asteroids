@@ -37,6 +37,7 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 // en la práctica 1 y enviar mensajes correspondientes.
 void CollisionsSystem::update() {
 	if (active_) {
+		// si el juego esta en modo singleplayer funciona como siempre
 		if (!online) {
 			vector<Entity*> ast = mngr_->getEntities(ecs::_grp_ASTEROIDS);
 			vector<Entity*> bull = mngr_->getEntities(ecs::_grp_BULLETS);
@@ -64,6 +65,7 @@ void CollisionsSystem::update() {
 				}
 			}
 		}
+		// si el juego esta modo online, comprueba las colisiones del host con las balas del client y del client con las balas del host
 		else {
 			Transform* player;
 			Transform* enemy;

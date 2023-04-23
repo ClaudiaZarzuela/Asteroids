@@ -36,8 +36,9 @@ private:
 	Vector2D posIniP2 = Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() - 100);
 	float rotIniP2 = 0;
 	int playerType;
-	void updateEnemy(int x_, int y_, int rot_, Vector2D vel_, bool bullet_);
 
+	// actualiza el transform del enemigo y intancia una bala en caso de que haya disparado
+	void updateEnemy(int x_, int y_, int rot_, Vector2D vel_, bool bullet_);
 	// Para reaccionar al mensaje de que ha habido un choque entre el fighter y un
 	// un asteroide. Poner el caza en el centro con velocidad (0,0) y rotación 0. No
 	// hace falta desactivar la entidad (no dibujarla si el juego está parado).
@@ -51,8 +52,9 @@ private:
 	bool active_ = false;
 	// Resetea el numero de vidas del caza
 	void resetLives();
+	// resetea el transform de los jugadores en modo online
 	void  resetOnlinePlayersPos();
-
+	// desactiva al jugador en modo online que haya sido disparado
 	void playerShot(Entity* e);
 };
 

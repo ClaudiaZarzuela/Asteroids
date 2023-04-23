@@ -3,17 +3,9 @@
 #include "../sdlutils/InputHandler.h"
 #include "../checkML.h"
 
-// Crear la entidad del caza, añadir sus componentes, asociarla con un handler
-// correspondiente, etc.
-void FighterSystem::initSystem() {
-	/*Entity* fighter = mngr_->addEntity(ecs::_grp_GENERAL);
-	mngr_->setHandler(ecs::FIGHTER, fighter);
-	mngr_->addComponent<Transform>(fighter, Vector2D(sdlutils().width() / 2 - 25, sdlutils().height() / 2), Vector2D(0, 0), 50, 50, 0);
-	mngr_->addComponent<Health>(fighter, 3);
-	
-	tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));*/
-}
+void FighterSystem::initSystem() {}
 
+// crea al jugador offline
 void FighterSystem::createPlayer() {
 	Entity* fighter = mngr_->addEntity(ecs::_grp_GENERAL);
 	mngr_->setHandler(ecs::FIGHTER, fighter);
@@ -23,6 +15,7 @@ void FighterSystem::createPlayer() {
 	tr_ = mngr_->getComponent<Transform>(mngr_->getHandler(ecs::FIGHTER));
 }
 
+// crea a los dos jugadores online y se guarda referencias a sus transforms
 void FighterSystem::initializePlayers(int player) {
 	playerType = player;
 	Entity* player1 = mngr_->addEntity(ecs::_grp_PLAYERS);
@@ -44,6 +37,7 @@ void FighterSystem::initializePlayers(int player) {
 	}
 }
 
+// resetea el transform de los jugadores en modo online
 void FighterSystem::resetOnlinePlayersPos() {
 	if (playerType == 1) {
 		tr_->setPos(posIniP1); tr_->setRot(rotIniP1); tr_->setVel(Vector2D(0, 0));
@@ -54,6 +48,7 @@ void FighterSystem::resetOnlinePlayersPos() {
 		enemyTr_->setPos(posIniP1); enemyTr_->setRot(rotIniP1); enemyTr_->setVel(Vector2D(0, 0));
 	}
 }
+
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
 void FighterSystem::recieve(const ecs::Message& m) {
 	switch (m.id)
@@ -127,11 +122,13 @@ void FighterSystem::update() {
 		else tr_->setVel(tr_->getVel() * 0.995f);
 		tr_->setPos(tr_->getPos() + tr_->getVel());
 
+		// para evitar que se salga por los limites de la pantalla
 		if (tr_->getPos().getX() > sdlutils().width()) { tr_->setPos(Vector2D(0 - tr_->getW(), tr_->getPos().getY())); }
 		else if (tr_->getPos().getX() < 0 - tr_->getW()) { tr_->setPos(Vector2D(sdlutils().width(), tr_->getPos().getY())); }
 		if (tr_->getPos().getY() > sdlutils().height()) { tr_->setPos(Vector2D(tr_->getPos().getX(), 0 - tr_->getH())); }
 		else if (tr_->getPos().getY() < 0 - tr_->getH()) { tr_->setPos(Vector2D(tr_->getPos().getX(), sdlutils().height())); }
 
+		// si esta en modo online, manda su transform y si ha disparado en un mensaje para que online system se lo comunique al contrario
 		if (online) {
 			ecs::Message m; m.id = ecs::_m_SHIP_MOVED;
 			m.ship_movement_data.x = tr_->getPos().getX();
@@ -146,6 +143,7 @@ void FighterSystem::update() {
 	}
 }
 
+// actualiza el transform del enemigo y intancia una bala en caso de que haya disparado
 void FighterSystem::updateEnemy(int x, int y, int rot, Vector2D vel, bool bullet) {
 	enemyTr_->setPos(Vector2D(x, y));
 	enemyTr_->setRot(rot);
@@ -168,6 +166,7 @@ void FighterSystem::onCollision_FighterAsteroid() {
 	tr_->reset();
 }
 
+// desactiva al jugador en modo online que haya sido disparado
 void FighterSystem::playerShot(Entity* p) {
 	mngr_->setAlive(p, false);
 }

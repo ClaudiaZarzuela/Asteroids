@@ -4,6 +4,7 @@
 
 OnlineSystem::OnlineSystem() {}
 
+// recibe los mensajes y reacciona a ellos
 void OnlineSystem::recieve(const ecs::Message& m) {
 	switch (m.id) {
 	case ecs::_m_ONLINE:
@@ -35,6 +36,7 @@ void OnlineSystem::initSystem() {
 	set = SDLNet_AllocSocketSet(2);
 }
 
+// destructora
 OnlineSystem::~OnlineSystem() {
 	if (currentType == HOST_ && masterSocket != nullptr) {
 		SDLNet_TCP_DelSocket(set, masterSocket);
@@ -49,6 +51,7 @@ OnlineSystem::~OnlineSystem() {
 	SDLNet_Quit();
 }
 
+// comprueba si ha recibido los mensajes y comprueba que no se hayan desconectado
 void OnlineSystem::update() {
 	if (active_) {
 		if (SDLNet_CheckSockets(set, 0) > 0) {
@@ -95,6 +98,7 @@ void OnlineSystem::update() {
 	}
 }
 
+// para cuando se desconecta el client
 void OnlineSystem::resetConnection() {
 	SDLNet_TCP_DelSocket(set, conn);
 	SDLNet_TCP_Close(conn);
@@ -104,6 +108,7 @@ void OnlineSystem::resetConnection() {
 	ecs::Message m2; m2.id = ecs::_m_WAITING; mngr_->send(m2, false);
 }
 
+// para cuando se desconecta el host
 void OnlineSystem::resetOnline() {
 	SDLNet_TCP_DelSocket(set, conn);
 	SDLNet_TCP_Close(conn);
@@ -117,6 +122,7 @@ void OnlineSystem::resetOnline() {
 	active_ = false;
 }
 
+// descifra los mensajes recibidos
 void OnlineSystem::descifraMsg(char* buffer) {
 	std::string aux(buffer);
 	std::vector<std::string> mnsg = strSplit(aux, ' '); 
@@ -154,11 +160,13 @@ void OnlineSystem::descifraMsg(char* buffer) {
 	mngr_->send(m, false);
 }
 
+
 void OnlineSystem::moveOponent(float x, float y, float r) {
 	trOponent->setPos(Vector2D(x, y));
 	trOponent->setRot(r);
 }
 
+// metodo auxiliar para descifrar mensajes
 std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 
 	std::vector<std::string> split;
@@ -178,17 +186,20 @@ std::vector<std::string> OnlineSystem::strSplit(std::string s, char c) {
 	return split;
 }
 
+// manda el mensaje que actualiza sobre el transform
 void OnlineSystem::informOfMovement(float x, float y, float rot, Vector2D vel, bool bullet) {
 	string msg = "Transform ";
 	msg += std::to_string(x) + " " + std::to_string(y) + " " + std::to_string(rot) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(bullet);
 	SDLNet_TCP_Send(conn, msg.c_str(), msg.size() + 1);
 }
 
+// notifica de las colisiones
 void OnlineSystem::informOfCollision(int playerWinner) {
 	ecs::Message m; m.id = ecs::_m_ROUND_OVER; mngr_->send(m, true); 
 	ecs::Message m1; m1.id = ecs::_m_ONLINE_OVER; m1.player_shot_data.playerWinner = playerWinner; mngr_->send(m1, true);
 }
 
+// inicializa el host
 void OnlineSystem::initHost() {
 	IPaddress ip;
 	if (SDLNet_ResolveHost(&ip, nullptr, port) < 0) { throw("no se pudo resolver el host"); }
@@ -203,6 +214,7 @@ void OnlineSystem::initHost() {
 	nameHost+= name;
 }
 
+// inicializa el client
 void OnlineSystem::initClient() {
 	std::cout << "Introduce IP: ";
 	std::cin >> host;
@@ -222,6 +234,7 @@ void OnlineSystem::initClient() {
 	SDLNet_TCP_Send(conn, c1, nameClient.size() + 1);
 }
 
+// activa el sistema
 void OnlineSystem::activateSystem() {
 	active_ = true;
 	if (SDLNet_Init() < 0) {
@@ -229,10 +242,12 @@ void OnlineSystem::activateSystem() {
 	}
 }
 
+// desactuiva el sistema
 void OnlineSystem::deactivateSystem() {
 	active_ = false;
 	SDLNet_Quit();
 }
+
 void OnlineSystem::shoot(Vector2D pos, Vector2D vel, double width, double height, double rot) {
 	string msg = "Bullet ";
 	msg += std::to_string(pos.getX()) + " " + std::to_string(pos.getY()) + " " + std::to_string(vel.getX()) + " " + std::to_string(vel.getY()) + " " + std::to_string(width) + " " + std::to_string(height) + " " + std::to_string(rot);
