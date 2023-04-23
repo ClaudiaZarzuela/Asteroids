@@ -23,10 +23,6 @@ void CollisionsSystem::recieve(const ecs::Message& m) {
 			online = false;
 			onRoundStart(); break;
 
-		case ecs::_m_ONLINE:
-			host = false;
-			break;
-
 		case ecs::_m_START_ONLINE_ROUND:
 			online = true;
 			onRoundStart(); break;
