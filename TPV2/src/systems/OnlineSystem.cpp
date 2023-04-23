@@ -23,6 +23,9 @@ void OnlineSystem::recieve(const ecs::Message& m) {
 		informOfCollision(m.player_shot_data.playerWinner); 
 		gameEnded = true;
 		break;	
+	case ecs::_m_SINGLEPLAYER:
+		active_ = false;
+		break;
 	default: break;
 	}
 }
