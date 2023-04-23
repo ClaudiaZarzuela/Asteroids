@@ -47,49 +47,5 @@
       "id": "imperial_march",
       "file": "resources/sound/imperial_march.wav"
     }
-  ],
-
-  "data": [
-    {
-      "id": "asteroid_creation_time",
-      "file": 5000
-    },
-    {
-      "id": "max_asteroids",
-      "file": 30
-    },
-    {
-      "id": "button_width",
-      "file": 150
-    },
-    {
-      "id": "button_height",
-      "file": 100
-    },
-    {
-      "id": "fighter_size",
-      "file": 50
-    },
-    {
-      "id": "deacceleration_value",
-      "file": 0.995
-    },
-    {
-      "id": "stop_value",
-      "file": 0.05
-    },
-    {
-      "id": "frame_time",
-      "file": 20
-    },
-    {
-      "id": "text_size",
-      "file": 30
-    },
-    {
-      "id": "max_lives",
-      "file": 3
-    }
   ]
-
 }
