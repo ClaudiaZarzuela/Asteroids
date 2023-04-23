@@ -46,12 +46,12 @@ void FighterSystem::initializePlayers(int player) {
 
 void FighterSystem::resetOnlinePlayersPos() {
 	if (playerType == 1) {
-		tr_->setPos(posIniP1); tr_->setRot(rotIniP1);
-		enemyTr_->setPos(posIniP2); enemyTr_->setRot(rotIniP2);
+		tr_->setPos(posIniP1); tr_->setRot(rotIniP1); tr_->setVel(Vector2D(0, 0));
+		enemyTr_->setPos(posIniP2); enemyTr_->setRot(rotIniP2); enemyTr_->setVel(Vector2D(0, 0));
 	}
 	else {
-		tr_->setPos(posIniP2); tr_->setRot(rotIniP2);
-		enemyTr_->setPos(posIniP1); enemyTr_->setRot(rotIniP1);
+		tr_->setPos(posIniP2); tr_->setRot(rotIniP2); tr_->setVel(Vector2D(0, 0));
+		enemyTr_->setPos(posIniP1); enemyTr_->setRot(rotIniP1); enemyTr_->setVel(Vector2D(0, 0));
 	}
 }
 // Reaccionar a los mensajes recibidos (llamando a métodos correspondientes).
