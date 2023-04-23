@@ -55,7 +55,7 @@ void OnlineSystem::update() {
 					char buffer[256];
 					int result = SDLNet_TCP_Recv(conn, buffer, 255);
 					if (result > 0) {
-						cout << buffer << std::endl;
+						//cout << buffer << std::endl;
 						descifraMsg(buffer);
 					}
 					else if(currentType == HOST_ && result < 0) {
