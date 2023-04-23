@@ -108,7 +108,7 @@ void OnlineSystem::resetOnline() {
 	SDLNet_TCP_DelSocket(set, masterSocket);
 	SDLNet_TCP_Close(masterSocket);
 	masterSocket = nullptr;
-	nameClient = "";
+	nameClient = "Name ";
 	nameHost = "Name ";
 	ecs::Message m1; m1.id = ecs::_m_ROUND_OVER; mngr_->send(m1, false);
 	active_ = false;
