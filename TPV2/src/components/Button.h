@@ -9,14 +9,14 @@
 
 class Button : public Component {
 private:
-	int ID;
 	int texture;
+	ecs::msgId funct;
 public:
 	constexpr static ecs::cmpId_type id = ecs::_BUTTON;
 
-	Button(int id, int t) : Component(), ID(id), texture(t) {}
+	Button(int t, ecs::msgId f) : Component(), texture(t), funct(f) {}
 	void initComponent() override;
-	int getID() { return ID; }
 	int getTexture() { return texture; }
+	ecs::msgId getFunction() { return funct; }
 };
 
