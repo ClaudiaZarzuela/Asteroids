@@ -100,6 +100,3 @@ void ButtonSystem::erasePreviousButtons() {
 		}
 	}
 }
-ButtonSystem::~ButtonSystem() {
-
-}

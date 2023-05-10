@@ -39,6 +39,7 @@ public:
 
     // update the state with a new event
     inline void update(const SDL_Event& event) {
+        currentEvent = event;
         canPress = true;
         switch (event.type) {
         case SDL_KEYDOWN:
@@ -69,12 +70,13 @@ public:
     // refresh
     inline void refresh() {
         SDL_Event event;
-
+        currentEvent = {};
         clearState();
         while (SDL_PollEvent(&event))
             update(event);
     }
 
+    inline SDL_Event getCurrentEvent() { return currentEvent; }
     // close window event
     inline bool closeWindowEvent() {
         return isCloseWindoEvent_;
@@ -159,6 +161,7 @@ public:
 private:
     bool canPress = true;
     bool isQuit = false;
+    SDL_Event currentEvent;
 
     InputHandler() {
         kbState_ = SDL_GetKeyboardState(0);

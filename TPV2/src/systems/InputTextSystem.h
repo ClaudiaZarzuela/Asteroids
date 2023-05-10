@@ -19,10 +19,14 @@ public:
 	InputTextSystem(){}
 	~InputTextSystem(){}
 private:
-	bool active_ = false;
+	bool active_ = true;
 	void activateSystem();
 	void deactivateSystem();
 	std::vector<std::string> strSplit(std::string s, char c);
+	InputHandler* input_ = InputHandler::instance();
+	SDL_Event event = input_->getCurrentEvent();
+	std::string str = "";
+	int sizetext = 0;
 };
 
 

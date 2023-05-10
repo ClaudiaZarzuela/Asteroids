@@ -20,6 +20,8 @@ void Game::init() {
 	Manager::instance()->addSystem<RenderSystem>();
 	Manager::instance()->addSystem<ButtonSystem>();
 	Manager::instance()->addSystem<OnlineSystem>();
+	
+	//Manager::instance()->addSystem<InputTextSystem>();
 }
 
 //Destructora de la clase

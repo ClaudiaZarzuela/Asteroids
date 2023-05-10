@@ -87,7 +87,8 @@ namespace ecs {
 		_m_ENEMY_MOVED,
 		_m_ENEMY_BULLET,
 		_m_PLAYER_SHOT,
-		_m_ONLINE_OVER
+		_m_ONLINE_OVER,
+		_m_REFRESH_TEXT
 	};
 
 	struct Message {
