@@ -56,8 +56,8 @@ void CollisionsSystem::update() {
 				}
 				for (auto ot = mngr_->getEntities(ecs::_grp_BULLETS).begin(); ot != mngr_->getEntities(ecs::_grp_BULLETS).end(); ++ot) {
 					auto bala = mngr_->getComponent<Transform>((*ot));
-					if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(),asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
-					
+					if (Collisions::collidesWithRotation(bala->getPos(), bala->getW(), bala->getH(), bala->getRot(), asteroide->getPos(), asteroide->getW(), asteroide->getH(), asteroide->getRot())) {
+
 						ecs::Message m; m.id = ecs::_m_STAR_SHOT; m.star_shot_data.asteroid = ast[i];  m.star_shot_data.bullet = (*ot);
 						mngr_->send(m, true);
 						break;
@@ -84,10 +84,23 @@ void CollisionsSystem::update() {
 				if (Collisions::collidesWithRotation(player->getPos(), player->getW(), player->getH(), player->getRot(),
 					eBull->getPos(), eBull->getW(), eBull->getH(), eBull->getRot())) {
 					sdlutils().soundEffects().at("explosion").play();
-					ecs::Message m; m.id = ecs::_m_PLAYER_SHOT; 
-					if (host) m.player_shot_data.playerWinner = 3;
-					else  m.player_shot_data.playerWinner = 2;
-						mngr_->send(m, true); break;
+					ecs::Message m; m.id = ecs::_m_PLAYER_SHOT;
+					if (host) {
+						auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::PLAYER1));
+						health->loseLife();
+						if (health->getLives() <= 0) {
+							m.player_shot_data.playerWinner = 3;
+							mngr_->send(m, true); break;
+						}
+					}
+					else {
+						auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::PLAYER2));
+						health->loseLife();
+						if (health->getLives() <= 0) {
+							m.player_shot_data.playerWinner = 2;
+							mngr_->send(m, true); break;
+						}
+					}
 				}
 			}
 
@@ -98,14 +111,29 @@ void CollisionsSystem::update() {
 					bull->getPos(), bull->getW(), bull->getH(), bull->getRot())) {
 					sdlutils().soundEffects().at("explosion").play();
 					ecs::Message m; m.id = ecs::_m_PLAYER_SHOT;
-					if (host) m.player_shot_data.playerWinner = 2;
-					else  m.player_shot_data.playerWinner = 3;
+					if (host) {
+						auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::PLAYER2));
+						health->loseLife();
+						if (health->getLives() <= 0) {
+							m.player_shot_data.playerWinner = 2;
+							mngr_->send(m, true); break;
+						}
+					}
+					else {
+						auto health = mngr_->getComponent<Health>(mngr_->getHandler(ecs::PLAYER1));
+						health->loseLife();
+						if (health->getLives() <= 0) {
+							m.player_shot_data.playerWinner = 3;
+							mngr_->send(m, true); break;
+						}
+					}
 					mngr_->send(m, true); break;
 				}
 			}
 		}
 	}
 }
+
 
 // Para gestionar el mensaje de que ha acabado una ronda. Desactivar el sistema.
 void CollisionsSystem::onRoundOver() {
