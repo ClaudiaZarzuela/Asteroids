@@ -44,14 +44,8 @@ void ButtonSystem::update() {
 			
 			if (SDL_PointInRect(&mousePosition, &buttonRect) && InputHandler::instance()->getMouseButtonState(InputHandler::LEFT) && !clicked) {
 				clicked = true;
-				auto b = mngr_->getComponent<Button>(button[i]);
 				ecs::Message m; 
-				switch (b->getID()) {
-					case MULTIPLAYER_: m.id = ecs::_m_ONLINE; break;
-					case SINGLEPLAYER_: m.id = ecs::_m_SINGLEPLAYER;  break;
-					case HOST_: m.id = ecs::_m_HOST; break;
-					case CLIENT_: m.id = ecs::_m_CLIENT; break;
-				}
+				m.id = mngr_->getComponent<Button>(button[i])->getFunction();
 				mngr_->send(m, true);
 			}
 		}
@@ -64,11 +58,11 @@ void ButtonSystem::createMainMenuButtons() {
 	erasePreviousButtons();
 	Entity* multi = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(multi, Vector2D(sdlutils().width() / 2 -75,( sdlutils().height() / 2) -100), Vector2D(0, 0), 150, 100, 0);
-	mngr_->addComponent<Button>(multi, MULTIPLAYER_, MULTIPLAYER);
+	mngr_->addComponent<Button>(multi, MULTIPLAYER, ecs::_m_ONLINE);
 
 	Entity* solo = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(solo, Vector2D(sdlutils().width() / 2 - 75, (sdlutils().height() / 2) + 100), Vector2D(0, 0), 150, 100, 0);
-	mngr_->addComponent<Button>(solo, SINGLEPLAYER_, SINGLEPLAYER);
+	mngr_->addComponent<Button>(solo, SINGLEPLAYER, ecs::_m_SINGLEPLAYER);
 }
 
 //crea los botones de host y client
@@ -76,11 +70,11 @@ void ButtonSystem::createOnlineStateButtons() {
 	erasePreviousButtons();
 	Entity* host = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(host, Vector2D(sdlutils().width() / 2 - 200, (sdlutils().height() / 2)), Vector2D(0, 0), 150, 100, 0);
-	mngr_->addComponent<Button>(host, HOST_, HOST);
+	mngr_->addComponent<Button>(host, HOST, ecs::_m_HOST);
 
 	Entity* client = mngr_->addEntity(ecs::_grp_BUTTONS);
 	mngr_->addComponent<Transform>(client, Vector2D(sdlutils().width() / 2 +50, (sdlutils().height() / 2)), Vector2D(0, 0), 150, 100, 0);
-	mngr_->addComponent<Button>(client, CLIENT_, CLIENT);
+	mngr_->addComponent<Button>(client, CLIENT, ecs::_m_CLIENT);
 
 }
 
@@ -105,4 +99,7 @@ void ButtonSystem::erasePreviousButtons() {
 				mngr_->setAlive(e, false);
 		}
 	}
+}
+ButtonSystem::~ButtonSystem() {
+
 }

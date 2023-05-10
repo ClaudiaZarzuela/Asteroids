@@ -20,7 +20,6 @@ public:
 private:
 	bool active_ = true; //booleano para activar o desactivar el sistema
 	bool clicked = false; //booleano para saber si se ha clickeado un boton
-	enum button_ID { MULTIPLAYER_ = 0, SINGLEPLAYER_ = 1, HOST_ = 2, CLIENT_ = 3 }; //tipos de botones que existe
 	//crea los botones pertenecientes al main menu (singleplayer y multiplayer)
 	void createMainMenuButtons(); 
 	//crea los botones pertenecientes al online menu (client y host)
